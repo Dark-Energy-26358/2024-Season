@@ -4,9 +4,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.mechanisms.MecanumDrive;
 
-public class robot {
+public class Robot {
     public MecanumDrive mecanumDrive = new MecanumDrive();
-
 
     public void init(HardwareMap hardwareMap){
         mecanumDrive.init(hardwareMap);
