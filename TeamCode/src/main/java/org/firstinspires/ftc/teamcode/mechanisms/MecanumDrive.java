@@ -14,8 +14,8 @@ private DcMotor backRightMotor;
         backLeftMotor = hardwareMap.dcMotor.get("back_left_motor");
         backRightMotor = hardwareMap.dcMotor.get("back_right_motor");
 
-        backLeftMotor.setDirection(DcMotor.Direction.REVERSE);
-        frontLeftMotor.setDirection(DcMotor.Direction.REVERSE);
+        backRightMotor.setDirection(DcMotor.Direction.REVERSE);
+        frontRightMotor.setDirection(DcMotor.Direction.REVERSE);
 
         frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -24,7 +24,7 @@ private DcMotor backRightMotor;
         }
 
         private void setPowers(double frontLeftPower, double frontRightPower, double backLeftPower, double backRightPower) {
-        double maxSpeed = 1.0;
+        double maxSpeed = 0.5;
         maxSpeed = Math.max(maxSpeed, Math.abs(frontLeftPower));
         maxSpeed = Math.max(maxSpeed, Math.abs(frontRightPower));
         maxSpeed = Math.max(maxSpeed, Math.abs(backLeftPower));
@@ -41,10 +41,10 @@ private DcMotor backRightMotor;
         backRightMotor.setPower(backRightPower);
         }
         public void drive(double forward, double right, double rotate) {
-        double frontLeftPower = forward + right + rotate;
-        double frontRightPower = forward - right - rotate;
-        double backLeftPower = forward - right + rotate;
-        double backRightPower = forward + right - rotate;
+        double frontLeftPower = forward + right - rotate;
+        double frontRightPower = forward - right + rotate;
+        double backLeftPower = forward - right - rotate;
+        double backRightPower = forward + right + rotate;
 
         setPowers(frontLeftPower, frontRightPower, backLeftPower, backRightPower);
         }

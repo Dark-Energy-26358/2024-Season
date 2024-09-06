@@ -9,6 +9,6 @@ public class teleop extends OpMode {
         drive.init(hardwareMap); }
     @Override
     public void loop() {
-        double forward = -gamepad1.left_stick_y; double right = gamepad1.left_stick_x; double rotate = gamepad1.right_stick_x;
+        double forward = -gamepad1.left_stick_y/3; double right = gamepad1.left_stick_x/3; double rotate = gamepad1.right_stick_x/3;
         drive.drive(forward, right, rotate); }
 }
