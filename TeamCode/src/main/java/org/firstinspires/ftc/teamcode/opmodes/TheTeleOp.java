@@ -1,9 +1,10 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.mechanisms.MecanumDrive;
 @TeleOp()
-public class TeleOp extends OpMode {
+public class TheTeleOp extends OpMode {
     MecanumDrive drive = new MecanumDrive();
     @Override
     public void init() {
