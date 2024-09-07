@@ -20,13 +20,13 @@ public class fieldRelativeTeleop extends OpMode {
         // convert back to cartesian
         double newForward = r * Math.sin(theta);
         double newRight = r * Math.cos(theta);
-        drive.drive(newForward, newRight, rotate);
+        drive.drive(newForward, newRight, theta);
     }
     @Override
     public void loop() {
-        double forward = -gamepad1.left_stick_y;
-        double right = gamepad1.left_stick_x;
-        double rotate = gamepad1.right_stick_x;
+        double forward = -gamepad1.left_stick_y/10;
+        double right = gamepad1.left_stick_x/10;
+        double rotate = gamepad1.right_stick_x/10;
 
         driveFieldRelative(forward, right, rotate);
     }
