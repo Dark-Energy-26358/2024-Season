@@ -20,7 +20,7 @@ public class fieldRelativeTeleop extends OpMode {
         // convert back to cartesian
         double newForward = r * Math.sin(theta);
         double newRight = r * Math.cos(theta);
-        drive.drive(newForward, newRight, theta);
+        drive.drive(newForward, newRight, rotate);
     }
     @Override
     public void loop() {
