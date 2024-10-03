@@ -8,6 +8,8 @@ public class MecanumDrive {
         private DcMotor backLeftMotor;
         private DcMotor backRightMotor;
 
+        public double rotation;
+
         public void init(HardwareMap hardwareMap) {
                 frontLeftMotor = hardwareMap.dcMotor.get("front_left_motor");
                 frontRightMotor = hardwareMap.dcMotor.get("front_right_motor");
@@ -47,6 +49,7 @@ public class MecanumDrive {
                 double backLeftPower = forward - right - rotate;
                 double backRightPower = forward + right + rotate;
 
+                rotation += rotate;
                 setPowers(frontLeftPower, frontRightPower, backLeftPower, backRightPower);
         }
 }
