@@ -12,6 +12,7 @@ public class Robot {
     public void init(HardwareMap hardwareMap){
         mecanumDrive.init(hardwareMap);
         camera.init(hardwareMap);
+        mecanumDrive.camera = camera;
     }
 }
 
