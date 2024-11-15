@@ -23,5 +23,7 @@ public class teleop extends OpMode {
         robot.chinUpArm.run(gamepad2.right_trigger - gamepad2.left_trigger);
         robot.frontHangArm.run(gamepad2.right_stick_y);
         robot.backHangArm.run(gamepad2.left_stick_y);
+
+        telemetry.update();
     }
 }
