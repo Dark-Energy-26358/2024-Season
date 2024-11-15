@@ -18,6 +18,10 @@ public class teleop extends OpMode {
         double rotate = gamepad1.right_stick_x/3;
 
         robot.mecanumDrive.drive(forward, right, rotate);
-        robot.chinUpArm.run(gamepad2.right_trigger - gamepad2.left_trigger); // These controls can be changed
+
+        // Template controls - probably going to need to be changed
+        robot.chinUpArm.run(gamepad2.right_trigger - gamepad2.left_trigger);
+        robot.frontHangArm.run(gamepad2.right_stick_y);
+        robot.backHangArm.run(gamepad2.left_stick_y);
     }
 }
