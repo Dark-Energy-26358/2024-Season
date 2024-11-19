@@ -21,8 +21,8 @@ public class teleop extends OpMode {
 
         // Template controls - probably going to need to be changed
         robot.chinUpArm.run(gamepad2.right_trigger - gamepad2.left_trigger);
-        robot.frontHangArm.run(gamepad2.right_stick_y);
-        robot.backHangArm.run(gamepad2.left_stick_y);
+        robot.stageTwoAscentArms.run(gamepad2.right_stick_y);
+        robot.stageOneAscentArms.run(gamepad2.left_stick_y);
 
         telemetry.update();
     }
