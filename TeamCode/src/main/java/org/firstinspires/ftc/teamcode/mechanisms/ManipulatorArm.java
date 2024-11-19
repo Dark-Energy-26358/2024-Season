@@ -6,12 +6,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class FrontHangArm implements MoveableArm {
+public class ManipulatorArm implements MoveableArm {
 
     private DcMotor motor;
 
-    final String motorName = "frontHangArm";
-
+    final String motorName = "manipulatorMotor";
 
     public void init(HardwareMap hardwareMap) {
         motor = hardwareMap.dcMotor.get(motorName);
