@@ -6,7 +6,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class StageOneAscentArms implements MoveableArm {
+import org.firstinspires.ftc.teamcode.Interfaces.MoveableArm;
+
+public class StageOneAscentArms{
 
     private DcMotor motor;
 

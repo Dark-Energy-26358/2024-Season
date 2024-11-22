@@ -9,15 +9,15 @@ import org.firstinspires.ftc.teamcode.mechanisms.MecanumDrive;
 
 public class Robot {
     public MecanumDrive mecanumDrive = new MecanumDrive();
-    public ManipulatorArm chinUpArm = new ManipulatorArm();
-    public StageTwoAscentArms stageTwoAscentArms = new StageTwoAscentArms();
-    public StageOneAscentArms stageOneAscentArms = new StageOneAscentArms();
+    public ManipulatorArm manipulatorArm = new ManipulatorArm();
+//    public StageTwoAscentArms stageTwoAscentArms = new StageTwoAscentArms();
+//    public StageOneAscentArms stageOneAscentArms = new StageOneAscentArms();
 
     public void init(HardwareMap hardwareMap){
         mecanumDrive.init(hardwareMap);
-        chinUpArm.init(hardwareMap);
-        stageTwoAscentArms.init(hardwareMap);
-        stageOneAscentArms.init(hardwareMap);
+        manipulatorArm.init(hardwareMap);
+        //stageTwoAscentArms.init(hardwareMap);
+        //stageOneAscentArms.init(hardwareMap);
     }
 }
 
