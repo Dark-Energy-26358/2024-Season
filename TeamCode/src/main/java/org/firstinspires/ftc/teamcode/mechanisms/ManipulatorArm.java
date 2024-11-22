@@ -1,29 +1,17 @@
 package org.firstinspires.ftc.teamcode.mechanisms;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
-
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class ManipulatorArm implements MoveableArm {
+import org.firstinspires.ftc.teamcode.classes.MoveableArm;
 
-    private DcMotor motor;
+public class ManipulatorArm extends MoveableArm {
 
-    final String motorName = "manipulatorMotor";
-
+    @Override
     public void init(HardwareMap hardwareMap) {
-        motor = hardwareMap.dcMotor.get(motorName);
-
-        motor.setDirection(DcMotorSimple.Direction.FORWARD);
-
-        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        extensionMotorName = "manipulatorExtensionMotor";
+        rotationMotorName = "manipulatorRotationMotor";
+        super.init(hardwareMap);
     }
-
-    public void run(float power) {
-        // Preferably -1 to 1, positive is forward, negative is backward. The motor should run through this function.
-        motor.setPower(power);
-
-        telemetry.addData(motorName, motor.getCurrentPosition());
-    }
+    //TODO setTargetManipulatorWristPosition
+    //TODO setTargetManipulatorElbowPosition
 }

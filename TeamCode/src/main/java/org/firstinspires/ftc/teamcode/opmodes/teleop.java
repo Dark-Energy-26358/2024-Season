@@ -20,9 +20,11 @@ public class teleop extends OpMode {
         robot.mecanumDrive.drive(forward, right, rotate);
 
         // Template controls - probably going to need to be changed
-        robot.chinUpArm.run(gamepad2.right_trigger - gamepad2.left_trigger);
-        robot.stageTwoAscentArms.run(gamepad2.right_stick_y);
-        robot.stageOneAscentArms.run(gamepad2.left_stick_y);
+        robot.manipulatorArm.moveTowardsTargetArmExtension(-50);
+        telemetry.addData("extension",robot.manipulatorArm.getCurrentArmExtension());
+        telemetry.addData("Target extension",robot.manipulatorArm.getTargetArmExtension());
+        //robot.stageTwoAscentArms.run(gamepad2.right_stick_y);
+        //robot.stageOneAscentArms.run(gamepad2.left_stick_y);
 
         telemetry.update();
     }
