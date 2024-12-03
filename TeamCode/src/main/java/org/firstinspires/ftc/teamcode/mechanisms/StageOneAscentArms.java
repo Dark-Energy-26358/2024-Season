@@ -7,31 +7,42 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.classes.MoveableArm;
 
-public class StageOneAscentArms extends MoveableArm {
+public class StageOneAscentArms{
 
-    Servo rotationServo1;
-    Servo rotationServo2;
-    @Override
+    private DcMotor motor;
+    private Servo leftServo;
+    private Servo rightServo;
+
+    final String motorName = "stageOneAscentMotor";
+
     public void init(HardwareMap hardwareMap) {
-        extensionMotorName = "stageOneExtensionMotor";
-        rotationServo1 = hardwareMap.servo.get("stageOneServo1");
-        rotationServo2 = hardwareMap.servo.get("stageOneServo2");
+        motor = hardwareMap.dcMotor.get(motorName);
+        leftServo = hardwareMap.get(Servo.class, "stageOneLeftServo");
+        rightServo = hardwareMap.get(Servo.class, "stageOneRightServo");
 
-        super.init(hardwareMap);
+        motor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void setTargetArmRotation(double targetRotation){
-        rotationServo1.setPosition(targetRotation);
-        rotationServo2.setPosition(targetRotation);
+    public void run(float motorPower, float servoPower) {
+        if (motorPower != 0) {
+            motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            motor.setPower(motorPower);
+        }
+        leftServo.setPosition(leftServo.getPosition()+servoPower/10);
+        rightServo.setPosition(rightServo.getPosition()+servoPower/10);
+
+        telemetry.addData(motorName, motor.getCurrentPosition());
+        telemetry.addData(motorName + " left servo", leftServo.getPosition());
+        telemetry.addData(motorName + " right servo", rightServo.getPosition());
     }
 
-    public double getTargetArmRotation() {
-        return (rotationServo1.getPosition()+rotationServo2.getPosition())/2;
-    }
-
-    public double getCurrentArmRotation() {
-        return (rotationServo1.getPosition()+rotationServo2.getPosition())/2;
+    //27.5 in = 3200 tick(s)
+    public void setTargetArmExtension(int targetExtension) {
+        motor.setTargetPosition(targetExtension*116);
+        motor.setPower(0.5);
+        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 }
