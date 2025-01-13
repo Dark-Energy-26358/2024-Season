@@ -11,13 +11,13 @@ public class Robot {
     public MecanumDrive mecanumDrive = new MecanumDrive();
     public ManipulatorArm manipulatorArm = new ManipulatorArm();
 //    public StageTwoAscentArms stageTwoAscentArms = new StageTwoAscentArms();
-//    public StageOneAscentArms stageOneAscentArms = new StageOneAscentArms();
+    public StageOneAscentArms stageOneAscentArms = new StageOneAscentArms();
 
     public void init(HardwareMap hardwareMap){
         mecanumDrive.init(hardwareMap);
         manipulatorArm.init(hardwareMap);
         //stageTwoAscentArms.init(hardwareMap);
-        //stageOneAscentArms.init(hardwareMap);
+        stageOneAscentArms.init(hardwareMap);
     }
 }
 

@@ -33,6 +33,10 @@ public class teleop extends OpMode {
             robot.manipulatorArm.setTargetArmRotation(0);
         } else if (gamepad2.left_bumper) {
             robot.manipulatorArm.setTargetArmRotation(90);
+        }if (gamepad2.dpad_up){
+            robot.stageOneAscentArms.setTargetArmExtension(13);
+        } else if (gamepad2.dpad_down) {
+            robot.stageOneAscentArms.setTargetArmExtension(0);
         }
         if (gamepad2.b) {
             robot.manipulatorArm.stop();
