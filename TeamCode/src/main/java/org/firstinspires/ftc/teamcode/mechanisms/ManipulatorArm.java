@@ -35,7 +35,7 @@ public class ManipulatorArm extends MoveableArm {
     @Override
     public void setTargetArmRotation(int targetRotation) {
         stopped = false;
-        rotationMotor.setTargetPosition(targetRotation*116);
+        rotationMotor.setTargetPosition(targetRotation*27);
         rotationMotor.setPower(0.5);
         rotationMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         targetArmRotation = rotationMotor.getTargetPosition();
@@ -43,13 +43,14 @@ public class ManipulatorArm extends MoveableArm {
 
     @Override
     public double getTargetArmRotation() {
-        return targetArmRotation/1.5;
+        return targetArmRotation/26.66666667;
     }
 
     @Override
     public double getCurrentArmRotation() {
         currentArmRotation = rotationMotor.getCurrentPosition();
-        return currentArmRotation/1.5;
+        return currentArmRotation/26.66666667;
+        //2400 : 90
     }
     //TODO setTargetManipulatorWristPosition
     //TODO setTargetManipulatorElbowPosition
