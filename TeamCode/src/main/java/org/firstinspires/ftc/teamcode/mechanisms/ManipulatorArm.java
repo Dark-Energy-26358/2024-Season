@@ -3,13 +3,19 @@ package org.firstinspires.ftc.teamcode.mechanisms;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.classes.MoveableArm;
 
 public class ManipulatorArm extends MoveableArm {
     public String rotationMotorName = "manipulatorRotationMotor";
+    public int manipulatorPort = 1;
+
+    public boolean manipulatorClosed = false;
+
 
     DcMotor rotationMotor;
+    Servo manipulator;
 
     @Override
     public void init(HardwareMap hardwareMap) {
@@ -51,6 +57,14 @@ public class ManipulatorArm extends MoveableArm {
         currentArmRotation = rotationMotor.getCurrentPosition();
         return currentArmRotation/26.66666667;
         //2400 : 90
+    }
+
+    public void toggleManipulatorState(){
+        if (!manipulatorClosed){
+            manipulator.close();
+        }else {
+            manipulator.setPosition(10);
+        }
     }
     //TODO setTargetManipulatorWristPosition
     //TODO setTargetManipulatorElbowPosition
