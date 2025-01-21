@@ -13,20 +13,19 @@ public class ManipulatorArm extends MoveableArm {
     public boolean manipulatorClosed = false;
 
 
-    DcMotor rotationMotor;
-    public Servo manipulator;
+    public DcMotor rotationMotor;
+    Servo manipulator;
+    Servo wrist;
 
     @Override
     public void init(HardwareMap hardwareMap) {
         manipulator = hardwareMap.servo.get("manipulator");
-        manipulator.resetDeviceConfigurationForOpMode();
-        //manipulator.scaleRange(0.1,0.5);
+
+        wrist = hardwareMap.servo.get("manipulatorWrist");
 
         extensionMotorName = "manipulatorExtensionMotor";
 
         rotationMotor = hardwareMap.dcMotor.get(rotationMotorName);
-
-        rotationMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         rotationMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -73,6 +72,8 @@ public class ManipulatorArm extends MoveableArm {
             manipulatorClosed = false;
         }
     }
-    //TODO setTargetManipulatorWristPosition
+    public void setTargetManipulatorWristPosition(double degrees){
+        wrist.setPosition(0.5);
+    }
     //TODO setTargetManipulatorElbowPosition
 }
