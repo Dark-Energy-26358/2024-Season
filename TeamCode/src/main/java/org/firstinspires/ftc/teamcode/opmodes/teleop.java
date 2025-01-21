@@ -11,6 +11,7 @@ public class teleop extends OpMode {
 
     Robot robot = new Robot();
     boolean manipArmAccurate = false;
+    boolean manipulatorJustToggled = false;
 
     @Override
     public void init() {
@@ -20,9 +21,9 @@ public class teleop extends OpMode {
     @Override
     public void loop() {
         if(!manipArmAccurate){
-        robot.manipulatorArm.setTargetArmRotation(60);}
+        robot.manipulatorArm.setTargetArmRotation(40);}
 
-        if (robot.manipulatorArm.getCurrentArmRotation() >= 57 & !manipArmAccurate){
+        if (robot.manipulatorArm.getCurrentArmRotation() >= 40 & !manipArmAccurate){
             robot.manipulatorArm.rotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             manipArmAccurate = true;
             robot.manipulatorArm.setTargetArmRotation(0);
@@ -58,15 +59,28 @@ public class teleop extends OpMode {
             robot.stageOneAscentArms.setTargetArmExtension(0);
         }
 
-        if (gamepad2.b){ robot.manipulatorArm.toggleManipulatorState();
+        if (gamepad2.b & !manipulatorJustToggled){
+            robot.manipulatorArm.toggleManipulatorState();
+            manipulatorJustToggled = true;
+        } else if (!gamepad2.b){
+            manipulatorJustToggled = false;
         }
-        double wristPos = 0.5;
-        if (gamepad2.dpad_left){
-            wristPos -= 0.01;
-        } else if (gamepad2.right_bumper) {
-            wristPos += 0.01;
+
+
+        if (gamepad2.right_stick_y < 0){
+            robot.manipulatorArm.setTargetManipulatorWristPosition(-gamepad2.right_stick_y/10 + 0.5);
+        } else if (gamepad2.right_stick_y > 0) {
+            robot.manipulatorArm.setTargetManipulatorWristPosition(-gamepad2.right_stick_y/10 + 0.5);
+        }else if (gamepad2.right_stick_y == 0){robot.manipulatorArm.setTargetManipulatorWristPosition(0.5);}
+
+        if (gamepad2.right_stick_x < 0){
+            robot.manipulatorArm.setTargetManipulatorElbowPosition(-gamepad2.right_stick_x/10 + 0.5);
+        } else if (gamepad2.right_stick_x > 0) {
+            robot.manipulatorArm.setTargetManipulatorElbowPosition(-gamepad2.right_stick_x/10 + 0.5);
+        } else if (gamepad2.right_stick_x == 0) {
+           robot.manipulatorArm.setTargetManipulatorElbowPosition(0.5);
         }
-        robot.manipulatorArm.setTargetManipulatorWristPosition(wristPos);
+
 
         telemetry.addData("extension", robot.manipulatorArm.getCurrentArmExtension());
         telemetry.addData("Target extension", robot.manipulatorArm.getTargetArmExtension());
