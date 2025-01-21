@@ -9,16 +9,19 @@ import org.firstinspires.ftc.teamcode.classes.MoveableArm;
 
 public class ManipulatorArm extends MoveableArm {
     public String rotationMotorName = "manipulatorRotationMotor";
-    public int manipulatorPort = 1;
 
     public boolean manipulatorClosed = false;
 
 
     DcMotor rotationMotor;
-    Servo manipulator;
+    public Servo manipulator;
 
     @Override
     public void init(HardwareMap hardwareMap) {
+        manipulator = hardwareMap.servo.get("manipulator");
+        manipulator.resetDeviceConfigurationForOpMode();
+        //manipulator.scaleRange(0.1,0.5);
+
         extensionMotorName = "manipulatorExtensionMotor";
 
         rotationMotor = hardwareMap.dcMotor.get(rotationMotorName);
@@ -61,9 +64,13 @@ public class ManipulatorArm extends MoveableArm {
 
     public void toggleManipulatorState(){
         if (!manipulatorClosed){
-            manipulator.close();
+            // closing manipulator
+            manipulator.setPosition(0.93);
+            manipulatorClosed = true;
         }else {
-            manipulator.setPosition(10);
+            //opening manipulator
+            manipulator.setPosition(0.75);
+            manipulatorClosed = false;
         }
     }
     //TODO setTargetManipulatorWristPosition

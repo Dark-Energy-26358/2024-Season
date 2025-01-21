@@ -51,6 +51,7 @@ public class teleop extends OpMode {
         //robot.stageTwoAscentArms.run(gamepad2.right_stick_y);
         //robot.stageOneAscentArms.run(gamepad2.left_stick_y);
 
+        telemetry.addData("manipulator pos", robot.manipulatorArm.manipulator.getPosition());
         telemetry.update();
     }
 }
