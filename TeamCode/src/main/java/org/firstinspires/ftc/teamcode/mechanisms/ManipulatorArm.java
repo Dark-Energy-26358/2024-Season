@@ -46,10 +46,9 @@ public class ManipulatorArm extends MoveableArm {
         super.stop();
     }
 
-    @Override
-    public void setTargetArmRotation(int targetRotation) {
+    public void setTargetArmRotation(double targetRotation) {
         stopped = false;
-        rotationMotor.setTargetPosition(targetRotation*27);
+        rotationMotor.setTargetPosition((int) (targetRotation*27));
         rotationMotor.setPower(0.5);
         rotationMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         targetArmRotation = rotationMotor.getTargetPosition();

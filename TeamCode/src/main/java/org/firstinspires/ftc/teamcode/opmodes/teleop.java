@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
+import static java.lang.Math.round;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -81,6 +83,12 @@ public class teleop extends OpMode {
            robot.manipulatorArm.setTargetManipulatorElbowPosition(0.5);
         }
 
+        if(gamepad2.left_stick_y != 0) {
+            robot.manipulatorArm.setTargetArmExtension(round(robot.manipulatorArm.getTargetArmExtension() + -gamepad2.left_stick_y));
+        }
+        if (gamepad2.left_stick_x != 0){
+            robot.manipulatorArm.setTargetArmRotation(robot.manipulatorArm.getTargetArmRotation() + -gamepad2.left_stick_x/10);
+        }
 
         telemetry.addData("extension", robot.manipulatorArm.getCurrentArmExtension());
         telemetry.addData("Target extension", robot.manipulatorArm.getTargetArmExtension());
