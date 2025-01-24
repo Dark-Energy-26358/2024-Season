@@ -61,29 +61,32 @@ public class MecanumDrive {
         drive(vx, vy, rotate);
     }
     public boolean driveToPosition(double x, double y, int yaw, Position currentPosition, YawPitchRollAngles currentAngles) {
-        int forward = 0;
-        int right = 0;
-        int rotate = 0;
+        double forward = 0;
+        double right = 0;
+        double rotate = 0;
         boolean onSpot = true;
-        if (Math.abs(y-currentPosition.y) < 3) {
-            if (y < currentPosition.y)
-                forward = 1;
-            else
-                forward = -1;
+
+        // Check and set forward movement proportionally
+        if (Math.abs(y - currentPosition.y) >= 3) { // Move if outside threshold
+            forward = Math.max(-1, Math.min(1, (y - currentPosition.y) / 10)); // Proportional control
             onSpot = false;
         }
-        if (Math.abs(x-currentPosition.x) < 3) {
-            if (x < currentPosition.x)
-                right = 1;
-            else
-                right = -1;
+
+        // Check and set right movement proportionally
+        if (Math.abs(x - currentPosition.x) >= 3) { // Move if outside threshold
+            right = Math.max(-1, Math.min(1, (x - currentPosition.x) / 10)); // Proportional control
             onSpot = false;
         }
-        if (Math.abs(yaw-currentAngles.getYaw()) < 5) {
-            rotate = 1;
+
+        // Check and set rotation proportionally
+        double yawDifference = yaw - currentAngles.getYaw();
+        if (Math.abs(yawDifference) >= 5) { // Rotate if outside threshold
+            rotate = Math.max(-1, Math.min(1, yawDifference / 30)); // Proportional control
             onSpot = false;
         }
-        moveFieldRelative(forward, right, rotate, yaw);
+
+        // Move the robot
+        moveFieldRelative(forward, right, rotate, currentAngles.getYaw());
         return onSpot;
     }
 }
