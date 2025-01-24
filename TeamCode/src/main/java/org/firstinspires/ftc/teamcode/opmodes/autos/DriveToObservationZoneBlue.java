@@ -11,26 +11,21 @@ public class DriveToObservationZoneBlue extends OpMode {
 
     Robot robot = new Robot();
 
-
-
     @Override
     public void init() {
         robot.init(hardwareMap);
     }
 
     public void loop() {
-        // BEGIN -- THIS IS NOT IDEMPOTENT and CAN ONLY BE RUN ONCE PER MATCH
-        if (!robot.manipArmAccurate) {
+        // USING GLOBAL TO BE IDEMPOTENT
+        if (!robot.globals.getManipArmAccurate()) {
             robot.manipulatorArm.setTargetArmRotation(40);
+            if (robot.manipulatorArm.getCurrentArmRotation() >= 40) {
+                robot.manipulatorArm.rotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.manipulatorArm.setTargetArmRotation(0);
+                robot.globals.setManipArmAccurate(true);
+            }
         }
-
-        if (robot.manipulatorArm.getCurrentArmRotation() >= 40 & !robot.manipArmAccurate) {
-            robot.manipulatorArm.rotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            robot.manipArmAccurate = true;
-            robot.manipulatorArm.setTargetArmRotation(0);
-        }
-        // END -- THIS IS NOT IDEMPOTENT and CAN ONLY BE RUN ONCE PER MATCH
-
 
 
         //TODO: DO DIS

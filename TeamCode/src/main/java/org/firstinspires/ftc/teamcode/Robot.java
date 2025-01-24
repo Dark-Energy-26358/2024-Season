@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.mechanisms.StageTwoAscentArms;
 import org.firstinspires.ftc.teamcode.mechanisms.MecanumDrive;
 
 public class Robot {
-    public boolean manipArmAccurate = false;
+    public Globals globals = Globals.getInstance();
     public MecanumDrive mecanumDrive = new MecanumDrive();
     public ManipulatorArm manipulatorArm = new ManipulatorArm();
 //    public StageTwoAscentArms stageTwoAscentArms = new StageTwoAscentArms();

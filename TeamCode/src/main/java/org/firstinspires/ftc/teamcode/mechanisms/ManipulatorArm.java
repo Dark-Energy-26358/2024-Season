@@ -12,7 +12,6 @@ public class ManipulatorArm extends MoveableArm {
 
     public boolean manipulatorClosed = false;
 
-
     public DcMotor rotationMotor;
     Servo manipulator;
     Servo wrist;

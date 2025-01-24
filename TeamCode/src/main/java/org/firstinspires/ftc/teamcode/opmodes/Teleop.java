@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Robot;
 
@@ -20,7 +21,15 @@ public class Teleop extends OpMode {
 
     @Override
     public void loop() {
-        // THERE IS NON-IDEMPOTENT CODE IN THE AUTONOMOUS CLASS TO SET POSITION OF THE MANIPULATOR ARM FIRST
+        // USING GLOBAL TO BE IDEMPOTENT
+        if (!robot.globals.getManipArmAccurate()) {
+            robot.manipulatorArm.setTargetArmRotation(40);
+            if (robot.manipulatorArm.getCurrentArmRotation() >= 40) {
+                robot.manipulatorArm.rotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.manipulatorArm.setTargetArmRotation(0);
+                robot.globals.setManipArmAccurate(true);
+            }
+        }
 
         double forward = -gamepad1.left_stick_y / 3;
         double right = gamepad1.left_stick_x / 3;
