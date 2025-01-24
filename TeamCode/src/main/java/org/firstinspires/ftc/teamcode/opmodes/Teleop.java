@@ -24,7 +24,6 @@ public class Teleop extends OpMode {
         // USING GLOBAL TO BE IDEMPOTENT
         if (!robot.globals.getManipArmAccurate()) {
             robot.manipulatorArm.setTargetArmRotation(40);
-        } else {
             if (robot.manipulatorArm.getCurrentArmRotation() >= 40) {
                 robot.manipulatorArm.rotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.manipulatorArm.setTargetArmRotation(0);
