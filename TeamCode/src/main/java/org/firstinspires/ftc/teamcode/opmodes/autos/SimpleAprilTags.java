@@ -13,7 +13,7 @@ import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 
-@Autonomous()
+@Autonomous(name = "Simple AprilTags", group = "Dev")
 public class SimpleAprilTags extends OpMode {
     private AprilTagProcessor aprilTagProcessor;
     private VisionPortal visionPortal;

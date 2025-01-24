@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Robot;
 
-@Autonomous()
-public class driveToObservationZoneBlue extends OpMode {
+@Autonomous(name = "Drive to Observation Zone", group = "Blue")
+public class DriveToObservationZoneBlue extends OpMode {
 
     Robot robot = new Robot();
 
