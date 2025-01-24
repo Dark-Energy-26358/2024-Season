@@ -14,7 +14,7 @@ public class ScorePreloadAndPark extends OpMode {
 
     Robot robot = new Robot();
 
-    int stage = 0;
+    int stage = 1;
     final double TILE = 24;
 
     final double NET_ZONE_X = TILE*2.5;
