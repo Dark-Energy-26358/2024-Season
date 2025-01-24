@@ -11,8 +11,6 @@ public class DriveToObservationZoneBlue extends OpMode {
 
     Robot robot = new Robot();
 
-
-
     @Override
     public void init() {
         robot.init(hardwareMap);
