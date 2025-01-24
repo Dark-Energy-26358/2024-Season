@@ -20,6 +20,8 @@ public class Teleop extends OpMode {
 
     @Override
     public void loop() {
+        // THERE IS NON-IDEMPOTENT CODE IN THE AUTONOMOUS CLASS TO SET POSITION OF THE MANIPULATOR ARM FIRST
+
         double forward = -gamepad1.left_stick_y / 3;
         double right = gamepad1.left_stick_x / 3;
         double rotate = gamepad1.right_stick_x / 3;
