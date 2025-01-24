@@ -16,7 +16,6 @@ public class ManipulatorArm extends MoveableArm {
     public DcMotor rotationMotor;
     Servo manipulator;
     Servo wrist;
-    Servo elbow;
 
     @Override
     public void init(HardwareMap hardwareMap) {
@@ -26,8 +25,7 @@ public class ManipulatorArm extends MoveableArm {
         wrist = hardwareMap.servo.get("manipulatorWrist");
         wrist.resetDeviceConfigurationForOpMode();
 
-        elbow = hardwareMap.servo.get("manipulatorElbow");
-        elbow.resetDeviceConfigurationForOpMode();
+
 
         extensionMotorName = "manipulatorExtensionMotor";
 
@@ -46,9 +44,9 @@ public class ManipulatorArm extends MoveableArm {
         super.stop();
     }
 
-    public void setTargetArmRotation(double targetRotation) {
+    public void setTargetArmRotation(int targetRotation) {
         stopped = false;
-        rotationMotor.setTargetPosition((int) (targetRotation*27));
+        rotationMotor.setTargetPosition(targetRotation*27);
         rotationMotor.setPower(0.5);
         rotationMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         targetArmRotation = rotationMotor.getTargetPosition();
@@ -79,8 +77,5 @@ public class ManipulatorArm extends MoveableArm {
     }
     public void setTargetManipulatorWristPosition(double degrees){
         wrist.setPosition(degrees);
-    }
-    public void setTargetManipulatorElbowPosition(double degrees){
-        elbow.setPosition(degrees);
     }
 }
