@@ -4,12 +4,11 @@ package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Robot;
 
-@TeleOp()
-public class teleop extends OpMode {
+@TeleOp(name="Standard")
+public class Teleop extends OpMode {
 
     Robot robot = new Robot();
     boolean manipulatorJustToggled = false;
