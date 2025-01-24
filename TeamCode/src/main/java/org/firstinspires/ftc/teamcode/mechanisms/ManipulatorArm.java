@@ -12,7 +12,6 @@ public class ManipulatorArm extends MoveableArm {
 
     public boolean manipulatorClosed = false;
 
-
     public DcMotor rotationMotor;
     Servo manipulator;
     Servo wrist;
@@ -67,7 +66,7 @@ public class ManipulatorArm extends MoveableArm {
     public void toggleManipulatorState(){
         if (!manipulatorClosed){
             // closing manipulator
-            manipulator.setPosition(0.93);
+            manipulator.setPosition(0.95);
             manipulatorClosed = true;
         }else {
             //opening manipulator

@@ -8,11 +8,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Robot;
 
-@TeleOp()
-public class teleop extends OpMode {
+@TeleOp(name="TeleOp")
+public class Teleop extends OpMode {
 
     Robot robot = new Robot();
-    boolean manipArmAccurate = false;
     boolean manipulatorJustToggled = false;
 
     @Override
@@ -22,15 +21,15 @@ public class teleop extends OpMode {
 
     @Override
     public void loop() {
-        if(!manipArmAccurate){
-        robot.manipulatorArm.setTargetArmRotation(40);}
-
-        if (robot.manipulatorArm.getCurrentArmRotation() >= 40 & !manipArmAccurate){
-            robot.manipulatorArm.rotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            manipArmAccurate = true;
-            robot.manipulatorArm.setTargetArmRotation(0);
+        // USING GLOBAL TO BE IDEMPOTENT
+        if (!robot.globals.getManipArmAccurate()) {
+            robot.manipulatorArm.setTargetArmRotation(40);
+            if (robot.manipulatorArm.getCurrentArmRotation() >= 40) {
+                robot.manipulatorArm.rotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.manipulatorArm.setTargetArmRotation(0);
+                robot.globals.setManipArmAccurate(true);
+            }
         }
-
 
         double forward = -gamepad1.left_stick_y / 3;
         double right = gamepad1.left_stick_x / 3;
@@ -76,9 +75,11 @@ public class teleop extends OpMode {
             robot.manipulatorArm.setTargetManipulatorWristPosition(-gamepad2.right_stick_y/10 + 0.5);
         } else if (gamepad2.right_stick_y > 0) {
             robot.manipulatorArm.setTargetManipulatorWristPosition(-gamepad2.right_stick_y/10 + 0.5);
-        }else if (gamepad2.right_stick_y == 0){robot.manipulatorArm.setTargetManipulatorWristPosition(0.5);}
+        } else if (gamepad2.right_stick_y == 0){
+            robot.manipulatorArm.setTargetManipulatorWristPosition(0.5);
+        }
 
-        if(gamepad2.left_stick_y != 0) {
+        if (gamepad2.left_stick_y != 0) {
             robot.manipulatorArm.setTargetArmExtension((int) (robot.manipulatorArm.getTargetArmExtension() + -gamepad2.left_stick_y));
         }
         if (gamepad2.left_stick_x != 0){
@@ -95,5 +96,9 @@ public class teleop extends OpMode {
         //robot.stageTwoAscentArms.run(gamepad2.right_stick_y);
         //robot.stageOneAscentArms.run(gamepad2.left_stick_y);
         telemetry.update();
+    }
+
+    public void stop() {
+        robot.globals.setManipArmAccurate(false);
     }
 }
