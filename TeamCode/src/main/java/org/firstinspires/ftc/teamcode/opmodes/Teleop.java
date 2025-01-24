@@ -75,9 +75,11 @@ public class Teleop extends OpMode {
             robot.manipulatorArm.setTargetManipulatorWristPosition(-gamepad2.right_stick_y/10 + 0.5);
         } else if (gamepad2.right_stick_y > 0) {
             robot.manipulatorArm.setTargetManipulatorWristPosition(-gamepad2.right_stick_y/10 + 0.5);
-        }else if (gamepad2.right_stick_y == 0){robot.manipulatorArm.setTargetManipulatorWristPosition(0.5);}
+        } else if (gamepad2.right_stick_y == 0){
+            robot.manipulatorArm.setTargetManipulatorWristPosition(0.5);
+        }
 
-        if(gamepad2.left_stick_y != 0) {
+        if (gamepad2.left_stick_y != 0) {
             robot.manipulatorArm.setTargetArmExtension((int) (robot.manipulatorArm.getTargetArmExtension() + -gamepad2.left_stick_y));
         }
         if (gamepad2.left_stick_x != 0){
