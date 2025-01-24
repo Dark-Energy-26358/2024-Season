@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Robot;
 
-@TeleOp(name="Standard")
+@TeleOp(name="Standard TeleOp")
 public class Teleop extends OpMode {
 
     Robot robot = new Robot();
