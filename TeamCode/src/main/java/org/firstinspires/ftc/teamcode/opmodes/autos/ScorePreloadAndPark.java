@@ -41,8 +41,8 @@ public class ScorePreloadAndPark extends OpMode {
         // END -- THIS IS NOT IDEMPOTENT and CAN ONLY BE RUN ONCE PER MATCH
 
 
-        Position position = robot.camera.getPosition();
-        YawPitchRollAngles angles = robot.camera.getOrientation();
+        Position position = robot.getPosition();
+        YawPitchRollAngles angles = robot.getOrientation();
         int forward = 0;
         int right = 0;
         int rotate = 0;
