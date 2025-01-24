@@ -19,6 +19,7 @@ public class driveToObservationZoneBlue extends OpMode {
     }
 
     public void loop() {
+        // BEGIN -- THIS IS NOT IDEMPOTENT and CAN ONLY BE RUN ONCE PER MATCH
         if (!manipArmAccurate) {
             robot.manipulatorArm.setTargetArmRotation(40);
         }
@@ -28,6 +29,7 @@ public class driveToObservationZoneBlue extends OpMode {
             manipArmAccurate = true;
             robot.manipulatorArm.setTargetArmRotation(0);
         }
+        // END -- THIS IS NOT IDEMPOTENT and CAN ONLY BE RUN ONCE PER MATCH
 
 
 
