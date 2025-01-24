@@ -58,8 +58,7 @@ public class LimelightCamera {
         return null;
     }
     public void stop(){
-	    // FIXME
-        //limelight.stopStreaming();
+        limelight.stop();
     }
 
 }
