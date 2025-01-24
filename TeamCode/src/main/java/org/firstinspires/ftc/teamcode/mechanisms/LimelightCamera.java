@@ -58,7 +58,7 @@ public class LimelightCamera {
         return null;
     }
     public void stop(){
-        limelight.stop();
+        limelight.stopStreaming();
     }
 
 }
