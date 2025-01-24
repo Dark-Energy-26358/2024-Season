@@ -23,6 +23,8 @@ public class LimelightCamera {
     private Pose3D pos = null;
     private Limelight3A limelight;
 
+    private boolean live = false;
+
     public void init(HardwareMap hardwareMap) {
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
 
@@ -39,7 +41,11 @@ public class LimelightCamera {
         if (result != null) {
             if (result.isValid()) {
                 pos = result.getBotpose();
+                // TODO: Automatically update Optical Odometry?
             }
+            live = true;
+        } else {
+            live = false;
         }
     }
 
@@ -56,6 +62,10 @@ public class LimelightCamera {
             return pos.getOrientation();
         }
         return null;
+    }
+
+    public boolean isLive() {
+        return live;
     }
     public void stop(){
         limelight.stopStreaming();
