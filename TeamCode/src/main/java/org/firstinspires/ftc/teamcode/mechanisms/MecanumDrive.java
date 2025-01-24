@@ -56,7 +56,9 @@ public class MecanumDrive {
 
     public void moveFieldRelative(double forward, double right, double rotate, double yaw) {
         double rYaw = Math.toRadians(yaw);
-        drive(forward*Math.sin(rYaw), right*Math.cos(rYaw), rotate);
+        double vx = forward * Math.cos(rYaw) + right * Math.sin(rYaw);
+        double vy = -forward * Math.sin(rYaw) + right * Math.cos(rYaw);
+        drive(vx, vy, rotate);
     }
     public boolean driveToPosition(double x, double y, int yaw, Position currentPosition, YawPitchRollAngles currentAngles) {
         int forward = 0;
