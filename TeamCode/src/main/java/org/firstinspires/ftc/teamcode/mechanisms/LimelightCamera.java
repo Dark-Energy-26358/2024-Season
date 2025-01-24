@@ -10,28 +10,36 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
-
+import com.qualcomm.hardware.limelightvision.LLResult;
+import com.qualcomm.hardware.limelightvision.LLResultTypes;
+import com.qualcomm.hardware.limelightvision.LLStatus;
+import com.qualcomm.hardware.limelightvision.Limelight3A;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Camera {
-    private VisionPortal visionPortal;
-    private AprilTagProcessor aprilTagProcessor;
+public class LimelightCamera {
     private Pose3D pos = null;
+    private Limelight3A limelight;
 
     public void init(HardwareMap hardwareMap) {
-        WebcamName webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
-        aprilTagProcessor = AprilTagProcessor.easyCreateWithDefaults();
-        visionPortal = VisionPortal.easyCreateWithDefaults(webcamName, aprilTagProcessor);
-    }
+        limelight = hardwareMap.get(Limelight3A.class, "limelight");
+
+        limelight.pipelineSwitch(0);
+
+        /*
+         * Starts polling for data.
+         */
+        limelight.start();
+    }// }
 
     private void updateCamera() {
-        pos = null;
-        List<AprilTagDetection> currentDetections = aprilTagProcessor.getDetections();
-        for (AprilTagDetection detection : currentDetections) {
-            pos = detection.robotPose;
+        LLResult result = limelight.getLatestResult();
+        if (result != null) {
+            if (result.isValid()) {
+                pos = result.getBotpose();
+            }
         }
     }
 
@@ -50,7 +58,7 @@ public class Camera {
         return null;
     }
     public void stop(){
-        visionPortal.stopStreaming();
+        limelight.stopStreaming();
     }
 
 }
