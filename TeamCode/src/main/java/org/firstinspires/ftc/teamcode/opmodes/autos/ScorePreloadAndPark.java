@@ -51,7 +51,7 @@ public class ScorePreloadAndPark extends OpMode {
                 if (robot.mecanumDrive.driveToPosition(NET_ZONE_X, NET_ZONE_Y, 45, position, angles))
                     stage = 2;
             case 2:
-                robot.manipulatorArm.toggleManipulatorState();
+//                robot.manipulatorArm.toggleManipulatorState();
                 stage = 3;
             case 3:
                 if (robot.mecanumDrive.driveToPosition(PARK_X, PARK_Y, 0, position, angles))
