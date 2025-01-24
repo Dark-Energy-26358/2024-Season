@@ -34,7 +34,7 @@ public class teleop extends OpMode {
 
         double forward = -gamepad1.left_stick_y / 3;
         double right = gamepad1.left_stick_x / 3;
-        double rotate = gamepad1.right_stick_x / 3;
+        double rotate = (-gamepad1.right_stick_x / 3) *0.8;
 
         robot.mecanumDrive.drive(forward, right, rotate);
 
