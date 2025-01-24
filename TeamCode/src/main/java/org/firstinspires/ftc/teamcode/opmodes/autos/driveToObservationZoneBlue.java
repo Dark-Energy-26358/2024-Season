@@ -1,19 +1,21 @@
 package org.firstinspires.ftc.teamcode.opmodes.autos;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.Robot;
 
+@Autonomous()
 public class driveToObservationZoneBlue extends OpMode {
+
     Robot robot = new Robot();
 
     boolean manipArmAccurate = false;
 
     @Override
     public void init() {
-        robot.init(hardwareMap );
+        robot.init(hardwareMap);
     }
 
     public void loop() {
