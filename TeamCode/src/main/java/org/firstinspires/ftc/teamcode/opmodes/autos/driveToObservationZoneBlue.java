@@ -11,7 +11,7 @@ public class driveToObservationZoneBlue extends OpMode {
 
     Robot robot = new Robot();
 
-    boolean manipArmAccurate = false;
+
 
     @Override
     public void init() {
@@ -20,13 +20,13 @@ public class driveToObservationZoneBlue extends OpMode {
 
     public void loop() {
         // BEGIN -- THIS IS NOT IDEMPOTENT and CAN ONLY BE RUN ONCE PER MATCH
-        if (!manipArmAccurate) {
+        if (!robot.manipArmAccurate) {
             robot.manipulatorArm.setTargetArmRotation(40);
         }
 
-        if (robot.manipulatorArm.getCurrentArmRotation() >= 40 & !manipArmAccurate) {
+        if (robot.manipulatorArm.getCurrentArmRotation() >= 40 & !robot.manipArmAccurate) {
             robot.manipulatorArm.rotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            manipArmAccurate = true;
+            robot.manipArmAccurate = true;
             robot.manipulatorArm.setTargetArmRotation(0);
         }
         // END -- THIS IS NOT IDEMPOTENT and CAN ONLY BE RUN ONCE PER MATCH
