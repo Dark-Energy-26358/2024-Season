@@ -22,8 +22,6 @@ public class ScorePreloadAndPark extends OpMode {
     final double PARK_X = TILE*2;
     final double PARK_Y = TILE*1;
 
-    final int INVERSION = -1;
-
     @Override
     public void init() {
         robot.init(hardwareMap);
@@ -32,14 +30,13 @@ public class ScorePreloadAndPark extends OpMode {
 
     public void loop() {
         // BEGIN -- THIS IS NOT IDEMPOTENT and CAN ONLY BE RUN ONCE PER MATCH
-        if (!robot.manipArmAccurate) {
+        if (!robot.globals.getManipArmAccurate()) {
             robot.manipulatorArm.setTargetArmRotation(40);
-        }
-
-        if (robot.manipulatorArm.getCurrentArmRotation() >= 40 & !robot.manipArmAccurate) {
-            robot.manipulatorArm.rotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            robot.manipArmAccurate = true;
-            robot.manipulatorArm.setTargetArmRotation(0);
+            if (robot.manipulatorArm.getCurrentArmRotation() >= 40) {
+                robot.manipulatorArm.rotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.manipulatorArm.setTargetArmRotation(0);
+                robot.globals.setManipArmAccurate(true);
+            }
         }
         // END -- THIS IS NOT IDEMPOTENT and CAN ONLY BE RUN ONCE PER MATCH
 
