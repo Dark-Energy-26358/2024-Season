@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
-import static java.lang.Math.round;
+
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -61,6 +61,9 @@ public class teleop extends OpMode {
             robot.stageOneAscentArms.setTargetArmExtension(0);
         }
 
+        if (gamepad1.dpad_left){robot.stageOneAscentArms.setTargetArmRotation(robot.stageOneAscentArms.getTargetArmRotation() - 0.01);}
+        else if (gamepad1.dpad_right){robot.stageOneAscentArms.setTargetArmRotation(robot.stageOneAscentArms.getTargetArmRotation() + 0.01);}
+
         if (gamepad2.b & !manipulatorJustToggled){
             robot.manipulatorArm.toggleManipulatorState();
             manipulatorJustToggled = true;
@@ -75,19 +78,11 @@ public class teleop extends OpMode {
             robot.manipulatorArm.setTargetManipulatorWristPosition(-gamepad2.right_stick_y/10 + 0.5);
         }else if (gamepad2.right_stick_y == 0){robot.manipulatorArm.setTargetManipulatorWristPosition(0.5);}
 
-        if (gamepad2.right_stick_x < 0){
-            robot.manipulatorArm.setTargetManipulatorElbowPosition(-gamepad2.right_stick_x/10 + 0.5);
-        } else if (gamepad2.right_stick_x > 0) {
-            robot.manipulatorArm.setTargetManipulatorElbowPosition(-gamepad2.right_stick_x/10 + 0.5);
-        } else if (gamepad2.right_stick_x == 0) {
-           robot.manipulatorArm.setTargetManipulatorElbowPosition(0.5);
-        }
-
         if(gamepad2.left_stick_y != 0) {
-            robot.manipulatorArm.setTargetArmExtension(round(robot.manipulatorArm.getTargetArmExtension() + -gamepad2.left_stick_y));
+            robot.manipulatorArm.setTargetArmExtension((int) (robot.manipulatorArm.getTargetArmExtension() + -gamepad2.left_stick_y));
         }
         if (gamepad2.left_stick_x != 0){
-            robot.manipulatorArm.setTargetArmRotation(robot.manipulatorArm.getTargetArmRotation() + -gamepad2.left_stick_x/10);
+            robot.manipulatorArm.setTargetArmRotation((int) (robot.manipulatorArm.getTargetArmRotation() + -gamepad2.left_stick_x));
         }
 
         telemetry.addData("extension", robot.manipulatorArm.getCurrentArmExtension());
