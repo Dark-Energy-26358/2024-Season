@@ -3,6 +3,9 @@ package org.firstinspires.ftc.teamcode.mechanisms;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
+
 public class MecanumDrive {
     private DcMotor frontLeftMotor;
     private DcMotor frontRightMotor;
@@ -49,5 +52,36 @@ public class MecanumDrive {
         double backRightPower = forward + right + rotate;
 
         setPowers(frontLeftPower, frontRightPower, backLeftPower, backRightPower);
+    }
+
+    public void moveFieldRelative(double forward, double right, double rotate, double yaw) {
+        double rYaw = Math.toRadians(yaw);
+        drive(forward*Math.sin(rYaw), right*Math.cos(rYaw), rotate);
+    }
+    public boolean driveToPosition(double x, double y, int yaw, Position currentPosition, YawPitchRollAngles currentAngles) {
+        int forward = 0;
+        int right = 0;
+        int rotate = 0;
+        boolean onSpot = true;
+        if (Math.abs(y-currentPosition.y) < 3) {
+            if (y < currentPosition.y)
+                forward = 1;
+            else
+                forward = -1;
+            onSpot = false;
+        }
+        if (Math.abs(x-currentPosition.x) < 3) {
+            if (x < currentPosition.x)
+                right = 1;
+            else
+                right = -1;
+            onSpot = false;
+        }
+        if (Math.abs(yaw-currentAngles.getYaw()) < 5) {
+            rotate = 1;
+            onSpot = false;
+        }
+        moveFieldRelative(forward, right, rotate, yaw);
+        return onSpot;
     }
 }
