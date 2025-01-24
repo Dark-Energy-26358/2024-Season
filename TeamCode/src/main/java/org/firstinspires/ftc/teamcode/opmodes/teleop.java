@@ -12,7 +12,6 @@ import org.firstinspires.ftc.teamcode.Robot;
 public class teleop extends OpMode {
 
     Robot robot = new Robot();
-    boolean manipArmAccurate = false;
     boolean manipulatorJustToggled = false;
 
     @Override
@@ -22,16 +21,6 @@ public class teleop extends OpMode {
 
     @Override
     public void loop() {
-        if(!manipArmAccurate){
-        robot.manipulatorArm.setTargetArmRotation(40);}
-
-        if (robot.manipulatorArm.getCurrentArmRotation() >= 40 & !manipArmAccurate){
-            robot.manipulatorArm.rotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            manipArmAccurate = true;
-            robot.manipulatorArm.setTargetArmRotation(0);
-        }
-
-
         double forward = -gamepad1.left_stick_y / 3;
         double right = gamepad1.left_stick_x / 3;
         double rotate = gamepad1.right_stick_x / 3;
