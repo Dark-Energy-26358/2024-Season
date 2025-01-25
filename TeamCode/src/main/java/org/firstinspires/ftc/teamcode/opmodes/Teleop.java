@@ -37,7 +37,7 @@ public class Teleop extends OpMode {
 
         robot.mecanumDrive.drive(forward, right, rotate);
 
-        if (robot.manipulatorArm.getCurrentArmRotation() > 60){
+        if (robot.manipulatorArm.getCurrentArmRotation() > 30 || robot.manipulatorArm.getCurrentArmRotation() < -30){
             robot.manipulatorArm.setTargetArmExtension(0);
         }
 

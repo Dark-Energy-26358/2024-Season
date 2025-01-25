@@ -8,19 +8,18 @@ import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.Robot;
 
-// When moving out of dev, change group to "Blue" and remove "(Blue)" from name.
-@Autonomous(name = "Score Preload and Park", preselectTeleOp = "TeleOp", group = "Blue")
-public class ScorePreloadAndPark extends OpMode {
+@Autonomous(name = "Score Preload and Park Red", preselectTeleOp = "TeleOp", group = "Red")
+public class ScorePreloadAndParkRed extends OpMode {
 
     Robot robot = new Robot();
 
     int stage = 1;
     final double TILE = 24;
 
-    final double NET_ZONE_X = TILE*2.5;
-    final double NET_ZONE_Y = TILE*2.5;
-    final double PARK_X = TILE*2;
-    final double PARK_Y = TILE*1;
+    final double NET_ZONE_X = TILE*-2.5;
+    final double NET_ZONE_Y = TILE*-2.5;
+    final double PARK_X = TILE*-2;
+    final double PARK_Y = TILE*-1;
 
     @Override
     public void init() {
