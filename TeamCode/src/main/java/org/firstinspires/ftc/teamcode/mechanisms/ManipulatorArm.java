@@ -66,9 +66,9 @@ public class ManipulatorArm extends MoveableArm {
     public void toggleManipulatorState(){
         if (!manipulatorClosed){
             // closing manipulator
-            manipulator.setPosition(0.95);
+            manipulator.setPosition(0.99);
             manipulatorClosed = true;
-        }else {
+        } else {
             //opening manipulator
             manipulator.setPosition(0.75);
             manipulatorClosed = false;
