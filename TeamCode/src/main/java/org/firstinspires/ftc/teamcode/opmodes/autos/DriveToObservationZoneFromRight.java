@@ -22,6 +22,7 @@ public class DriveToObservationZoneFromRight extends OpMode {
         this.startTime = System.currentTimeMillis();
         super.start();
     }
+
     public void loop() {
         // USING GLOBAL TO BE IDEMPOTENT
         if (!robot.globals.getManipArmAccurate()) {
@@ -33,7 +34,7 @@ public class DriveToObservationZoneFromRight extends OpMode {
             }
         }
 
-        if (getAgeInSeconds()<30) {
+        if (getAgeInSeconds()<8) {
             robot.mecanumDrive.drive(0, 0.2, 0);
         }
 

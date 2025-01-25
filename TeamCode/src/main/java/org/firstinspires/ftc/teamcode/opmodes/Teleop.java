@@ -70,7 +70,6 @@ public class Teleop extends OpMode {
             manipulatorJustToggled = false;
         }
 
-
         if (gamepad2.right_stick_y < 0){
             robot.manipulatorArm.setTargetManipulatorWristPosition(-gamepad2.right_stick_y/10 + 0.5);
         } else if (gamepad2.right_stick_y > 0) {
