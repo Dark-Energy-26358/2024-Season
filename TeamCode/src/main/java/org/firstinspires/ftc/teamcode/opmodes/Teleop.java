@@ -95,7 +95,6 @@ public class Teleop extends OpMode {
         telemetry.addData("stopped", robot.manipulatorArm.stopped);
         //robot.stageTwoAscentArms.run(gamepad2.right_stick_y);
         //robot.stageOneAscentArms.run(gamepad2.left_stick_y);
-        telemetry.update();
     }
 
     public void stop() {
