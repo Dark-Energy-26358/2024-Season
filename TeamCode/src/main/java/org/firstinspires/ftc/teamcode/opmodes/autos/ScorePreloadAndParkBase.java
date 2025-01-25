@@ -1,25 +1,28 @@
 package org.firstinspires.ftc.teamcode.opmodes.autos;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.Robot;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
+import org.firstinspires.ftc.teamcode.Robot;
 
-@Autonomous(name = "Score Preload and Park Blue", preselectTeleOp = "TeleOp", group = "Blue")
-public class ScorePreloadAndParkBlue extends OpMode {
+public class ScorePreloadAndParkBase extends OpMode {
 
     Robot robot = new Robot();
 
     int stage = 1;
     final double TILE = 24;
 
-    final double NET_ZONE_X = TILE*2.5;
-    final double NET_ZONE_Y = TILE*2.5;
-    final double PARK_X = TILE*2;
-    final double PARK_Y = TILE*1;
+    final double NET_ZONE_X = 0.0; // CHANGE_ME!!
+    final double NET_ZONE_Y = 0.0; // CHANGE_ME!!
+    final double PARK_X = 0.0; // CHANGE_ME!!
+    final double PARK_Y = 0.0; // CHANGE_ME!!
 
     @Override
     public void init() {
