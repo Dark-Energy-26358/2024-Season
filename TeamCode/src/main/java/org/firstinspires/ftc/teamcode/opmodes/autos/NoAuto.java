@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.Robot;
 
 
-@Autonomous
+@Autonomous(name = "No Auto", preselectTeleOp = "TeleOp", group = "Red/Blue")
 public class NoAuto extends OpMode {
     int loops = 0;
     Robot robot = new Robot();
@@ -18,5 +18,7 @@ public class NoAuto extends OpMode {
 
     @Override
     public void loop() {
+        telemetry.addData("Robot Position", robot.getPosition());
+        telemetry.addData("Robot Rotation", robot.getOrientation());
     }
 }
