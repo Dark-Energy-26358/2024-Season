@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.mechanisms;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
@@ -55,10 +56,9 @@ public class MecanumDrive {
     }
 
     public void moveFieldRelative(double forward, double right, double rotate, double yaw) {
-        double rYaw = Math.toRadians(yaw);
-        double vx = forward * Math.sin(rYaw) + right * Math.cos(rYaw);
-        double vy = -forward * Math.cos(rYaw) + right * Math.sin(rYaw);
-        drive(vx, vy, rotate);
+        double vx = forward * Math.sin(yaw) + right * Math.cos(yaw);
+        double vy = -forward * Math.cos(yaw) + right * Math.sin(yaw);
+        drive(vy, vx, rotate);
     }
     public boolean driveToPosition(double x, double y, int yaw, Position currentPosition, YawPitchRollAngles currentAngles) {
         double forward = 0;
@@ -67,26 +67,26 @@ public class MecanumDrive {
         boolean onSpot = true;
 
         // Check and set forward movement proportionally
-        if (Math.abs(y - currentPosition.y) >= 3) { // Move if outside threshold
+        if (Math.abs(y - currentPosition.y) >= 5) { // Move if outside threshold
             forward = Math.max(-1, Math.min(1, (y - currentPosition.y) / 10)); // Proportional control
             onSpot = false;
         }
 
         // Check and set right movement proportionally
-        if (Math.abs(x - currentPosition.x) >= 3) { // Move if outside threshold
+        if (Math.abs(x - currentPosition.x) >= 5) { // Move if outside threshold
             right = Math.max(-1, Math.min(1, (x - currentPosition.x) / 10)); // Proportional control
             onSpot = false;
         }
 
         // Check and set rotation proportionally
-        double yawDifference = yaw - currentAngles.getYaw();
+        double yawDifference = yaw - currentAngles.getYaw(AngleUnit.DEGREES);
         if (Math.abs(yawDifference) >= 5) { // Rotate if outside threshold
             rotate = Math.max(-1, Math.min(1, yawDifference / 30)); // Proportional control
             onSpot = false;
         }
 
         // Move the robot
-        moveFieldRelative(forward, right, rotate, currentAngles.getYaw());
+        moveFieldRelative(forward, right, rotate, currentAngles.getYaw(AngleUnit.RADIANS));
         return onSpot;
     }
 }

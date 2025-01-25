@@ -6,10 +6,11 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.Robot;
 
 
-@Autonomous
-public class DriveRight extends OpMode {
+@Autonomous(name = "No Auto", preselectTeleOp = "TeleOp", group = "Red/Blue")
+public class NoAuto extends OpMode {
     int loops = 0;
     Robot robot = new Robot();
+
     @Override
     public void init() {
         robot.init(hardwareMap);
@@ -17,94 +18,7 @@ public class DriveRight extends OpMode {
 
     @Override
     public void loop() {
-        loops ++;
-        if ( loops <= 5000){
-            robot.mecanumDrive.drive(0,0.1,0);
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        telemetry.addData("Robot Position", robot.getPosition());
+        telemetry.addData("Robot Rotation", robot.getOrientation());
     }
 }

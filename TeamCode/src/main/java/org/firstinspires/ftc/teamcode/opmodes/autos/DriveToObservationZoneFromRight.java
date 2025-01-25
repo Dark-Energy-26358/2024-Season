@@ -7,13 +7,20 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.Robot;
 
 @Autonomous(name = "Drive to Observation Zone", preselectTeleOp = "TeleOp", group = "Blue")
-public class DriveToObservationZoneBlue extends OpMode {
+public class DriveToObservationZoneFromRight extends OpMode {
 
     Robot robot = new Robot();
+    private long startTime;
 
     @Override
     public void init() {
         robot.init(hardwareMap);
+    }
+
+    @Override
+    public void start() {
+        this.startTime = System.currentTimeMillis();
+        super.start();
     }
 
     public void loop() {
@@ -27,6 +34,9 @@ public class DriveToObservationZoneBlue extends OpMode {
             }
         }
 
+        if (getAgeInSeconds()<8) {
+            robot.mecanumDrive.drive(0, 0.2, 0);
+        }
 
         //TODO: DO DIS
         //plans:
@@ -35,5 +45,10 @@ public class DriveToObservationZoneBlue extends OpMode {
         //turn to drop piece
         //drop piece
         //go to hang zone
+    }
+
+    public int getAgeInSeconds() {
+        long nowMillis = System.currentTimeMillis();
+        return (int)((nowMillis - this.startTime) / 1000);
     }
 }
