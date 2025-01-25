@@ -70,7 +70,6 @@ public class MecanumDrive {
         if (Math.abs(y - currentPosition.y) >= 5) { // Move if outside threshold
             forward = Math.max(-1, Math.min(1, (y - currentPosition.y) / 10)); // Proportional control
             onSpot = false;
-
         }
 
         // Check and set right movement proportionally
