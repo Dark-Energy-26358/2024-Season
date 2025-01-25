@@ -14,10 +14,10 @@ public class ScorePreloadAndParkBase extends OpMode {
     int stage = 1;
     final double TILE = 24;
 
-    final double NET_ZONE_X = 0.0; // CHANGE_ME!!
-    final double NET_ZONE_Y = 0.0; // CHANGE_ME!!
-    final double PARK_X = 0.0; // CHANGE_ME!!
-    final double PARK_Y = 0.0; // CHANGE_ME!!
+    double NET_ZONE_X = 0.0; // CHANGE_ME!!
+    double NET_ZONE_Y = 0.0; // CHANGE_ME!!
+    double PARK_X = 0.0; // CHANGE_ME!!
+    double PARK_Y = 0.0; // CHANGE_ME!!
 
     @Override
     public void init() {

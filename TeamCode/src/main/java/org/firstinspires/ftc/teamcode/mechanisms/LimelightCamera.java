@@ -14,7 +14,7 @@ import com.qualcomm.hardware.limelightvision.Limelight3A;
 
 
 public class LimelightCamera {
-    private Pose3D pos = new Pose3D(new Position(), new YawPitchRollAngles(AngleUnit.DEGREES, 0, 0, 0, 0));
+    private Pose3D pos = new Pose3D(new Position(DistanceUnit.INCH, 0, 72, 0, 0), new YawPitchRollAngles(AngleUnit.DEGREES, 0, 0, 0, 0));
     private Limelight3A limelight;
 
     private boolean live = false;
