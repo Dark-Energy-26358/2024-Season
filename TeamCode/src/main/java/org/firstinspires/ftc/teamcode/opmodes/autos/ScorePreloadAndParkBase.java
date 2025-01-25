@@ -6,11 +6,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.Robot;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import org.firstinspires.ftc.robotcore.external.navigation.Position;
-import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
-import org.firstinspires.ftc.teamcode.Robot;
 
 public class ScorePreloadAndParkBase extends OpMode {
 
@@ -31,7 +26,7 @@ public class ScorePreloadAndParkBase extends OpMode {
     }
 
     public void loop() {
-        // BEGIN -- THIS IS NOT IDEMPOTENT and CAN ONLY BE RUN ONCE PER MATCH
+        // USING GLOBAL TO BE IDEMPOTENT
         if (!robot.globals.getManipArmAccurate()) {
             robot.manipulatorArm.setTargetArmRotation(40);
             if (robot.manipulatorArm.getCurrentArmRotation() >= 40) {
@@ -40,7 +35,7 @@ public class ScorePreloadAndParkBase extends OpMode {
                 robot.globals.setManipArmAccurate(true);
             }
         }
-        // END -- THIS IS NOT IDEMPOTENT and CAN ONLY BE RUN ONCE PER MATCH
+        // END -- THIS IS IDEMPOTENT and CAN BE RUN MORE THAN ONCE PER MATCH
 
 
         Position position = robot.getPosition();
