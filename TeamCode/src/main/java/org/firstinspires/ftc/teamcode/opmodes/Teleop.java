@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.Robot;
 
 @TeleOp(name="TeleOp")
@@ -32,21 +31,20 @@ public class Teleop extends OpMode {
             }
         }
 
+        robot.updatePosition();
+
         double forward = -gamepad1.left_stick_y / 3;
         double right = gamepad1.left_stick_x / 3;
         double rotate = (-gamepad1.right_stick_x / 3) *0.8;
 
-        robot.mecanumDrive.moveFieldRelative(
-            forward, right, rotate, robot.getOrientation().getYaw(
-                AngleUnit.RADIANS
-        ));
+        robot.mecanumDrive.moveFieldRelative(forward,right,rotate,robot.getOrientation().getYaw());
 
         if (robot.manipulatorArm.getCurrentArmRotation() > 30 || robot.manipulatorArm.getCurrentArmRotation() < -30){
             robot.manipulatorArm.setTargetArmExtension(0);
         }
 
         // Template controls - probably going to need to be changed
-        if (gamepad2.dpad_down) {
+        if (gamepad2.dpad_down ) {
             robot.manipulatorArm.setTargetArmExtension(0);
         } else if (gamepad2.dpad_up & robot.manipulatorArm.getCurrentArmRotation() < 45) {
             robot.manipulatorArm.setTargetArmExtension(27);
