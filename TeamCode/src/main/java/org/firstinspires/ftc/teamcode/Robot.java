@@ -22,7 +22,7 @@ public class Robot {
 //    public StageTwoAscentArms stageTwoAscentArms = new StageTwoAscentArms();
     public StageOneAscentArms stageOneAscentArms = new StageOneAscentArms();
     public LimelightCamera camera = new LimelightCamera();
-//    public OpticalOdometry opticalOdometry = new OpticalOdometry();
+    public OpticalOdometry opticalOdometry = new OpticalOdometry();
 
     public void init(HardwareMap hardwareMap){
         mecanumDrive.init(hardwareMap);
@@ -30,30 +30,30 @@ public class Robot {
         //stageTwoAscentArms.init(hardwareMap);
         stageOneAscentArms.init(hardwareMap);
         camera.init(hardwareMap);
-//        opticalOdometry.init(hardwareMap);
+        opticalOdometry.init(hardwareMap);
     }
 
     public Position getPosition(){
-//        if (camera.isLive()) {
+        if (camera.isLive()) {
             return camera.getPosition();
-//        } else {
-//              return new Position(DistanceUnit.INCH, opticalOdometry.getPosition().x, opticalOdometry.getPosition().y, camera.getPosition().z,0);
-//        }
+        } else {
+              return new Position(DistanceUnit.INCH, opticalOdometry.getPosition().x, opticalOdometry.getPosition().y, camera.getPosition().z,0);
+        }
     }
 
     public YawPitchRollAngles getOrientation(){
-//        if (camera.isLive()) {
+        if (camera.isLive()) {
             return camera.getOrientation();
-//        } else {
-//            return new YawPitchRollAngles(AngleUnit.DEGREES, opticalOdometry.getPosition().h,camera.getOrientation().getPitch(),camera.getOrientation().getRoll(),0);
-//        }
+        } else {
+            return new YawPitchRollAngles(AngleUnit.DEGREES, opticalOdometry.getPosition().h,camera.getOrientation().getPitch(),camera.getOrientation().getRoll(),0);
+        }
     }
 
     // call every frame
     public void updatePosition(){
-//        if (camera.isLive()) {
-//            opticalOdometry.setPosition(new SparkFunOTOS.Pose2D(camera.getPosition().x,camera.getPosition().y,camera.getOrientation().getYaw()));
-//        }
+        if (camera.isLive()) {
+            opticalOdometry.setPosition(new SparkFunOTOS.Pose2D(camera.getPosition().x,camera.getPosition().y,camera.getOrientation().getYaw()));
+        }
     }
 }
 
