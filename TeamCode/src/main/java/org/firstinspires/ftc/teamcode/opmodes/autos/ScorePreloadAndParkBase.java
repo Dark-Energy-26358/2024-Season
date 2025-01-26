@@ -41,8 +41,8 @@ public class ScorePreloadAndParkBase extends OpMode {
 
         Position position = robot.getPosition();
         YawPitchRollAngles angles = robot.getOrientation();
-        telemetry.addData("Camera says Position", position.toString());
-        telemetry.addData("Camera says Orientation", angles.toString());
+        telemetry.addData("Robot says Position", position.toString());
+        telemetry.addData("Robot says Orientation", angles.toString());
         telemetry.addData("Camera says Live", robot.camera.isLive());
         int forward = 0;
         int right = 0;
