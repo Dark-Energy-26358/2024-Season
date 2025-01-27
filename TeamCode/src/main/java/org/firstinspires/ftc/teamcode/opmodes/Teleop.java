@@ -37,7 +37,7 @@ public class Teleop extends OpMode {
         double right = gamepad1.left_stick_x / 3;
         double rotate = (-gamepad1.right_stick_x / 3) *0.8;
 
-        robot.mecanumDrive.moveFieldRelative(forward,right,rotate,robot.getOrientation().getYaw());
+        robot.mecanumDrive.drive(forward,right,rotate);
 
         if (robot.manipulatorArm.getCurrentArmRotation() > 30 || robot.manipulatorArm.getCurrentArmRotation() < -30){
             robot.manipulatorArm.setTargetArmExtension(0);
