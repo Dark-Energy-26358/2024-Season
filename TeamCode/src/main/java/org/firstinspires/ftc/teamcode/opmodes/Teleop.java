@@ -31,11 +31,13 @@ public class Teleop extends OpMode {
             }
         }
 
+        robot.updatePosition();
+
         double forward = -gamepad1.left_stick_y / 3;
         double right = gamepad1.left_stick_x / 3;
         double rotate = (-gamepad1.right_stick_x / 3) *0.8;
 
-        robot.mecanumDrive.drive(forward, right, rotate);
+        robot.mecanumDrive.drive(forward,right,rotate);
 
         if (robot.manipulatorArm.getCurrentArmRotation() > 30 || robot.manipulatorArm.getCurrentArmRotation() < -30){
             robot.manipulatorArm.setTargetArmExtension(0);
@@ -55,9 +57,9 @@ public class Teleop extends OpMode {
         }
 
         if (gamepad1.dpad_up){
-            robot.stageOneAscentArms.setTargetArmExtension(13);
+            robot.stageOneAscentArms.setTargetArmExtension(robot.stageOneAscentArms.getCurrentArmExtension()+1);
         }else if (gamepad1.dpad_down) {
-            robot.stageOneAscentArms.setTargetArmExtension(0);
+            robot.stageOneAscentArms.setTargetArmExtension(robot.stageOneAscentArms.getCurrentArmExtension()-1);
         }
 
         if (gamepad1.dpad_left){robot.stageOneAscentArms.setTargetArmRotation(robot.stageOneAscentArms.getTargetArmRotation() - 0.01);}
