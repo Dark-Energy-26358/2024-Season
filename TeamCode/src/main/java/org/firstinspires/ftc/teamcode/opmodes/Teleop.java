@@ -57,9 +57,9 @@ public class Teleop extends OpMode {
         }
 
         if (gamepad1.dpad_up){
-            robot.stageOneAscentArms.setTargetArmExtension(13);
+            robot.stageOneAscentArms.setTargetArmExtension(robot.stageOneAscentArms.getCurrentArmExtension()+1);
         }else if (gamepad1.dpad_down) {
-            robot.stageOneAscentArms.setTargetArmExtension(0);
+            robot.stageOneAscentArms.setTargetArmExtension(robot.stageOneAscentArms.getCurrentArmExtension()-1);
         }
 
         if (gamepad1.dpad_left){robot.stageOneAscentArms.setTargetArmRotation(robot.stageOneAscentArms.getTargetArmRotation() - 0.01);}
