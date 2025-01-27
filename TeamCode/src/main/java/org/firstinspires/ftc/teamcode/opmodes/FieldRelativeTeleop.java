@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Robot;
 
 import java.util.List;
 
-@TeleOp(name="DEV ONLY, DO NOT USE")
+@TeleOp(name="DEV ONLY, DO NOT USE", group = "z/dev")
 public class FieldRelativeTeleop extends OpMode {
 
     Robot robot = new Robot();
@@ -63,7 +63,7 @@ public class FieldRelativeTeleop extends OpMode {
             robot.updatePosition();
 
             double forward = -gamepad1.left_stick_y / 3;
-            double right = gamepad1.left_stick_x / 3;
+            double right = -gamepad1.left_stick_x / 3;
             double rotate = (-gamepad1.right_stick_x / 3) * 0.8;
 
             robot.mecanumDrive.moveFieldRelative(forward,right,rotate,robot.getOrientation().getYaw(AngleUnit.RADIANS));
