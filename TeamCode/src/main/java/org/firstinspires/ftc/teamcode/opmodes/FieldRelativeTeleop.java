@@ -9,8 +9,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.Robot;
 
-import java.util.List;
-
 @TeleOp(name="DEV ONLY, DO NOT USE", group = "z/dev")
 public class FieldRelativeTeleop extends OpMode {
 
@@ -40,8 +38,7 @@ public class FieldRelativeTeleop extends OpMode {
         else if (gamepad1.start){if (!justInput){password += "s"; justInput = true;}}
         else {justInput = false;}
 
-        if (password.equals("uuddlrlrbas")){active = true;}
-        else{active = false;}
+        active = password.equals("uuddlrlrbas");
         telemetry.addData("password:", password);
         telemetry.addData("active:", active);
 
@@ -66,7 +63,7 @@ public class FieldRelativeTeleop extends OpMode {
             double right = -gamepad1.left_stick_x / 3;
             double rotate = (-gamepad1.right_stick_x / 3) * 0.8;
 
-            robot.mecanumDrive.moveFieldRelative(forward,right,rotate,robot.getOrientation().getYaw(AngleUnit.RADIANS));
+            robot.mecanumDrive.moveFieldRelative(right, forward, rotate, robot.getOrientation().getYaw(AngleUnit.RADIANS));
 
             if (robot.manipulatorArm.getCurrentArmRotation() > 30 || robot.manipulatorArm.getCurrentArmRotation() < -30) {
                 robot.manipulatorArm.setTargetArmExtension(0);
@@ -113,10 +110,10 @@ public class FieldRelativeTeleop extends OpMode {
             }
 
             if (gamepad2.left_stick_y != 0) {
-                robot.manipulatorArm.setTargetArmExtension((int) (robot.manipulatorArm.getTargetArmExtension() + -gamepad2.left_stick_y));
+                robot.manipulatorArm.setTargetArmExtension((int) (robot.manipulatorArm.getTargetArmExtension() - gamepad2.left_stick_y));
             }
             if (gamepad2.left_stick_x != 0) {
-                robot.manipulatorArm.setTargetArmRotation((int) (robot.manipulatorArm.getTargetArmRotation() + -gamepad2.left_stick_x));
+                robot.manipulatorArm.setTargetArmRotation((int) (robot.manipulatorArm.getTargetArmRotation() - gamepad2.left_stick_x));
             }
 //        if (gamepad2.)
 //        robot.stageOneAscentArms.run((gamepad2.left_bumper ? 0 : 1) - gamepad2.left_trigger, (gamepad2.right_bumper ? 0 : 1) - gamepad2.right_trigger);

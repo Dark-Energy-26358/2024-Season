@@ -37,8 +37,9 @@ public class MoveableArm implements org.firstinspires.ftc.teamcode.Interfaces.Mo
 
 //27.5 in = 3200 tick(s)
     public void setTargetArmExtension(int targetExtension) {
+        final double SPEED = 0.5;
         extensionMotor.setTargetPosition(targetExtension*116);
-        extensionMotor.setPower(0.5);
+        extensionMotor.setPower(SPEED);
         extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         targetArmExtension = extensionMotor.getTargetPosition();
     }

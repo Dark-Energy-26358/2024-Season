@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.mechanisms;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -24,8 +23,6 @@ public class ManipulatorArm extends MoveableArm {
         wrist = hardwareMap.servo.get("manipulatorWrist");
         wrist.resetDeviceConfigurationForOpMode();
 
-
-
         extensionMotorName = "manipulatorExtensionMotor";
 
         rotationMotor = hardwareMap.dcMotor.get(rotationMotorName);
@@ -44,9 +41,10 @@ public class ManipulatorArm extends MoveableArm {
     }
 
     public void setTargetArmRotation(int targetRotation) {
+        final double SPEED = 0.5;
         stopped = false;
         rotationMotor.setTargetPosition(targetRotation*27);
-        rotationMotor.setPower(0.5);
+        rotationMotor.setPower(SPEED);
         rotationMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         targetArmRotation = rotationMotor.getTargetPosition();
     }
