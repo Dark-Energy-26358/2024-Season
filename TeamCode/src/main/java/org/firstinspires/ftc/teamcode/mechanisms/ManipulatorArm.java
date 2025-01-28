@@ -12,6 +12,11 @@ public class ManipulatorArm extends MoveableArm {
     public boolean manipulatorClosed = false;
 
     public DcMotor rotationMotor;
+
+    public final int HIGH_BASKET_EXTENSION = 38;
+    public final int RETRACTED = 0;
+
+    // TODO: Add LOW_BASKET_EXTENSION
     Servo manipulator;
     Servo wrist;
 

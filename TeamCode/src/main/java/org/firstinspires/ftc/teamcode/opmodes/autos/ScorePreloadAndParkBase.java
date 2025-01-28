@@ -18,6 +18,7 @@ public class ScorePreloadAndParkBase extends OpMode {
     double NET_ZONE_Y = 0.0; // CHANGE_ME!!
     double PARK_X = 0.0; // CHANGE_ME!!
     double PARK_Y = 0.0; // CHANGE_ME!!
+    double BASKET_BUFFER = 3;
 
     @Override
     public void init() {
@@ -50,13 +51,23 @@ public class ScorePreloadAndParkBase extends OpMode {
         switch (stage) {
             case 1:
                 if (robot.mecanumDrive.driveToPosition(NET_ZONE_X, NET_ZONE_Y, 45, position, angles))
-                    stage = 2;
+                    stage++;
+                break;
             case 2:
-                robot.manipulatorArm.toggleManipulatorState();
-                stage = 3;
+                robot.manipulatorArm.setTargetArmExtension(robot.manipulatorArm.HIGH_BASKET_EXTENSION);
+                int extensionDifference = (robot.manipulatorArm.getCurrentArmExtension()-robot.manipulatorArm.HIGH_BASKET_EXTENSION);
+                if (extensionDifference<BASKET_BUFFER)
+                    stage++;
+                break;
             case 3:
+                robot.manipulatorArm.toggleManipulatorState();
+                stage++;
+                break;
+            case 4:
+                robot.manipulatorArm.setTargetArmExtension(robot.manipulatorArm.RETRACTED);
                 if (robot.mecanumDrive.driveToPosition(PARK_X, PARK_Y, 0, position, angles))
-                    stage = 4;
+                    stage++;
+                break;
         }
         robot.mecanumDrive.drive(forward, right, rotate);
 
