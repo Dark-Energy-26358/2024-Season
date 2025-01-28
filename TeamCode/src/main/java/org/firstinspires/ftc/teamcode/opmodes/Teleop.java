@@ -18,6 +18,10 @@ public class Teleop extends OpMode {
     final double RIGHT_COEFFICENT = 0.4;
     final double TURN_COEFFICENT = 0.3;
 
+    final double MANIPULATOR_SPEED = 0.5;
+
+    final double ASCENT_SPEED = 0.5;
+
     @Override
     public void init() {
         robot.init(hardwareMap);
@@ -42,6 +46,9 @@ public class Teleop extends OpMode {
         double rotate = gamepad1.right_stick_x * TURN_COEFFICENT;
 
         robot.mecanumDrive.drive(forward,right,rotate);
+
+        robot.manipulatorArm.speed = MANIPULATOR_SPEED;
+        robot.stageOneAscentArms.speed = ASCENT_SPEED;
 
         if (robot.manipulatorArm.getCurrentArmRotation() > 30 || robot.manipulatorArm.getCurrentArmRotation() < -30){
             robot.manipulatorArm.setTargetArmExtension(0);
@@ -90,16 +97,11 @@ public class Teleop extends OpMode {
         if (gamepad2.left_stick_x != 0){
             robot.manipulatorArm.setTargetArmRotation((int) (robot.manipulatorArm.getTargetArmRotation() - gamepad2.left_stick_x));
         }
-//        if (gamepad2.)
-//        robot.stageOneAscentArms.run((gamepad2.left_bumper ? 0 : 1) - gamepad2.left_trigger, (gamepad2.right_bumper ? 0 : 1) - gamepad2.right_trigger);
-
         telemetry.addData("extension", robot.manipulatorArm.getCurrentArmExtension());
         telemetry.addData("Target extension", robot.manipulatorArm.getTargetArmExtension());
         telemetry.addData("rotation", robot.manipulatorArm.getCurrentArmRotation());
         telemetry.addData("Target rotation", robot.manipulatorArm.getTargetArmRotation());
         telemetry.addData("stopped", robot.manipulatorArm.stopped);
-        //robot.stageTwoAscentArms.run(gamepad2.right_stick_y);
-        //robot.stageOneAscentArms.run(gamepad2.left_stick_y);
     }
 
     public void stop() {

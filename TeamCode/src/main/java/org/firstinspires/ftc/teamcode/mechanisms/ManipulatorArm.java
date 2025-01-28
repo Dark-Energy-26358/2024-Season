@@ -41,10 +41,9 @@ public class ManipulatorArm extends MoveableArm {
     }
 
     public void setTargetArmRotation(int targetRotation) {
-        final double SPEED = 0.5;
         stopped = false;
         rotationMotor.setTargetPosition(targetRotation*27);
-        rotationMotor.setPower(SPEED);
+        rotationMotor.setPower(speed);
         rotationMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         targetArmRotation = rotationMotor.getTargetPosition();
     }
