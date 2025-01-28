@@ -55,39 +55,48 @@ public class MecanumDrive {
         setPowers(frontLeftPower, frontRightPower, backLeftPower, backRightPower);
     }
 
-    public void moveFieldRelative(double forward, double right, double rotate, double yawRads)
+    public void moveFieldRelative(double x, double y, double rotate, double yawRads)
     {
-        double vx = forward * Math.sin(yawRads) + right * Math.cos(yawRads);
-        double vy = forward * Math.cos(yawRads) + right * Math.sin(yawRads);
-        drive(vy, vx, rotate);
+        double forward = y * Math.sin(yawRads) + x * Math.cos(yawRads);
+        double right = y * Math.cos(yawRads) + x * Math.sin(yawRads);
+        drive(forward, right, rotate);
     }
-    public boolean driveToPosition(double x, double y, int yaw, Position currentPosition, YawPitchRollAngles currentAngles) {
-        double forward = 0;
-        double right = 0;
+    public boolean driveToPosition(double targetX, double targetY, int targetYawRads, Position currentPosition, YawPitchRollAngles currentAngles) {
+        final int X_BUFFER = 5;
+        final int Y_BUFFER = 5;
+        final int TURN_BUFFER = 5;
+        final int X_SLOW_DOWN = 10;
+        final int Y_SLOW_DOWN = 10;
+        final double TURN_SLOW_DOWN = Math.PI*2;
+
+        double driveX = 0;
+        double driveY = 0;
         double rotate = 0;
         boolean onSpot = true;
 
-        // Check and set forward movement proportionally
-        if (Math.abs(y - currentPosition.y) >= 5) { // Move if outside threshold
-            forward = Math.max(-1, Math.min(1, (y - currentPosition.y) / 10)); // Proportional control
+        // Check and set right movement proportionally
+        double xDifference = targetX - currentPosition.x;
+        if (Math.abs(xDifference) >= X_BUFFER) { // Move if outside threshold
+            driveX = (xDifference) / X_SLOW_DOWN; // Proportional control
             onSpot = false;
         }
 
-        // Check and set right movement proportionally
-        if (Math.abs(x - currentPosition.x) >= 5) { // Move if outside threshold
-            right = Math.max(-1, Math.min(1, (x - currentPosition.x) / 10)); // Proportional control
+        // Check and set forward movement proportionally
+        double yDifference = targetY - currentPosition.y;
+        if (Math.abs(yDifference) >= Y_BUFFER) { // Move if outside threshold
+            driveY = yDifference / Y_SLOW_DOWN; // Proportional control
             onSpot = false;
         }
 
         // Check and set rotation proportionally
-        double yawDifference = yaw - currentAngles.getYaw(AngleUnit.DEGREES);
-        if (Math.abs(yawDifference) >= 5) { // Rotate if outside threshold
-            rotate = Math.max(-1, Math.min(1, yawDifference / 30)); // Proportional control
+        double yawDifference = targetYawRads - currentAngles.getYaw(AngleUnit.RADIANS);
+        if (Math.abs(yawDifference) >= TURN_BUFFER) { // Rotate if outside threshold
+            rotate = yawDifference / TURN_SLOW_DOWN; // Proportional control
             onSpot = false;
         }
 
         // Move the robot
-        moveFieldRelative(forward, right, rotate, currentAngles.getYaw(AngleUnit.RADIANS));
+        moveFieldRelative(driveX, driveY, rotate, currentAngles.getYaw(AngleUnit.RADIANS));
         return onSpot;
     }
 }
