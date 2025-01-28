@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.autos;
+package org.firstinspires.ftc.teamcode.opmodes.autos.scorepreloadandpark;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -16,8 +16,10 @@ public class ScorePreloadAndParkBase extends OpMode {
 
     double NET_ZONE_X = 0.0; // CHANGE_ME!!
     double NET_ZONE_Y = 0.0; // CHANGE_ME!!
+    int NET_ZONE_YAW = 0;
     double PARK_X = 0.0; // CHANGE_ME!!
     double PARK_Y = 0.0; // CHANGE_ME!!
+    int PARK_YAW = 0;
     double BASKET_BUFFER = 3;
 
     @Override
@@ -50,7 +52,7 @@ public class ScorePreloadAndParkBase extends OpMode {
         int rotate = 0;
         switch (stage) {
             case 1:
-                if (robot.mecanumDrive.driveToPosition(NET_ZONE_X, NET_ZONE_Y, 45, position, angles))
+                if (robot.mecanumDrive.driveToPosition(NET_ZONE_X, NET_ZONE_Y, NET_ZONE_YAW, position, angles))
                     stage++;
                 break;
             case 2:
@@ -65,7 +67,7 @@ public class ScorePreloadAndParkBase extends OpMode {
                 break;
             case 4:
                 robot.manipulatorArm.setTargetArmExtension(robot.manipulatorArm.RETRACTED);
-                if (robot.mecanumDrive.driveToPosition(PARK_X, PARK_Y, 0, position, angles))
+                if (robot.mecanumDrive.driveToPosition(PARK_X, PARK_Y, PARK_YAW, position, angles))
                     stage++;
                 break;
         }

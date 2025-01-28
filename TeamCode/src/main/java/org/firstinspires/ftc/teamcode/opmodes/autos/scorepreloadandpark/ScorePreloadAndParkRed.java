@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.autos;
+package org.firstinspires.ftc.teamcode.opmodes.autos.scorepreloadandpark;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
