@@ -35,7 +35,6 @@ public class LimelightCamera {
         if (result != null) {
             if (result.isValid()) {
                 pos = result.getBotpose();
-                // TODO: Automatically update Optical Odometry?
                 live = true;
             }else {
                 live = false;

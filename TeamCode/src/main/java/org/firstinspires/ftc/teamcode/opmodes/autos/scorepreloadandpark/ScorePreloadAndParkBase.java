@@ -21,7 +21,7 @@ public class ScorePreloadAndParkBase extends OpMode {
     double PARK_Y = 0.0; // CHANGE_ME!!
     int PARK_YAW = 0;
 
-    public final int HIGH_BASKET_EXTENSION = 38;
+    public final int HIGH_BASKET_EXTENSION = 28;
     public final int RETRACTED_EXTENSION = 0;
 
     final double ARM_EXTENSION_RANGE = 1.0;

@@ -56,9 +56,9 @@ public class MecanumDrive {
     }
 
     public void moveFieldRelative(double x, double y, double rotate, double yawRads)
-    {
-        double forward = y * Math.sin(yawRads) + x * Math.cos(yawRads);
-        double right = y * Math.cos(yawRads) + x * Math.sin(yawRads);
+    { // In normal trig, 0 deg is right, but here, 0 deg is up
+        double forward = x * Math.sin(yawRads) + y * Math.cos(yawRads);
+        double right = x * Math.cos(yawRads) + y * Math.sin(yawRads);
         drive(forward, right, rotate);
     }
     public boolean driveToPosition(double targetX, double targetY, int targetYawRads, Position currentPosition, YawPitchRollAngles currentAngles) {
@@ -77,7 +77,7 @@ public class MecanumDrive {
         // Check and set right movement proportionally
         double xDifference = targetX - currentPosition.x;
         if (Math.abs(xDifference) >= X_BUFFER) { // Move if outside threshold
-            driveX = (xDifference) / X_SLOW_DOWN; // Proportional control
+            driveX = xDifference / X_SLOW_DOWN; // Proportional control
             onSpot = false;
         }
 

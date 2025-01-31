@@ -37,7 +37,7 @@ public class Robot {
         if (camera.isLive()) {
             return camera.getPosition();
         } else {
-              return new Position(DistanceUnit.INCH, opticalOdometry.getPosition().x, opticalOdometry.getPosition().y, camera.getPosition().z,0);
+            return new Position(DistanceUnit.INCH, opticalOdometry.getPosition().x, opticalOdometry.getPosition().y, camera.getPosition().z,0);
         }
     }
 
@@ -45,14 +45,14 @@ public class Robot {
         if (camera.isLive()) {
             return camera.getOrientation();
         } else {
-            return new YawPitchRollAngles(AngleUnit.DEGREES, opticalOdometry.getPosition().h,camera.getOrientation().getPitch(),camera.getOrientation().getRoll(),0);
+            return new YawPitchRollAngles(AngleUnit.DEGREES, opticalOdometry.getPosition().h, camera.getOrientation().getPitch(), camera.getOrientation().getRoll(),0);
         }
     }
 
     // call every frame
     public void updatePosition(){
         if (camera.isLive()) {
-            opticalOdometry.setPosition(new SparkFunOTOS.Pose2D(camera.getPosition().x,camera.getPosition().y,camera.getOrientation().getYaw()));
+            opticalOdometry.setPosition(new SparkFunOTOS.Pose2D(camera.getPosition().x, camera.getPosition().y, camera.getOrientation().getYaw()));
         }
     }
 }

@@ -6,10 +6,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 public class AutoClipBlue extends AutoClipBase {
     @Override
     public void init() { // TODO: Change to real tested numbers
-//        NET_ZONE_X = TILE*2.5;
-//        NET_ZONE_Y = TILE*2.5;
-//        PARK_X = TILE*2;
-//        PARK_Y= TILE*1;
+        CLIP_X = 0;
+        CLIP_Y = TILE*1.5;
+        CLIP_YAW = 180;
+        PICKUP_X = TILE*-2;
+        PICKUP_Y = TILE*2;
         super.init();
     }
 }
