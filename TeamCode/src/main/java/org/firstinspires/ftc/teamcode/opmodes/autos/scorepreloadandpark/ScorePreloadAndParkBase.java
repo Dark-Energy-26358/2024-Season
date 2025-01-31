@@ -20,7 +20,11 @@ public class ScorePreloadAndParkBase extends OpMode {
     double PARK_X = 0.0; // CHANGE_ME!!
     double PARK_Y = 0.0; // CHANGE_ME!!
     int PARK_YAW = 0;
-    double BASKET_BUFFER = 3;
+
+    public final int HIGH_BASKET_EXTENSION = 38;
+    public final int RETRACTED_EXTENSION = 0;
+
+    final double ARM_EXTENSION_RANGE = 1.0;
 
     @Override
     public void init() {
@@ -56,9 +60,8 @@ public class ScorePreloadAndParkBase extends OpMode {
                     stage++;
                 break;
             case 2:
-                robot.manipulatorArm.setTargetArmExtension(robot.manipulatorArm.HIGH_BASKET_EXTENSION);
-                int extensionDifference = (robot.manipulatorArm.getCurrentArmExtension()-robot.manipulatorArm.HIGH_BASKET_EXTENSION);
-                if (extensionDifference<BASKET_BUFFER)
+                robot.manipulatorArm.setTargetArmExtension(HIGH_BASKET_EXTENSION);
+                if (manipulatorArmWithinArmExtension(HIGH_BASKET_EXTENSION))
                     stage++;
                 break;
             case 3:
@@ -66,14 +69,16 @@ public class ScorePreloadAndParkBase extends OpMode {
                 stage++;
                 break;
             case 4:
-                robot.manipulatorArm.setTargetArmExtension(robot.manipulatorArm.RETRACTED);
+                robot.manipulatorArm.setTargetArmExtension(RETRACTED_EXTENSION);
+                if (manipulatorArmWithinArmExtension(RETRACTED_EXTENSION))
+                    stage++;
+                break;
+            case 5:
                 if (robot.mecanumDrive.driveToPosition(PARK_X, PARK_Y, PARK_YAW, position, angles))
                     stage++;
                 break;
         }
         robot.mecanumDrive.drive(forward, right, rotate);
-
-        telemetry.update();
 
         //TODO: DO DIS
         //plans:
@@ -82,5 +87,9 @@ public class ScorePreloadAndParkBase extends OpMode {
         //turn to drop piece
         //drop piece
         //go to hang zone
+    }
+
+    public boolean manipulatorArmWithinArmExtension(int target) {
+        return (Math.abs(robot.manipulatorArm.getCurrentArmExtension()-target) < ARM_EXTENSION_RANGE);
     }
 }

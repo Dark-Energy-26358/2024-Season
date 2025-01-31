@@ -22,7 +22,7 @@ public class MoveableArm implements org.firstinspires.ftc.teamcode.Interfaces.Mo
     protected int maxRotation;
     protected int minRotation;
 
-    protected int extensionMultiplier = 116;
+    protected int EXTENSION_TICKS_TO_INCHES = 116;
     protected int rotationMultiplier;
 
     public double speed = 1;
@@ -49,7 +49,7 @@ public class MoveableArm implements org.firstinspires.ftc.teamcode.Interfaces.Mo
 //27.5 in = 3200 tick(s)
     public void setTargetArmExtension(int targetExtension) {
         if (targetExtension > minExtension && targetExtension < maxExtension) {
-            extensionMotor.setTargetPosition(targetExtension * extensionMultiplier);
+            extensionMotor.setTargetPosition(targetExtension * EXTENSION_TICKS_TO_INCHES);
             extensionMotor.setPower(speed);
             extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             targetArmExtension = extensionMotor.getTargetPosition();
@@ -59,7 +59,7 @@ public class MoveableArm implements org.firstinspires.ftc.teamcode.Interfaces.Mo
     public void setTargetArmRotation(int targetRotation) {}
 
     public int getTargetArmExtension() {
-        return extensionMotor.getTargetPosition()/extensionMultiplier;
+        return extensionMotor.getTargetPosition()/ EXTENSION_TICKS_TO_INCHES;
     }
 
     public double getTargetArmRotation() {
@@ -69,7 +69,7 @@ public class MoveableArm implements org.firstinspires.ftc.teamcode.Interfaces.Mo
 
     public int getCurrentArmExtension() {
         currentArmExtension = extensionMotor.getCurrentPosition();
-        return currentArmExtension/extensionMultiplier;
+        return currentArmExtension/ EXTENSION_TICKS_TO_INCHES;
     }
 
     public double getCurrentArmRotation() {

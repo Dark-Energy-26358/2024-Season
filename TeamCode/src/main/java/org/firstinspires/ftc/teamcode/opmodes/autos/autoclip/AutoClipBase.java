@@ -17,17 +17,24 @@ public class AutoClipBase extends OpMode {
 
     double CLIP_X = 0.0; // CHANGE_ME!!
     double CLIP_Y = 0.0; // CHANGE_ME!!
-    int CLIP_YAW = 0;
-    double PICKUP_X = 0.0;
-    double PICKUP_Y = 0.0;
-    int PICKUP_YAW = 0;
-    double NET_CORNER_X = 0;
-    double NET_CORNER_Y = 0;
-    int NET_CORNER_YAW = 0;
+    int CLIP_YAW = 0;// CHANGE_ME!!
+    double PICKUP_X = 0.0;// CHANGE_ME!!
+    double PICKUP_Y = 0.0;// CHANGE_ME!!
+    int PICKUP_YAW = 0;// CHANGE_ME!!
+    double NET_CORNER_X = 0;// CHANGE_ME!!
+    double NET_CORNER_Y = 0; // CHANGE_ME!!
+    int NET_CORNER_YAW = 0; // CHANGE_ME!!
     double PARK_X = 0.0; // CHANGE_ME!!
     double PARK_Y = 0.0; // CHANGE_ME!!
-    int PARK_YAW = 0;
-    double EXTENSION_BUFFER = 3;
+    int PARK_YAW = 0;// CHANGE_ME!!
+
+    final int HIGH_BASKET_EXTENSION = 38;
+    final int HIGH_SPECIMEN_BAR_EXTENSION = 30;
+    final int HIGH_SPECIMEN_CLIPPING_EXTENSION = HIGH_SPECIMEN_BAR_EXTENSION-2;
+    final int RETRACTED_EXTENSION = 0;
+    final int PICKUP_ROTATION = 125;
+
+    public final double ARM_EXTENSION_RANGE = 1.0;
 
     private long startTime;
 
@@ -64,40 +71,42 @@ public class AutoClipBase extends OpMode {
         int right = 0;
         int rotate = 0;
         if (getAgeInSeconds() < 25) {
-//            switch (stage) {
-//                case 1:
-//                    robot.manipulatorArm.setTargetArmExtension(robot.manipulatorArm.HIGH_SPECIMEN_EXTENSION);
-//                    if (robot.manipulatorArm.withinTargetArmExtension())
-//                        stage++;
-//                    break;
-//                case 2:
-//                    if (robot.mecanumDrive.driveToPosition(CLIP_X, CLIP_Y, CLIP_YAW, position, angles))
-//                        stage++;
-//                    break;
-//                case 3:
-//                    robot.manipulatorArm.setTargetArmExtension(robot.manipulatorArm.HIGH_SPECIMEN_CLIP);
-//                    if (robot.manipulatorArm.withinTargetArmExtension())
-//                        stage++;
-//                    break;
-//                case 4:
-//                    robot.manipulatorArm.toggleManipulatorState();
-//                    stage++;
-//                    break;
-//                case 5:
-//                    robot.manipulatorArm.setTargetArmExtension(robot.manipulatorArm.RETRACTED);
-//                    if (robot.manipulatorArm.withinTargetArmExtension())
-//                        stage++;
-//                    break;
-//                case 6:
-//                    robot.manipulatorArm.setTargetArmRotation(robot.manipulatorArm
-//                            .PICKUP_ROTATION);
-//                    if (robot.mecanumDrive.driveToPosition(PICKUP_X, PICKUP_Y, PICKUP_YAW, position, angles))
-//                        stage++;
-//                    break;
-//                case 7:
-//                    stage=1;
-//                    break;
-//            }
+            switch (stage) {
+                case 1:
+                    if (robot.mecanumDrive.driveToPosition(CLIP_X, CLIP_Y, CLIP_YAW, position, angles))
+                        stage++;
+                    break;
+                case 2:
+                    robot.manipulatorArm.setTargetArmExtension(HIGH_SPECIMEN_BAR_EXTENSION);
+                    if (manipulatorArmWithinArmExtension(HIGH_SPECIMEN_BAR_EXTENSION))
+                        stage++;
+                    break;
+                case 3:
+                    robot.manipulatorArm.setTargetArmExtension(HIGH_SPECIMEN_CLIPPING_EXTENSION);
+                    if (manipulatorArmWithinArmExtension(HIGH_SPECIMEN_CLIPPING_EXTENSION)) {
+                        robot.manipulatorArm.toggleManipulatorState();
+                        stage++;
+                    }
+                    break;
+                case 4:
+                case 7:
+                    robot.manipulatorArm.setTargetArmExtension(RETRACTED_EXTENSION);
+                    if (manipulatorArmWithinArmExtension(RETRACTED_EXTENSION))
+                        stage++;
+                    break;
+                case 5:
+                    if (robot.mecanumDrive.driveToPosition(PICKUP_X, PICKUP_Y, PICKUP_YAW, position, angles))
+                        stage++;
+                    break;
+                case 6:
+                    robot.manipulatorArm.setTargetArmRotation(PICKUP_ROTATION);
+                    if (manipulatorArmWithinArmRotation(PICKUP_ROTATION)) {
+                        robot.manipulatorArm.toggleManipulatorState();
+                        stage++;
+                    }
+                    break;
+                // Case 7 is the same as case 4
+            }
         } else {
             if (!parking) {
                 stage = 1;
@@ -127,9 +136,16 @@ public class AutoClipBase extends OpMode {
         //go to hang zone
     }
 
-
     public int getAgeInSeconds() {
         long nowMillis = System.currentTimeMillis();
         return (int)((nowMillis - this.startTime) / 1000);
+    }
+
+    public boolean manipulatorArmWithinArmExtension(int target) {
+        return (Math.abs(robot.manipulatorArm.getCurrentArmExtension()-target) < ARM_EXTENSION_RANGE);
+    }
+
+    public boolean manipulatorArmWithinArmRotation(int target) {
+        return (Math.abs(robot.manipulatorArm.getCurrentArmRotation()-target) < ARM_EXTENSION_RANGE);
     }
 }
