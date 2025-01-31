@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Robot;
 
 public class ScorePreloadAndParkBase extends OpMode {
 
-    public final int HIGH_BASKET_EXTENSION = 28;
+    public final int HIGH_BASKET_EXTENSION = 25;
     public final int RETRACTED_EXTENSION = 0;
     final double TILE = 24;
     final double ARM_EXTENSION_RANGE = 1.0;

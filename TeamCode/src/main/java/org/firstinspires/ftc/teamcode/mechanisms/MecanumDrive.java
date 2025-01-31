@@ -77,14 +77,14 @@ public class MecanumDrive {
         // Check and set right movement proportionally
         double xDifference = targetX - currentPosition.x;
         if (Math.abs(xDifference) >= X_BUFFER) { // Move if outside threshold
-            driveX = xDifference / X_SLOW_DOWN; // Proportional control
+            driveX = xDifference / X_SLOW_DOWN / 2; // Proportional control
             onSpot = false;
         }
 
         // Check and set forward movement proportionally
         double yDifference = targetY - currentPosition.y;
         if (Math.abs(yDifference) >= Y_BUFFER) { // Move if outside threshold
-            driveY = yDifference / Y_SLOW_DOWN; // Proportional control
+            driveY = yDifference / Y_SLOW_DOWN / 2; // Proportional control
             onSpot = false;
         }
 
