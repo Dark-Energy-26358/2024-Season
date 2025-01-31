@@ -12,6 +12,12 @@ public class StageOneAscentArms extends MoveableArm {
 
     @Override
     public void init(HardwareMap hardwareMap) {
+        maxExtension = 0;
+        minExtension = 0;
+
+        maxRotation = 1;
+        minRotation = -1;
+
         extensionMotorName = "stageOneExtensionMotor";
         rotationServo1 = hardwareMap.servo.get("stageOneServo1");
         rotationServo2 = hardwareMap.servo.get("stageOneServo2");
@@ -20,8 +26,10 @@ public class StageOneAscentArms extends MoveableArm {
     }
 
     public void setTargetArmRotation(double targetRotation){
-        rotationServo1.setPosition(targetRotation);
-        rotationServo2.setPosition(targetRotation);
+        if (targetRotation > minRotation && targetRotation < maxRotation) {
+            rotationServo1.setPosition(targetRotation);
+            rotationServo2.setPosition(targetRotation);
+        }
     }
 
     public double getTargetArmRotation() {
