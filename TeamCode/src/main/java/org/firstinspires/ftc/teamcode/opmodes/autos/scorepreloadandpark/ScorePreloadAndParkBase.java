@@ -51,6 +51,7 @@ public class ScorePreloadAndParkBase extends OpMode {
         telemetry.addData("Robot says Position", position.toString());
         telemetry.addData("Robot says Orientation", angles.toString());
         telemetry.addData("Camera says Live", robot.camera.isLive());
+        telemetry.addData("Robot says Arm Extension", robot.manipulatorArm.getCurrentArmExtension());
         int forward = 0;
         int right = 0;
         int rotate = 0;
