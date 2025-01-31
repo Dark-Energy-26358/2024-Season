@@ -40,7 +40,7 @@ public class Teleop extends OpMode {
 
         robot.mecanumDrive.drive(forward,right,rotate);
 
-        if (robot.manipulatorArm.getCurrentArmRotation() > 30 || robot.manipulatorArm.getCurrentArmRotation() < -30){
+        if (robot.manipulatorArm.getCurrentArmRotation() > 30 || robot.manipulatorArm.getCurrentArmRotation() < -60){
             robot.manipulatorArm.setTargetArmExtension(0);
         }
 
@@ -73,7 +73,7 @@ public class Teleop extends OpMode {
             manipulatorJustToggled = false;
         }
 
-        manipPos -= gamepad2.right_stick_y/10;
+        manipPos += gamepad2.right_stick_y/50;
         robot.manipulatorArm.setTargetManipulatorWristPosition(manipPos);
 
         if (gamepad2.left_stick_y != 0) {
