@@ -91,7 +91,7 @@ public class MecanumDrive {
         // Check and set rotation proportionally
         double yawDifference = targetYawRads - currentAngles.getYaw(AngleUnit.RADIANS);
         if (Math.abs(yawDifference) >= TURN_BUFFER) { // Rotate if outside threshold
-            rotate = yawDifference / TURN_SLOW_DOWN; // Proportional control
+            rotate = yawDifference / TURN_SLOW_DOWN / 4; // Proportional control
             onSpot = false;
         }
 
