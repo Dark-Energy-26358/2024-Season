@@ -22,6 +22,12 @@ public class ManipulatorArm extends MoveableArm {
 
     @Override
     public void init(HardwareMap hardwareMap) {
+        maxExtension = 40;
+        minExtension = 0;
+
+        maxRotation = 100;
+        minRotation = -45;
+
         manipulator = hardwareMap.servo.get("manipulator");
         manipulator.resetDeviceConfigurationForOpMode();
 
@@ -46,11 +52,13 @@ public class ManipulatorArm extends MoveableArm {
     }
 
     public void setTargetArmRotation(int targetRotation) {
-        stopped = false;
-        rotationMotor.setTargetPosition(targetRotation*27);
-        rotationMotor.setPower(speed);
-        rotationMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        targetArmRotation = rotationMotor.getTargetPosition();
+        if (targetRotation > minRotation && targetRotation < maxRotation){
+            stopped = false;
+            rotationMotor.setTargetPosition(targetRotation * 27);
+            rotationMotor.setPower(speed);
+            rotationMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            targetArmRotation = rotationMotor.getTargetPosition();
+        }
     }
 
     @Override

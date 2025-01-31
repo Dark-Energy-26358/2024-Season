@@ -48,10 +48,12 @@ public class MoveableArm implements org.firstinspires.ftc.teamcode.Interfaces.Mo
 
 //27.5 in = 3200 tick(s)
     public void setTargetArmExtension(int targetExtension) {
-        extensionMotor.setTargetPosition(targetExtension*extensionMultiplier);
-        extensionMotor.setPower(speed);
-        extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        targetArmExtension = extensionMotor.getTargetPosition();
+        if (targetExtension > minExtension && targetExtension < maxExtension) {
+            extensionMotor.setTargetPosition(targetExtension * extensionMultiplier);
+            extensionMotor.setPower(speed);
+            extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            targetArmExtension = extensionMotor.getTargetPosition();
+        }
     }
     //1.5˚ = 1 tick(s)
     public void setTargetArmRotation(int targetRotation) {}
