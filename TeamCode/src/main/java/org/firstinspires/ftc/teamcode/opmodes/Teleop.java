@@ -13,7 +13,7 @@ public class Teleop extends OpMode {
 
     Robot robot = new Robot();
     boolean manipulatorJustToggled = false;
-    double manipPos = 0.5;
+    double manipWristPos = 0.5;
 
     @Override
     public void init() {
@@ -73,8 +73,14 @@ public class Teleop extends OpMode {
             manipulatorJustToggled = false;
         }
 
-        manipPos += gamepad2.right_stick_y/50;
-        robot.manipulatorArm.setTargetManipulatorWristPosition(manipPos);
+        manipWristPos += gamepad2.right_stick_y/50;
+        if (manipWristPos > 1){
+            manipWristPos = 1;
+        } else if (manipWristPos < 0) {
+            manipWristPos = 0;
+        }
+
+        robot.manipulatorArm.setTargetManipulatorWristPosition(manipWristPos);
 
         if (gamepad2.left_stick_y != 0) {
             robot.manipulatorArm.setTargetArmExtension((int) (robot.manipulatorArm.getTargetArmExtension() + -gamepad2.left_stick_y));
