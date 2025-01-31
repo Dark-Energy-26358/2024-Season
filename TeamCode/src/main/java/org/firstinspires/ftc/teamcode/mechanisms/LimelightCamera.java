@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.mechanisms;
 
 
+import com.qualcomm.hardware.limelightvision.LLResult;
+import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -8,9 +10,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
-
-import com.qualcomm.hardware.limelightvision.LLResult;
-import com.qualcomm.hardware.limelightvision.Limelight3A;
 
 
 public class LimelightCamera {
@@ -42,12 +41,12 @@ public class LimelightCamera {
         }
     }
 
-    public Position getPosition(){
+    public Position getPosition() {
         updateCamera();
         return pos.getPosition().toUnit(DistanceUnit.INCH);
     }
 
-    public YawPitchRollAngles getOrientation(){
+    public YawPitchRollAngles getOrientation() {
         updateCamera();
         return pos.getOrientation();
     }
@@ -57,7 +56,7 @@ public class LimelightCamera {
         return live;
     }
 
-    public void stop(){
+    public void stop() {
         limelight.stop();
     }
 }

@@ -25,18 +25,18 @@ public class StageOneAscentArms extends MoveableArm {
         super.init(hardwareMap);
     }
 
-    public void setTargetArmRotation(double targetRotation){
+    public double getTargetArmRotation() {
+        return (rotationServo1.getPosition() + rotationServo2.getPosition()) / 2;
+    }
+
+    public void setTargetArmRotation(double targetRotation) {
         if (targetRotation > minRotation && targetRotation < maxRotation) {
             rotationServo1.setPosition(targetRotation);
             rotationServo2.setPosition(targetRotation);
         }
     }
 
-    public double getTargetArmRotation() {
-        return (rotationServo1.getPosition()+rotationServo2.getPosition())/2;
-    }
-
     public double getCurrentArmRotation() {
-        return (rotationServo1.getPosition()+rotationServo2.getPosition())/2;
+        return (rotationServo1.getPosition() + rotationServo2.getPosition()) / 2;
     }
 }

@@ -55,19 +55,19 @@ public class MecanumDrive {
         setPowers(frontLeftPower, frontRightPower, backLeftPower, backRightPower);
     }
 
-    public void moveFieldRelative(double x, double y, double rotate, double yawRads)
-    { // In normal trig, 0 deg is right, but here, 0 deg is up
+    public void moveFieldRelative(double x, double y, double rotate, double yawRads) { // In normal trig, 0 deg is right, but here, 0 deg is up
         double forward = x * Math.sin(yawRads) + y * Math.cos(yawRads);
         double right = x * Math.cos(yawRads) + y * Math.sin(yawRads);
         drive(forward, right, rotate);
     }
+
     public boolean driveToPosition(double targetX, double targetY, double targetYawRads, Position currentPosition, YawPitchRollAngles currentAngles) {
         final int X_BUFFER = 5;
         final int Y_BUFFER = 5;
         final int TURN_BUFFER = 5;
         final int X_SLOW_DOWN = 10;
         final int Y_SLOW_DOWN = 10;
-        final double TURN_SLOW_DOWN = Math.PI*2;
+        final double TURN_SLOW_DOWN = Math.PI * 2;
 
         double driveX = 0;
         double driveY = 0;

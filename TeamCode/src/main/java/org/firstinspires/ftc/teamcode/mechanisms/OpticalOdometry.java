@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 public class OpticalOdometry {
     public SparkFunOTOS odometryPod;
 
-    public void init(HardwareMap hardwareMap){
+    public void init(HardwareMap hardwareMap) {
         odometryPod = hardwareMap.get(SparkFunOTOS.class, "odometryPod");
 
         // Set the desired units for linear and angular measurements. Can be either
@@ -84,13 +84,12 @@ public class OpticalOdometry {
         odometryPod.getVersionInfo(hwVersion, fwVersion);
 
     }
-    public SparkFunOTOS.Pose2D getPosition(){
+
+    public SparkFunOTOS.Pose2D getPosition() {
         return odometryPod.getPosition();
     }
 
-    public void setPosition(SparkFunOTOS.Pose2D pose){
+    public void setPosition(SparkFunOTOS.Pose2D pose) {
         odometryPod.setPosition(pose);
     }
-
-
 }

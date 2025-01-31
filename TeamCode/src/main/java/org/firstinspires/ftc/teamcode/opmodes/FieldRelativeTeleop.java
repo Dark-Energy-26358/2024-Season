@@ -7,20 +7,16 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.Robot;
 
-@TeleOp(name="DEV ONLY, DO NOT USE", group = "z/dev")
+@TeleOp(name = "DEV ONLY, DO NOT USE", group = "z/dev")
 public class FieldRelativeTeleop extends OpMode {
 
+    final double MANIPULATOR_SPEED = 0.5;
+    final double ASCENT_SPEED = 0.5;
     Robot robot = new Robot();
     boolean manipulatorJustToggled = false;
-
     boolean active = false;
     boolean justInput = false;
-
     String password = "";
-
-    final double MANIPULATOR_SPEED = 0.5;
-
-    final double ASCENT_SPEED = 0.5;
 
     @Override
     public void init() {
@@ -28,17 +24,55 @@ public class FieldRelativeTeleop extends OpMode {
     }
 
     @Override
-    public void init_loop(){
-        if (gamepad1.dpad_up){if (!justInput){password += "u"; justInput = true;}}
-        else if (gamepad1.dpad_down){if (!justInput){password += "d"; justInput = true;}}
-        else if (gamepad1.dpad_left){if (!justInput){password += "l"; justInput = true;}}
-        else if (gamepad1.dpad_right){if (!justInput){password += "r"; justInput = true;}}
-        else if (gamepad1.a){if (!justInput){password += "a"; justInput = true;}}
-        else if (gamepad1.b){if (!justInput){password += "b"; justInput = true;}}
-        else if (gamepad1.x){if (!justInput){password += "x"; justInput = true;}}
-        else if (gamepad1.y){if (!justInput){password += "y"; justInput = true;}}
-        else if (gamepad1.start){if (!justInput){password += "s"; justInput = true;}}
-        else {justInput = false;}
+    public void init_loop() {
+        if (gamepad1.dpad_up) {
+            if (!justInput) {
+                password += "u";
+                justInput = true;
+            }
+        } else if (gamepad1.dpad_down) {
+            if (!justInput) {
+                password += "d";
+                justInput = true;
+            }
+        } else if (gamepad1.dpad_left) {
+            if (!justInput) {
+                password += "l";
+                justInput = true;
+            }
+        } else if (gamepad1.dpad_right) {
+            if (!justInput) {
+                password += "r";
+                justInput = true;
+            }
+        } else if (gamepad1.a) {
+            if (!justInput) {
+                password += "a";
+                justInput = true;
+            }
+        } else if (gamepad1.b) {
+            if (!justInput) {
+                password += "b";
+                justInput = true;
+            }
+        } else if (gamepad1.x) {
+            if (!justInput) {
+                password += "x";
+                justInput = true;
+            }
+        } else if (gamepad1.y) {
+            if (!justInput) {
+                password += "y";
+                justInput = true;
+            }
+        } else if (gamepad1.start) {
+            if (!justInput) {
+                password += "s";
+                justInput = true;
+            }
+        } else {
+            justInput = false;
+        }
 
         active = password.equals("uuddlrlrbas");
         telemetry.addData("password:", password);

@@ -6,14 +6,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.Interfaces.MoveableArm;
-
-public class StageTwoAscentArms{
-
-    private DcMotor motor;
+public class StageTwoAscentArms {
 
     final String motorName = "stageTwoAscentMotor";
-
+    private DcMotor motor;
 
     public void init(HardwareMap hardwareMap) {
         motor = hardwareMap.dcMotor.get(motorName);

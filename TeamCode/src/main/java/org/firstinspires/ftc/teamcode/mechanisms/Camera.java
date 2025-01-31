@@ -11,8 +11,6 @@ import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -35,21 +33,23 @@ public class Camera {
         }
     }
 
-    public Position getPosition(){
+    public Position getPosition() {
         updateCamera();
-        if(pos != null) {
+        if (pos != null) {
             return pos.getPosition();
         }
         return null;
     }
-    public YawPitchRollAngles getOrientation(){
+
+    public YawPitchRollAngles getOrientation() {
         updateCamera();
-        if(pos != null) {
+        if (pos != null) {
             return pos.getOrientation();
         }
         return null;
     }
-    public void stop(){
+
+    public void stop() {
         visionPortal.stopStreaming();
     }
 

@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 public final class Globals {
     private static Globals INSTANCE;
-    private String info = "Global variables to be shared between autonoumous and teleop";
 
     private Boolean manipArmAccurate = false;
 

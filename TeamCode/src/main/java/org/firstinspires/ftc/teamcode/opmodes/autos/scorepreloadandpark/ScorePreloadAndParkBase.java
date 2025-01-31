@@ -9,22 +9,18 @@ import org.firstinspires.ftc.teamcode.Robot;
 
 public class ScorePreloadAndParkBase extends OpMode {
 
-    Robot robot = new Robot();
-
-    int stage = 1;
+    public final int HIGH_BASKET_EXTENSION = 28;
+    public final int RETRACTED_EXTENSION = 0;
     final double TILE = 24;
-
+    final double ARM_EXTENSION_RANGE = 1.0;
+    Robot robot = new Robot();
+    int stage = 1;
     double NET_ZONE_X = 0.0; // CHANGE_ME!!
     double NET_ZONE_Y = 0.0; // CHANGE_ME!!
     double NET_ZONE_YAW_RAD = 0;
     double PARK_X = 0.0; // CHANGE_ME!!
     double PARK_Y = 0.0; // CHANGE_ME!!
     double PARK_YAW_RAD = 0;
-
-    public final int HIGH_BASKET_EXTENSION = 28;
-    public final int RETRACTED_EXTENSION = 0;
-
-    final double ARM_EXTENSION_RANGE = 1.0;
 
     @Override
     public void init() {
@@ -89,6 +85,6 @@ public class ScorePreloadAndParkBase extends OpMode {
     }
 
     public boolean manipulatorArmWithinArmExtension(int target) {
-        return (Math.abs(robot.manipulatorArm.getCurrentArmExtension()-target) < ARM_EXTENSION_RANGE);
+        return (Math.abs(robot.manipulatorArm.getCurrentArmExtension() - target) < ARM_EXTENSION_RANGE);
     }
 }

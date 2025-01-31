@@ -8,15 +8,8 @@ import org.firstinspires.ftc.teamcode.classes.MoveableArm;
 
 public class ManipulatorArm extends MoveableArm {
     public String rotationMotorName = "manipulatorRotationMotor";
-
     public boolean manipulatorClosed = false;
-
     public DcMotor rotationMotor;
-
-    public final int HIGH_BASKET_EXTENSION = 38;
-    public final int RETRACTED = 0;
-
-    // TODO: Add LOW_BASKET_EXTENSION
     Servo manipulator;
     Servo wrist;
 
@@ -51,8 +44,13 @@ public class ManipulatorArm extends MoveableArm {
         super.stop();
     }
 
+    @Override
+    public double getTargetArmRotation() {
+        return targetArmRotation / 26.66666667;
+    }
+
     public void setTargetArmRotation(int targetRotation) {
-        if (targetRotation > minRotation && targetRotation < maxRotation){
+        if (targetRotation > minRotation && targetRotation < maxRotation) {
             stopped = false;
             rotationMotor.setTargetPosition(targetRotation * 27);
             rotationMotor.setPower(speed);
@@ -62,19 +60,14 @@ public class ManipulatorArm extends MoveableArm {
     }
 
     @Override
-    public double getTargetArmRotation() {
-        return targetArmRotation/26.66666667;
-    }
-
-    @Override
     public double getCurrentArmRotation() {
         currentArmRotation = rotationMotor.getCurrentPosition();
-        return currentArmRotation/26.66666667;
+        return currentArmRotation / 26.66666667;
         //2400 : 90
     }
 
-    public void toggleManipulatorState(){
-        if (!manipulatorClosed){
+    public void toggleManipulatorState() {
+        if (!manipulatorClosed) {
             // closing manipulator
             manipulator.setPosition(0.95);
             manipulatorClosed = true;
@@ -84,7 +77,8 @@ public class ManipulatorArm extends MoveableArm {
             manipulatorClosed = false;
         }
     }
-    public void setTargetManipulatorWristPosition(double degrees){
+
+    public void setTargetManipulatorWristPosition(double degrees) {
         wrist.setPosition(degrees);
     }
 }

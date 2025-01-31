@@ -34,7 +34,7 @@ public class DriveToObservationZoneFromRight extends OpMode {
             }
         }
 
-        if (getAgeInSeconds()<8) {
+        if (getAgeInSeconds() < 8) {
             robot.mecanumDrive.drive(0, 0.2, 0);
         }
 
@@ -49,6 +49,6 @@ public class DriveToObservationZoneFromRight extends OpMode {
 
     public int getAgeInSeconds() {
         long nowMillis = System.currentTimeMillis();
-        return (int)((nowMillis - this.startTime) / 1000);
+        return (int) ((nowMillis - this.startTime) / 1000);
     }
 }
