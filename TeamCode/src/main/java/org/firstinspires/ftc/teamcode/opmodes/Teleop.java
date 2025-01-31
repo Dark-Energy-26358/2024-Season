@@ -10,9 +10,9 @@ import org.firstinspires.ftc.teamcode.Robot;
 @TeleOp(name = "TeleOp")
 public class Teleop extends OpMode {
 
-    final double FORWARD_COEFFICENT = 0.4;
-    final double RIGHT_COEFFICENT = 0.4;
-    final double TURN_COEFFICENT = 0.3;
+    final double FORWARD_COEFFICIENT = 0.4;
+    final double RIGHT_COEFFICIENT = 0.4;
+    final double TURN_COEFFICIENT = 0.3;
     final double MANIPULATOR_SPEED = 0.5;
     final double ASCENT_SPEED = 0.5;
     Robot robot = new Robot();
@@ -37,9 +37,9 @@ public class Teleop extends OpMode {
 
         robot.updatePosition();
 
-        double forward = -gamepad1.left_stick_y * FORWARD_COEFFICENT;
-        double right = gamepad1.left_stick_x * RIGHT_COEFFICENT;
-        double rotate = gamepad1.right_stick_x * TURN_COEFFICENT;
+        double forward = -gamepad1.left_stick_y * FORWARD_COEFFICIENT;
+        double right = gamepad1.left_stick_x * RIGHT_COEFFICIENT;
+        double rotate = gamepad1.right_stick_x * TURN_COEFFICIENT;
 
         robot.mecanumDrive.drive(forward, right, rotate);
 
