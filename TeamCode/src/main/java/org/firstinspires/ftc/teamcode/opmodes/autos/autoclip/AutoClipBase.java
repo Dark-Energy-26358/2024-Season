@@ -67,9 +67,6 @@ public class AutoClipBase extends OpMode {
         telemetry.addData("Robot says Position", position.toString());
         telemetry.addData("Robot says Orientation", angles.toString());
         telemetry.addData("Camera says Live", robot.camera.isLive());
-        int forward = 0;
-        int right = 0;
-        int rotate = 0;
         if (getAgeInSeconds() < 25) {
             switch (stage) {
                 case 1:
@@ -123,7 +120,6 @@ public class AutoClipBase extends OpMode {
             }
             parking = true;
         }
-        robot.mecanumDrive.drive(forward, right, rotate);
 
         telemetry.update();
 

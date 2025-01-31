@@ -52,9 +52,6 @@ public class ScorePreloadAndParkBase extends OpMode {
         telemetry.addData("Robot says Orientation", angles.toString());
         telemetry.addData("Camera says Live", robot.camera.isLive());
         telemetry.addData("Robot says Arm Extension", robot.manipulatorArm.getCurrentArmExtension());
-        int forward = 0;
-        int right = 0;
-        int rotate = 0;
         switch (stage) {
             case 1:
                 if (robot.mecanumDrive.driveToPosition(NET_ZONE_X, NET_ZONE_Y, NET_ZONE_YAW, position, angles))
@@ -79,7 +76,6 @@ public class ScorePreloadAndParkBase extends OpMode {
                     stage++;
                 break;
         }
-        robot.mecanumDrive.drive(forward, right, rotate);
 
         //TODO: DO DIS
         //plans:
