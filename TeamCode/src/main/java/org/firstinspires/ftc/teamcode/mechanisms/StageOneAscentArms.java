@@ -12,7 +12,7 @@ public class StageOneAscentArms extends MoveableArm {
 
     @Override
     public void init(HardwareMap hardwareMap) {
-        maxExtension = 0;
+        maxExtension = 13;
         minExtension = 0;
 
         maxRotation = 1;
