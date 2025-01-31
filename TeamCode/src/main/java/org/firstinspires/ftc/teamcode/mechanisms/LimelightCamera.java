@@ -44,18 +44,12 @@ public class LimelightCamera {
 
     public Position getPosition(){
         updateCamera();
-        if(pos != null) {
-            return pos.getPosition().toUnit(DistanceUnit.INCH);
-        }
-        return null;
+        return pos.getPosition().toUnit(DistanceUnit.INCH);
     }
 
     public YawPitchRollAngles getOrientation(){
         updateCamera();
-        if(pos != null) {
-            return pos.getOrientation();
-        }
-        return null;
+        return pos.getOrientation();
     }
 
     public boolean isLive() {
