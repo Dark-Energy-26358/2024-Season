@@ -13,6 +13,7 @@ public class Teleop extends OpMode {
 
     Robot robot = new Robot();
     boolean manipulatorJustToggled = false;
+    double manipWristPos = 0.5;
 
     @Override
     public void init() {
@@ -39,7 +40,7 @@ public class Teleop extends OpMode {
 
         robot.mecanumDrive.drive(forward,right,rotate);
 
-        if (robot.manipulatorArm.getCurrentArmRotation() > 30 || robot.manipulatorArm.getCurrentArmRotation() < -30){
+        if (robot.manipulatorArm.getCurrentArmRotation() > 30 || robot.manipulatorArm.getCurrentArmRotation() < -60){
             robot.manipulatorArm.setTargetArmExtension(0);
         }
 
@@ -72,13 +73,14 @@ public class Teleop extends OpMode {
             manipulatorJustToggled = false;
         }
 
-        if (gamepad2.right_stick_y < 0){
-            robot.manipulatorArm.setTargetManipulatorWristPosition(-gamepad2.right_stick_y/10 + 0.5);
-        } else if (gamepad2.right_stick_y > 0) {
-            robot.manipulatorArm.setTargetManipulatorWristPosition(-gamepad2.right_stick_y/10 + 0.5);
-        } else if (gamepad2.right_stick_y == 0){
-            robot.manipulatorArm.setTargetManipulatorWristPosition(0.5);
+        manipWristPos += gamepad2.right_stick_y/50;
+        if (manipWristPos > 1){
+            manipWristPos = 1;
+        } else if (manipWristPos < 0) {
+            manipWristPos = 0;
         }
+
+        robot.manipulatorArm.setTargetManipulatorWristPosition(manipWristPos);
 
         if (gamepad2.left_stick_y != 0) {
             robot.manipulatorArm.setTargetArmExtension((int) (robot.manipulatorArm.getTargetArmExtension() + -gamepad2.left_stick_y));
