@@ -28,7 +28,7 @@ public class LimelightCamera {
          * Starts polling for data.
          */
         limelight.start();
-    }// }
+    }
 
     private void updateCamera() {
         LLResult result = limelight.getLatestResult();
@@ -36,7 +36,7 @@ public class LimelightCamera {
             if (result.isValid()) {
                 pos = result.getBotpose();
                 live = true;
-            }else {
+            } else {
                 live = false;
             }
         }
@@ -49,6 +49,7 @@ public class LimelightCamera {
         }
         return null;
     }
+
     public YawPitchRollAngles getOrientation(){
         updateCamera();
         if(pos != null) {
@@ -61,8 +62,8 @@ public class LimelightCamera {
         updateCamera();
         return live;
     }
+
     public void stop(){
         limelight.stop();
     }
-
 }
