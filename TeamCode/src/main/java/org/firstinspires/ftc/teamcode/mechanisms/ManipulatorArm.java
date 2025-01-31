@@ -82,4 +82,8 @@ public class ManipulatorArm extends MoveableArm {
     public void setTargetManipulatorWristPosition(double degrees){
         wrist.setPosition(degrees);
     }
+
+    public double getTargetManipulatorWristPosition(){
+        return wrist.getPosition();
+    }
 }
