@@ -57,19 +57,17 @@ public class ScorePreloadAndParkBase extends OpMode {
                 break;
             case 2:
                 robot.manipulatorArm.setTargetArmExtension(HIGH_BASKET_EXTENSION);
-                if (manipulatorArmWithinArmExtension(HIGH_BASKET_EXTENSION))
+                if (manipulatorArmWithinArmExtension(HIGH_BASKET_EXTENSION)) {
+                    robot.manipulatorArm.toggleManipulatorState();
                     stage++;
+                }
                 break;
             case 3:
-                robot.manipulatorArm.toggleManipulatorState();
-                stage++;
-                break;
-            case 4:
                 robot.manipulatorArm.setTargetArmExtension(RETRACTED_EXTENSION);
                 if (manipulatorArmWithinArmExtension(RETRACTED_EXTENSION))
                     stage++;
                 break;
-            case 5:
+            case 4:
                 if (robot.mecanumDrive.driveToPosition(PARK_X, PARK_Y, PARK_YAW_RAD, position, angles))
                     stage++;
                 break;

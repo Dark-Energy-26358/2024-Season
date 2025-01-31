@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 public class ScorePreloadAndParkBlue extends ScorePreloadAndParkBase {
     @Override
     public void init() {
-        NET_ZONE_X = TILE * 2.5;
-        NET_ZONE_Y = TILE * 2.5;
+        NET_ZONE_X = TILE * 2;
+        NET_ZONE_Y = TILE * 2;
         NET_ZONE_YAW_RAD = Math.toRadians(45);
         PARK_X = TILE * 2;
         PARK_Y = TILE * 1;
