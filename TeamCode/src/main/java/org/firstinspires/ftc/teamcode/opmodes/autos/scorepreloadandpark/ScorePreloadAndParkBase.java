@@ -16,10 +16,10 @@ public class ScorePreloadAndParkBase extends OpMode {
 
     double NET_ZONE_X = 0.0; // CHANGE_ME!!
     double NET_ZONE_Y = 0.0; // CHANGE_ME!!
-    int NET_ZONE_YAW = 0;
+    double NET_ZONE_YAW_RAD = 0;
     double PARK_X = 0.0; // CHANGE_ME!!
     double PARK_Y = 0.0; // CHANGE_ME!!
-    int PARK_YAW = 0;
+    double PARK_YAW_RAD = 0;
 
     public final int HIGH_BASKET_EXTENSION = 28;
     public final int RETRACTED_EXTENSION = 0;
@@ -56,7 +56,7 @@ public class ScorePreloadAndParkBase extends OpMode {
 
         switch (stage) {
             case 1:
-                if (robot.mecanumDrive.driveToPosition(NET_ZONE_X, NET_ZONE_Y, NET_ZONE_YAW, position, angles))
+                if (robot.mecanumDrive.driveToPosition(NET_ZONE_X, NET_ZONE_Y, NET_ZONE_YAW_RAD, position, angles))
                     stage++;
                 break;
             case 2:
@@ -74,7 +74,7 @@ public class ScorePreloadAndParkBase extends OpMode {
                     stage++;
                 break;
             case 5:
-                if (robot.mecanumDrive.driveToPosition(PARK_X, PARK_Y, PARK_YAW, position, angles))
+                if (robot.mecanumDrive.driveToPosition(PARK_X, PARK_Y, PARK_YAW_RAD, position, angles))
                     stage++;
                 break;
         }

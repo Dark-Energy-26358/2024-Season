@@ -61,7 +61,7 @@ public class MecanumDrive {
         double right = x * Math.cos(yawRads) + y * Math.sin(yawRads);
         drive(forward, right, rotate);
     }
-    public boolean driveToPosition(double targetX, double targetY, int targetYawRads, Position currentPosition, YawPitchRollAngles currentAngles) {
+    public boolean driveToPosition(double targetX, double targetY, double targetYawRads, Position currentPosition, YawPitchRollAngles currentAngles) {
         final int X_BUFFER = 5;
         final int Y_BUFFER = 5;
         final int TURN_BUFFER = 5;
