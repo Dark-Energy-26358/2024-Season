@@ -12,7 +12,7 @@ public class ScorePreloadAndParkBase extends OpMode {
     public final int HIGH_BASKET_EXTENSION = 25;
     public final int RETRACTED_EXTENSION = 0;
     final double TILE = 24;
-    final double ARM_EXTENSION_RANGE = 1.0;
+    final double ARM_ACCURACY_RANGE = 2.0;
     Robot robot = new Robot();
     int stage = 1;
     double NET_ZONE_X = 0.0; // CHANGE_ME!!
@@ -83,6 +83,6 @@ public class ScorePreloadAndParkBase extends OpMode {
     }
 
     public boolean manipulatorArmWithinArmExtension(int target) {
-        return (Math.abs(robot.manipulatorArm.getCurrentArmExtension() - target) < ARM_EXTENSION_RANGE);
+        return (Math.abs(robot.manipulatorArm.getCurrentArmExtension() - target) < ARM_ACCURACY_RANGE);
     }
 }

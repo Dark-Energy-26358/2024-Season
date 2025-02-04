@@ -15,7 +15,7 @@ public class ManipulatorArm extends MoveableArm {
 
     @Override
     public void init(HardwareMap hardwareMap) {
-        maxExtension = 40;
+        maxExtension = 28;
         minExtension = 0;
 
         maxRotation = 100;
