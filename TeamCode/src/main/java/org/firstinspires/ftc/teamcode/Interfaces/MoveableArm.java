@@ -8,8 +8,8 @@ public interface MoveableArm {
 
     void stop();//stops arm
 
-    void setTargetArmExtension(int targetExtension); //set your target extension, the arm will go to that position. this should be in inches.
-    void setTargetArmRotation(int targetRotation); //set your target rotation, the arm will go to that rotation. this should be in degrees. 90 degrees is verticle, 0 in flat on the robot and 180 it flat away from the robot.
+    void setTargetArmExtension(double targetExtension); //set your target extension, the arm will go to that position. this should be in inches.
+    void setTargetArmRotation(double targetRotation); //set your target rotation, the arm will go to that rotation. this should be in degrees. 90 degrees is verticle, 0 in flat on the robot and 180 it flat away from the robot.
 
     int getTargetArmExtension(); //gets target arm extension in inches
     double getTargetArmRotation(); //gets target arm rotation in degrees
