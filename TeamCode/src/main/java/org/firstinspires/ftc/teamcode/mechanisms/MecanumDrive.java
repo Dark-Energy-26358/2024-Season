@@ -56,18 +56,18 @@ public class MecanumDrive {
     }
 
     public void moveFieldRelative(double x, double y, double rotate, double yawRads) { // In normal trig, 0 deg is right, but here, 0 deg is up
-        double forward = x * Math.cos(yawRads) + y * Math.sin(yawRads);
-        double right = x * Math.sin(yawRads) + y * Math.cos(yawRads);
+        double forward = x * Math.sin(yawRads) + y * Math.cos(yawRads);
+        double right = x * Math.cos(yawRads) - y * Math.sin(yawRads);
         drive(forward, right, rotate);
     }
 
     public boolean driveToPosition(double targetX, double targetY, double targetYawRads, Position currentPosition, YawPitchRollAngles currentAngles) {
         final int X_BUFFER = 5;
         final int Y_BUFFER = 5;
-        final int TURN_BUFFER = 5;
-        final int X_SLOW_DOWN = 10;
-        final int Y_SLOW_DOWN = 10;
-        final double TURN_SLOW_DOWN = Math.PI * 2;
+        final double TURN_BUFFER = Math.toRadians(5);
+        final int X_SLOW_DOWN = 20;
+        final int Y_SLOW_DOWN = 20;
+        final double TURN_SLOW_DOWN = Math.PI * 0.2;
 
         double driveX = 0;
         double driveY = 0;
@@ -77,21 +77,23 @@ public class MecanumDrive {
         // Check and set right movement proportionally
         double xDifference = targetX - currentPosition.x;
         if (Math.abs(xDifference) >= X_BUFFER) { // Move if outside threshold
-            driveX = xDifference / X_SLOW_DOWN / 2; // Proportional control
+            driveX = xDifference / X_SLOW_DOWN; // Proportional control
             onSpot = false;
         }
 
         // Check and set forward movement proportionally
         double yDifference = targetY - currentPosition.y;
         if (Math.abs(yDifference) >= Y_BUFFER) { // Move if outside threshold
-            driveY = yDifference / Y_SLOW_DOWN / 2; // Proportional control
+            driveY = yDifference / Y_SLOW_DOWN; // Proportional control
             onSpot = false;
         }
 
         // Check and set rotation proportionally
         double yawDifference = targetYawRads - currentAngles.getYaw(AngleUnit.RADIANS);
+        yawDifference = Math.atan2(Math.sin(yawDifference), Math.cos(yawDifference));
+
         if (Math.abs(yawDifference) >= TURN_BUFFER) { // Rotate if outside threshold
-            rotate = yawDifference / TURN_SLOW_DOWN / 10; // Proportional control
+            rotate = yawDifference / TURN_SLOW_DOWN; // Proportional control
             onSpot = false;
         }
 
