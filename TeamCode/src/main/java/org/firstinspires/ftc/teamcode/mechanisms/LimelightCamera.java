@@ -18,6 +18,10 @@ public class LimelightCamera {
 
     private boolean live = false;
 
+    // TODO:
+    // Set Marker Size (in Configuration) to actual size (101.6)
+    // Change 10x2x0 offset (in Advanced) to 0.245x0.0508x0
+
     public void init(HardwareMap hardwareMap) {
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
 
@@ -31,13 +35,11 @@ public class LimelightCamera {
 
     private void updateCamera() {
         LLResult result = limelight.getLatestResult();
-        if (result != null) {
-            if (result.isValid()) {
-                pos = result.getBotpose();
-                live = true;
-            } else {
-                live = false;
-            }
+        if (result != null && result.isValid()) {
+            pos = result.getBotpose();
+            live = true;
+        } else {
+            live = false;
         }
     }
 
