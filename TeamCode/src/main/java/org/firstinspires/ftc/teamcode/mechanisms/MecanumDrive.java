@@ -68,6 +68,7 @@ public class MecanumDrive {
         final int X_SLOW_DOWN = 20;
         final int Y_SLOW_DOWN = 20;
         final double TURN_SLOW_DOWN = Math.PI * 0.2;
+        final double MAX_SPEED = 0.1;
 
         double driveX = 0;
         double driveY = 0;
@@ -77,20 +78,20 @@ public class MecanumDrive {
         // Check and set right movement proportionally
         double xDifference = targetX - currentPosition.x;
         if (Math.abs(xDifference) >= X_BUFFER) { // Move if outside threshold
-            driveX = xDifference / X_SLOW_DOWN; // Proportional control
+            driveX = Math.min(Math.max(xDifference / X_SLOW_DOWN, -MAX_SPEED), MAX_SPEED); // Proportional control
             onSpot = false;
         }
 
         // Check and set forward movement proportionally
         double yDifference = targetY - currentPosition.y;
         if (Math.abs(yDifference) >= Y_BUFFER) { // Move if outside threshold
-            driveY = yDifference / Y_SLOW_DOWN; // Proportional control
+            driveY = Math.min(Math.max(yDifference / Y_SLOW_DOWN, -MAX_SPEED), MAX_SPEED); // Proportional control
             onSpot = false;
         }
 
         // Check and set rotation proportionally
         double yawDifference = targetYawRads - currentAngles.getYaw(AngleUnit.RADIANS);
-        yawDifference = Math.atan2(Math.sin(yawDifference), Math.cos(yawDifference));
+        yawDifference = Math.min(Math.max(Math.atan2(Math.sin(yawDifference), Math.cos(yawDifference)), -MAX_SPEED), MAX_SPEED);
 
         if (Math.abs(yawDifference) >= TURN_BUFFER) { // Rotate if outside threshold
             rotate = yawDifference / TURN_SLOW_DOWN; // Proportional control

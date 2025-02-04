@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.Robot;
 
 @TeleOp(name = "DEV ONLY, DO NOT USE", group = "z/dev")
@@ -161,6 +163,14 @@ public class FieldRelativeTeleop extends OpMode {
             telemetry.addData("Target rotation", robot.manipulatorArm.getTargetArmRotation());
             telemetry.addData("stopped", robot.manipulatorArm.stopped);
         }
+        Position position = robot.getPosition();
+        YawPitchRollAngles angles = robot.getOrientation();
+        telemetry.addData("Robot says Position", position.toString());
+        telemetry.addData("Robot says Orientation", angles.toString());
+        telemetry.addData("Camera says Live", robot.camera.isLive());
+        telemetry.addData("Robot says Arm Extension", robot.manipulatorArm.getCurrentArmExtension());
+        telemetry.addData("Robot says Arm Rotation", robot.manipulatorArm.getCurrentArmRotation());
+        robot.updatePosition();
     }
 
     public void stop() {
