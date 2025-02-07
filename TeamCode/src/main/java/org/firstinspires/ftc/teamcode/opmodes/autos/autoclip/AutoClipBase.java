@@ -121,8 +121,6 @@ public class AutoClipBase extends OpMode {
             parking = true;
         }
 
-        telemetry.update();
-
         //TODO: DO DIS
         //plans:
         //wait a little bit to allow alliance to go
