@@ -101,10 +101,7 @@ public class FieldRelativeTeleop extends OpMode {
             double right = -gamepad1.left_stick_x / 3;
             double rotate = (-gamepad1.right_stick_x / 3) * 0.8;
 
-            robot.mecanumDrive.moveFieldRelative(right, forward, rotate, robot.getOrientation().getYaw(AngleUnit.RADIANS));
-
-            robot.manipulatorArm.speed = MANIPULATOR_SPEED;
-            robot.stageOneAscentArms.speed = ASCENT_SPEED;
+            robot.mecanumDrive.moveFieldRelative(forward,right,rotate,robot.getOrientation().getYaw(AngleUnit.RADIANS));
 
             if (robot.manipulatorArm.getCurrentArmRotation() > 30 || robot.manipulatorArm.getCurrentArmRotation() < -30) {
                 robot.manipulatorArm.setTargetArmExtension(0);
