@@ -60,8 +60,6 @@ public class ScorePreloadAndParkBase extends OpMode {
         }
         robot.mecanumDrive.drive(forward, right, rotate);
 
-        telemetry.update();
-
         //TODO: DO DIS
         //plans:
         //wait a little bit to allow alliance to go
