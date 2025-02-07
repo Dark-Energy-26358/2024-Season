@@ -43,7 +43,5 @@ public class AutoParkBase extends OpMode { // TODO: TEST THIS
         telemetry.addData("Robot says Orientation", angles.toString());
         telemetry.addData("Camera says Live", robot.camera.isLive());
         robot.mecanumDrive.driveToPosition(PARK_X, PARK_Y, PARK_YAW, position, angles);
-
-        telemetry.update();
     }
 }
