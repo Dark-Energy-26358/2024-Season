@@ -10,9 +10,12 @@ import org.firstinspires.ftc.teamcode.Robot;
 public class ScorePreloadAndParkBase extends OpMode {
 
     public final int HIGH_BASKET_EXTENSION = 25;
+    public final int HIGH_BASKET_ROTATION = 80;
     public final int RETRACTED_EXTENSION = 0;
     final double TILE = 24;
-    final double ARM_ACCURACY_RANGE = 2.0;
+    final double ARM_EXTENSION_ACCURACY_RANGE = 2.0;
+    final double ARM_ROTATION_ACCURACY_RANGE = 0.2;
+
     Robot robot = new Robot();
     int stage = 1;
     double NET_ZONE_X = 0.0; // CHANGE_ME!!
@@ -56,18 +59,24 @@ public class ScorePreloadAndParkBase extends OpMode {
                     stage++;
                 break;
             case 2:
+                robot.manipulatorArm.setTargetArmRotation(HIGH_BASKET_ROTATION);
+                if (manipulatorArmWithinArmRotation(HIGH_BASKET_ROTATION)) {
+                    stage++;
+                }
+                break;
+            case 3:
                 robot.manipulatorArm.setTargetArmExtension(HIGH_BASKET_EXTENSION);
                 if (manipulatorArmWithinArmExtension(HIGH_BASKET_EXTENSION)) {
                     robot.manipulatorArm.toggleManipulatorState();
                     stage++;
                 }
                 break;
-            case 3:
+            case 4:
                 robot.manipulatorArm.setTargetArmExtension(RETRACTED_EXTENSION);
                 if (manipulatorArmWithinArmExtension(RETRACTED_EXTENSION))
                     stage++;
                 break;
-            case 4:
+            case 5:
                 if (robot.mecanumDrive.driveToPosition(PARK_X, PARK_Y, PARK_YAW_RAD, position, angles))
                     stage++;
                 break;
@@ -83,6 +92,10 @@ public class ScorePreloadAndParkBase extends OpMode {
     }
 
     public boolean manipulatorArmWithinArmExtension(int target) {
-        return (Math.abs(robot.manipulatorArm.getCurrentArmExtension() - target) < ARM_ACCURACY_RANGE);
+        return (Math.abs(robot.manipulatorArm.getCurrentArmExtension() - target) < ARM_EXTENSION_ACCURACY_RANGE);
+    }
+
+    public boolean manipulatorArmWithinArmRotation(int target) {
+        return (Math.abs(robot.manipulatorArm.getCurrentArmRotation()-target) < ARM_ROTATION_ACCURACY_RANGE);
     }
 }
