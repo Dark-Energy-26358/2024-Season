@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.mechanisms;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -8,24 +9,22 @@ import org.firstinspires.ftc.teamcode.classes.MoveableArm;
 
 public class ManipulatorArm extends MoveableArm {
     public String rotationMotorName = "manipulatorRotationMotor";
+
     public boolean manipulatorClosed = false;
+
     public DcMotor rotationMotor;
     Servo manipulator;
     Servo wrist;
 
     @Override
     public void init(HardwareMap hardwareMap) {
-        maxExtension = 28;
-        minExtension = 0;
-
-        maxRotation = 100;
-        minRotation = -45;
-
         manipulator = hardwareMap.servo.get("manipulator");
         manipulator.resetDeviceConfigurationForOpMode();
 
         wrist = hardwareMap.servo.get("manipulatorWrist");
         wrist.resetDeviceConfigurationForOpMode();
+
+
 
         extensionMotorName = "manipulatorExtensionMotor";
 
@@ -44,25 +43,24 @@ public class ManipulatorArm extends MoveableArm {
         super.stop();
     }
 
-    @Override
-    public double getTargetArmRotation() {
-        return targetArmRotation / 26.66666667;
+    public void setTargetArmRotation(double targetRotation) {
+        stopped = false;
+        rotationMotor.setTargetPosition((int) (targetRotation*27));
+        rotationMotor.setPower(0.5);
+        rotationMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        targetArmRotation = rotationMotor.getTargetPosition();
     }
 
-    public void setTargetArmRotation(int targetRotation) {
-        if (targetRotation > minRotation && targetRotation < maxRotation) {
-            stopped = false;
-            rotationMotor.setTargetPosition(targetRotation * 27);
-            rotationMotor.setPower(speed);
-            rotationMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            targetArmRotation = rotationMotor.getTargetPosition();
-        }
+    @Override
+    public double getTargetArmRotation() {
+        targetArmRotation = rotationMotor.getTargetPosition();
+        return targetArmRotation/27;
     }
 
     @Override
     public double getCurrentArmRotation() {
         currentArmRotation = rotationMotor.getCurrentPosition();
-        return currentArmRotation / 26.66666667;
+        return currentArmRotation/27;
         //2400 : 90
     }
 
@@ -80,5 +78,9 @@ public class ManipulatorArm extends MoveableArm {
 
     public void setTargetManipulatorWristPosition(double degrees) {
         wrist.setPosition(degrees);
+    }
+
+    public double getTargetManipulatorWristPosition(){
+        return wrist.getPosition();
     }
 }

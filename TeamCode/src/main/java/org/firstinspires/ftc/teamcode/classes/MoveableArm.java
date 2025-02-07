@@ -15,14 +15,8 @@ public class MoveableArm implements org.firstinspires.ftc.teamcode.Interfaces.Mo
     public String extensionMotorName = "";
 
     public DcMotor extensionMotor;
-    public double speed = 1;
+
     public boolean stopped;
-    protected int maxExtension;
-    protected int minExtension;
-    protected int maxRotation;
-    protected int minRotation;
-    protected int EXTENSION_TICKS_TO_INCHES = 116;
-    protected int rotationMultiplier; // TODO: Use this
 
     public void init(HardwareMap hardwareMap) {
         extensionMotor = hardwareMap.dcMotor.get(extensionMotorName);
@@ -41,31 +35,32 @@ public class MoveableArm implements org.firstinspires.ftc.teamcode.Interfaces.Mo
         extensionMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public int getTargetArmExtension() {
-        return extensionMotor.getTargetPosition() / EXTENSION_TICKS_TO_INCHES;
+//27.5 in = 3200 tick(s)
+    public void setTargetArmExtension(double targetExtension) {
+        extensionMotor.setTargetPosition((int) (targetExtension*116));
+        extensionMotor.setPower(0.5);
+        extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        targetArmExtension = extensionMotor.getTargetPosition();
+    }
+    //1.5˚ = 1 tick(s)
+    public void setTargetArmRotation(double targetRotation) {
+
     }
 
-    //27.5 in = 3200 tick(s)
-    public void setTargetArmExtension(int targetExtension) {
-        if (targetExtension > minExtension && targetExtension < maxExtension) {
-            extensionMotor.setTargetPosition(targetExtension * EXTENSION_TICKS_TO_INCHES);
-            extensionMotor.setPower(speed);
-            extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            targetArmExtension = extensionMotor.getTargetPosition();
-        }
+
+
+    public int getTargetArmExtension() {
+        return extensionMotor.getTargetPosition()/116;
     }
 
     public double getTargetArmRotation() {
         return 0;
     }
 
-    //1.5˚ = 1 tick(s)
-    public void setTargetArmRotation(int targetRotation) {
-    }
 
     public int getCurrentArmExtension() {
         currentArmExtension = extensionMotor.getCurrentPosition();
-        return currentArmExtension / EXTENSION_TICKS_TO_INCHES;
+        return currentArmExtension/116;
     }
 
     public double getCurrentArmRotation() {

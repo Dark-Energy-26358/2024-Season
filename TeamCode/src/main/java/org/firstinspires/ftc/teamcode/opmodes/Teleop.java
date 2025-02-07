@@ -7,16 +7,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Robot;
 
-@TeleOp(name = "TeleOp")
+@TeleOp(name="TeleOp")
 public class Teleop extends OpMode {
 
-    final double FORWARD_COEFFICIENT = 0.4;
-    final double RIGHT_COEFFICIENT = 0.4;
-    final double TURN_COEFFICIENT = 0.3;
-    final double MANIPULATOR_SPEED = 0.5;
-    final double ASCENT_SPEED = 0.5;
     Robot robot = new Robot();
     boolean manipulatorJustToggled = false;
+    double manipWristPos = 0.5;
 
     @Override
     public void init() {
@@ -37,16 +33,13 @@ public class Teleop extends OpMode {
 
         robot.updatePosition();
 
-        double forward = -gamepad1.left_stick_y * FORWARD_COEFFICIENT;
-        double right = gamepad1.left_stick_x * RIGHT_COEFFICIENT;
-        double rotate = gamepad1.right_stick_x * TURN_COEFFICIENT;
+        double forward = -gamepad1.left_stick_y / 3;
+        double right = gamepad1.left_stick_x / 3;
+        double rotate = (-gamepad1.right_stick_x / 3) *0.8;
 
         robot.mecanumDrive.drive(forward, right, rotate);
 
-        robot.manipulatorArm.speed = MANIPULATOR_SPEED;
-        robot.stageOneAscentArms.speed = ASCENT_SPEED;
-
-        if (robot.manipulatorArm.getCurrentArmRotation() > 30 || robot.manipulatorArm.getCurrentArmRotation() < -30) {
+        if (robot.manipulatorArm.getCurrentArmRotation() > 30 || robot.manipulatorArm.getCurrentArmRotation() < -60){
             robot.manipulatorArm.setTargetArmExtension(0);
         }
 
@@ -82,19 +75,21 @@ public class Teleop extends OpMode {
             manipulatorJustToggled = false;
         }
 
-        if (gamepad2.right_stick_y < 0) {
-            robot.manipulatorArm.setTargetManipulatorWristPosition(-gamepad2.right_stick_y / 10 + 0.5);
-        } else if (gamepad2.right_stick_y > 0) {
-            robot.manipulatorArm.setTargetManipulatorWristPosition(-gamepad2.right_stick_y / 10 + 0.5);
-        } else if (gamepad2.right_stick_y == 0) {
-            robot.manipulatorArm.setTargetManipulatorWristPosition(0.5);
+        manipWristPos += gamepad2.right_stick_y/50;
+        if (manipWristPos > 1){
+            manipWristPos = 1;
+        } else if (manipWristPos < 0) {
+            manipWristPos = 0;
         }
 
+        robot.manipulatorArm.setTargetManipulatorWristPosition(manipWristPos);
+
         if (gamepad2.left_stick_y != 0) {
-            robot.manipulatorArm.setTargetArmExtension((int) (robot.manipulatorArm.getTargetArmExtension() - gamepad2.left_stick_y));
+            robot.manipulatorArm.setTargetArmExtension(robot.manipulatorArm.getCurrentArmExtension() + -gamepad2.left_stick_y * 2.5);
         }
-        if (gamepad2.left_stick_x != 0) {
-            robot.manipulatorArm.setTargetArmRotation((int) (robot.manipulatorArm.getTargetArmRotation() - gamepad2.left_stick_x));
+
+        if (gamepad2.left_stick_x != 0){
+            robot.manipulatorArm.setTargetArmRotation(robot.manipulatorArm.getCurrentArmRotation() + -gamepad2.left_stick_x * 2);
         }
         telemetry.addData("extension", robot.manipulatorArm.getCurrentArmExtension());
         telemetry.addData("Target extension", robot.manipulatorArm.getTargetArmExtension());
