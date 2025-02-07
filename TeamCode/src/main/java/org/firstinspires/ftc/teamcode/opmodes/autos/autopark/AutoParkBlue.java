@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 public class AutoParkBlue extends AutoParkBase {
     @Override
     public void init() {
-        PARK_X = TILE*-2.5;
-        PARK_Y = TILE*2.5;
+        PARK_X = TILE*-2;
+        PARK_Y = TILE*2;
         super.init();
     }
 }
