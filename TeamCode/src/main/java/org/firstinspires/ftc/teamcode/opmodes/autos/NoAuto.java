@@ -18,6 +18,8 @@ public class NoAuto extends OpMode {
 
     @Override
     public void loop() {
+        robot.updatePosition();
+
         telemetry.addData("Robot Position", robot.getPosition());
         telemetry.addData("Robot Rotation", robot.getOrientation());
     }
