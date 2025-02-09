@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.opmodes.autos.autopark;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name = "Auto Clip Red", preselectTeleOp = "TeleOp", group = "Red")
+@Autonomous(name = "Auto Park Red", preselectTeleOp = "TeleOp", group = "Red")
 public class AutoParkRed extends AutoParkBase {
     @Override
     public void init() {
