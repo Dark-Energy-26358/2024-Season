@@ -61,7 +61,7 @@ public class MecanumDrive {
         drive(forward, right, rotate);
     }
 
-    public boolean driveToPosition(double targetX, double targetY, double targetYawRads, Position currentPosition, YawPitchRollAngles currentAngles) {
+    public boolean driveToPosition(double targetX, double targetY, double targetYawRads, boolean turn, Position currentPosition, YawPitchRollAngles currentAngles) {
         final int X_BUFFER = 5;
         final int Y_BUFFER = 5;
         final double TURN_BUFFER = Math.toRadians(5);
@@ -93,7 +93,7 @@ public class MecanumDrive {
         double yawDifference = targetYawRads - currentAngles.getYaw(AngleUnit.RADIANS);
         yawDifference = Math.min(Math.max(Math.atan2(Math.sin(yawDifference), Math.cos(yawDifference)), -MAX_SPEED), MAX_SPEED);
 
-        if (Math.abs(yawDifference) >= TURN_BUFFER) { // Rotate if outside threshold
+        if (turn && Math.abs(yawDifference) >= TURN_BUFFER) { // Rotate if outside threshold
             rotate = yawDifference / TURN_SLOW_DOWN; // Proportional control
             onSpot = false;
         }
@@ -101,5 +101,14 @@ public class MecanumDrive {
         // Move the robot
         moveFieldRelative(driveX, driveY, rotate, currentAngles.getYaw(AngleUnit.RADIANS));
         return onSpot;
+    }
+
+    public boolean driveToPosition(double targetX, double targetY, double targetYawRads, Position currentPosition, YawPitchRollAngles currentAngles) {
+        return driveToPosition(targetX, targetY, targetYawRads, true, currentPosition, currentAngles);
+    }
+
+
+    public boolean driveToPosition(double targetX, double targetY, Position currentPosition, YawPitchRollAngles currentAngles) {
+        return driveToPosition(targetX, targetY, 0, false, currentPosition, currentAngles);
     }
 }

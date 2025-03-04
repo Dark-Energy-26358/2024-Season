@@ -15,7 +15,6 @@ public class AutoParkBase extends OpMode { // TODO: TEST THIS
 
     double PARK_X = 0.0; // CHANGE_ME!!
     double PARK_Y = 0.0; // CHANGE_ME!!
-    int PARK_YAW = 0;// CHANGE_ME!!
 
     @Override
     public void init() {
@@ -42,6 +41,6 @@ public class AutoParkBase extends OpMode { // TODO: TEST THIS
         telemetry.addData("Robot says Position", position.toString());
         telemetry.addData("Robot says Orientation", angles.toString());
         telemetry.addData("Camera says Live", robot.camera.isLive());
-        robot.mecanumDrive.driveToPosition(PARK_X, PARK_Y, PARK_YAW, position, angles);
+        robot.mecanumDrive.driveToPosition(PARK_X, PARK_Y, position, angles);
     }
 }
