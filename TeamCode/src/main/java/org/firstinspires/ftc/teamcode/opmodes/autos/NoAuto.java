@@ -1,9 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmodes.autos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.Robot;
 
 
 @Autonomous(name = "No Auto", preselectTeleOp = "TeleOp", group = "Red/Blue")

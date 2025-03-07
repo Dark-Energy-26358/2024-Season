@@ -1,11 +1,5 @@
 package org.firstinspires.ftc.teamcode.opmodes.autos.fullauto;
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-
-import org.firstinspires.ftc.robotcore.external.navigation.Position;
-import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
-import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.opmodes.autos.AutoBase;
 
 public class FullAutoBase extends AutoBase {

@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.opmodes.autos;
 
 import static java.lang.Math.abs;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -13,8 +12,8 @@ import org.firstinspires.ftc.teamcode.Robot;
 public class AutoBase extends OpMode {
     protected Robot robot = new Robot();
 
-    protected Position position = robot.getPosition();
-    protected YawPitchRollAngles angles = robot.getOrientation();
+    protected Position position;
+    protected YawPitchRollAngles angles;
 
 
     @Override
@@ -22,6 +21,9 @@ public class AutoBase extends OpMode {
         robot.init(hardwareMap);
 
         robot.manipulatorArm.toggleManipulatorState();
+
+        position = robot.getPosition();
+        angles = robot.getOrientation();
     }
 
     @Override
