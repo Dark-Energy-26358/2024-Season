@@ -82,7 +82,6 @@ public class OpticalOdometry {
         SparkFunOTOS.Version hwVersion = new SparkFunOTOS.Version();
         SparkFunOTOS.Version fwVersion = new SparkFunOTOS.Version();
         odometryPod.getVersionInfo(hwVersion, fwVersion);
-
     }
 
     public SparkFunOTOS.Pose2D getPosition() {
