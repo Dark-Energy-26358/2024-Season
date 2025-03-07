@@ -48,9 +48,9 @@ public class Robot {
     }
 
     // call every frame
-    public void updatePosition(){
+    public void updatePosition() {
         if (camera.isLive()) {
-            opticalOdometry.setPosition(new SparkFunOTOS.Pose2D(camera.getPosition().x, camera.getPosition().y, camera.getOrientation().getYaw()));
+            opticalOdometry.setPosition(new SparkFunOTOS.Pose2D(camera.getPosition().toUnit(DistanceUnit.INCH).x, camera.getPosition().toUnit(DistanceUnit.INCH).y, camera.getOrientation().getYaw(AngleUnit.DEGREES)));
         }
     }
 }
