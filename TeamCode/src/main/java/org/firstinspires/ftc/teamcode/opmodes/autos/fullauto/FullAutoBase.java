@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.autos.scorepreloadandpark;
+package org.firstinspires.ftc.teamcode.opmodes.autos.fullauto;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -7,10 +7,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.Robot;
 
-public class ScorePreloadAndParkBase extends OpMode {
+public class FullAutoBase extends OpMode {
 
     public final int HIGH_BASKET_EXTENSION = 25;
-    public final int HIGH_BASKET_ROTATION = 20;
+    public final int HIGH_BASKET_ROTATION = 80;
     public final int RETRACTED_EXTENSION = 0;
     final double TILE = 24;
     final double ARM_EXTENSION_ACCURACY_RANGE = 2.0;

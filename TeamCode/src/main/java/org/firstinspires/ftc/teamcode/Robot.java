@@ -43,14 +43,14 @@ public class Robot {
         if (camera.isLive()) {
             return camera.getOrientation();
         } else {
-            return new YawPitchRollAngles(AngleUnit.DEGREES, opticalOdometry.getPosition().h - 90, camera.getOrientation().getPitch(), camera.getOrientation().getRoll(),0);
+            return new YawPitchRollAngles(AngleUnit.DEGREES, opticalOdometry.getPosition().h, camera.getOrientation().getPitch(), camera.getOrientation().getRoll(),0);
         }
     }
 
     // call every frame
-    public void updatePosition(){
+    public void updatePosition() {
         if (camera.isLive()) {
-            opticalOdometry.setPosition(new SparkFunOTOS.Pose2D(camera.getPosition().x, camera.getPosition().y, camera.getOrientation().getYaw(AngleUnit.DEGREES)+90));
+            opticalOdometry.setPosition(new SparkFunOTOS.Pose2D(camera.getPosition().toUnit(DistanceUnit.INCH).x, camera.getPosition().toUnit(DistanceUnit.INCH).y, camera.getOrientation().getYaw(AngleUnit.DEGREES)));
         }
     }
 }
