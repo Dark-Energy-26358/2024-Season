@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Robot;
 public class ScorePreloadAndParkBase extends OpMode {
 
     public final int HIGH_BASKET_EXTENSION = 25;
-    public final int HIGH_BASKET_ROTATION = 20;
+    public final int HIGH_BASKET_ROTATION = 10;
     public final int RETRACTED_EXTENSION = 0;
     final double TILE = 24;
     final double ARM_EXTENSION_ACCURACY_RANGE = 2.0;
