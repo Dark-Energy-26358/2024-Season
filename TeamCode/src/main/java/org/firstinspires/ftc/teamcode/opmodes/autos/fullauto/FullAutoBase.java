@@ -6,8 +6,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.opmodes.autos.AutoBase;
 
-public class FullAutoBase extends OpMode {
+public class FullAutoBase extends AutoBase {
 
     public final int HIGH_BASKET_EXTENSION = 25;
     public final int HIGH_BASKET_ROTATION = 80;
@@ -16,7 +17,6 @@ public class FullAutoBase extends OpMode {
     final double ARM_EXTENSION_ACCURACY_RANGE = 2.0;
     final double ARM_ROTATION_ACCURACY_RANGE = 0.2;
 
-    Robot robot = new Robot();
     int stage = 1;
     double NET_ZONE_X = 0.0; // CHANGE_ME!!
     double NET_ZONE_Y = 0.0; // CHANGE_ME!!
@@ -27,32 +27,10 @@ public class FullAutoBase extends OpMode {
 
     @Override
     public void init() {
-        robot.init(hardwareMap);
-        robot.manipulatorArm.toggleManipulatorState();
+        super.init();
     }
 
     public void loop() {
-        // USING GLOBAL TO BE IDEMPOTENT
-        if (!robot.globals.getManipArmAccurate()) {
-            robot.manipulatorArm.setTargetArmRotation(40);
-            if (robot.manipulatorArm.getCurrentArmRotation() >= 40) {
-                robot.manipulatorArm.rotationMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                robot.manipulatorArm.setTargetArmRotation(0);
-                robot.globals.setManipArmAccurate(true);
-            }
-        }
-        // END -- THIS IS IDEMPOTENT and CAN BE RUN MORE THAN ONCE PER MATCH
-
-        robot.updatePosition();
-
-        Position position = robot.getPosition();
-        YawPitchRollAngles angles = robot.getOrientation();
-        telemetry.addData("Robot says Position", position.toString());
-        telemetry.addData("Robot says Orientation", angles.toString());
-        telemetry.addData("Camera says Live", robot.camera.isLive());
-        telemetry.addData("Robot says Arm Extension", robot.manipulatorArm.getCurrentArmExtension());
-        telemetry.addData("Robot says Arm Rotation", robot.manipulatorArm.getCurrentArmRotation());
-
         switch (stage) {
             case 1:
                 if (robot.mecanumDrive.driveToPosition(NET_ZONE_X, NET_ZONE_Y, NET_ZONE_YAW_RAD, position, angles))
@@ -82,13 +60,7 @@ public class FullAutoBase extends OpMode {
                 break;
         }
 
-        //TODO: DO DIS
-        //plans:
-        //wait a little bit to allow alliance to go
-        //go left until near basket zone
-        //turn to drop piece
-        //drop piece
-        //go to hang zone
+        super.loop();
     }
 
     public boolean manipulatorArmWithinArmExtension(int target) {

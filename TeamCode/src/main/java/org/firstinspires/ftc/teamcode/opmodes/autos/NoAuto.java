@@ -7,20 +7,24 @@ import org.firstinspires.ftc.teamcode.Robot;
 
 
 @Autonomous(name = "No Auto", preselectTeleOp = "TeleOp", group = "Red/Blue")
-public class NoAuto extends OpMode {
-    Robot robot = new Robot();
+public class NoAuto extends AutoBase {
 
     @Override
     public void init() {
-        robot.init(hardwareMap);
+        super.init();
     }
 
     @Override
     public void loop() {
         robot.updatePosition();
 
-        telemetry.addData("Robot Position", robot.getPosition());
-        telemetry.addData("Robot Rotation", robot.getOrientation());
-        telemetry.addData("Camera Live", robot.camera.isLive());
+        position = robot.getPosition();
+        angles = robot.getOrientation();
+
+        telemetry.addData("Robot says Position", position.toString());
+        telemetry.addData("Robot says Orientation", angles.toString());
+        telemetry.addData("Camera says Live", robot.camera.isLive());
+        telemetry.addData("Robot says Arm Extension", robot.manipulatorArm.getCurrentArmExtension());
+        telemetry.addData("Robot says Arm Rotation", robot.manipulatorArm.getCurrentArmRotation());
     }
 }
