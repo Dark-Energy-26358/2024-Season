@@ -17,7 +17,6 @@ public class Robot {
     public Globals globals = Globals.getInstance();
     public MecanumDrive mecanumDrive = new MecanumDrive();
     public ManipulatorArm manipulatorArm = new ManipulatorArm();
-    //    public StageTwoAscentArms stageTwoAscentArms = new StageTwoAscentArms();
     public StageOneAscentArms stageOneAscentArms = new StageOneAscentArms();
     public LimelightCamera camera = new LimelightCamera();
     public OpticalOdometry opticalOdometry = new OpticalOdometry();
