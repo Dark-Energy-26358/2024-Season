@@ -17,6 +17,6 @@ public class Obstacle {
     }
 
     public Vector relativeVector(double robotX, double robotY) {
-        return new Vector(Math.max(Math.min(Math.max(x1,x2),robotX),Math.min(x1,x2)), Math.max(Math.min(Math.max(y1,y2),robotY),Math.min(y1,y2)));
+        return new Vector(Math.max(Math.min(Math.max(x1,x2),robotX),Math.min(x1,x2)), Math.max(Math.min(Math.max(y1,y2),robotY), Math.min(y1,y2)));
     }
 }
