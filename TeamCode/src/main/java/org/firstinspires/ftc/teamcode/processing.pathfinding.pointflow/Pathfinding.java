@@ -18,6 +18,6 @@ public class Pathfinding {
     }
 
     public static Vector pathfind(Position robotPosition, double targetX, double targetY) {
-        return pushAway(robotPosition.x-targetX, robotPosition.x-targetY, robotPosition.x, robotPosition.y);
+        return pushAway(targetX-robotPosition.x, targetY-robotPosition.y, robotPosition.x, robotPosition.y);
     }
 }
