@@ -18,11 +18,11 @@ public class Pathfinding {
     }
 
     public static Vector pathfind(Position robotPosition, double targetX, double targetY) {
-        return pushAway(lerp(targetX-robotPosition.x,0), lerp(targetY-robotPosition.y, 0), robotPosition.x, robotPosition.y);
+        return pushAway(lerp(targetX-robotPosition.x,1,0.1), lerp(targetY-robotPosition.y, 1,0.1), robotPosition.x, robotPosition.y);
     }
 
-    private static double lerp(double a, double b)
+    private static double lerp(double a, double b, double f)
     {
-        return (a * (1.0 - b/a)) + (b * b/a);
+        return (a * (1.0 - f)) + (b * f);
     }
 }

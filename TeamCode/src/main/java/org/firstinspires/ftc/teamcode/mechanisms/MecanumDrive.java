@@ -62,8 +62,8 @@ public class MecanumDrive {
     }
 
     public boolean driveToPosition(double targetX, double targetY, double targetYawRads, boolean turn, Position currentPosition, YawPitchRollAngles currentAngles) {
-        final int X_BUFFER = 5;
-        final int Y_BUFFER = 5;
+        final int X_BUFFER = 2;
+        final int Y_BUFFER = 2;
         final double TURN_BUFFER = Math.toRadians(5);
         final int X_SLOW_DOWN = 20;
         final int Y_SLOW_DOWN = 20;

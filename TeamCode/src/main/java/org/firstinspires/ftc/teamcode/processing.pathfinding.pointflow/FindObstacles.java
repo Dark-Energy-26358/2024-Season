@@ -5,10 +5,10 @@ public class FindObstacles {
             // center
             new Obstacle( 24, 24, -24, -24,7),
             // walls
-            new Obstacle(72,72,72,-72,5),
-            new Obstacle(72,72,-72,72,5),
-            new Obstacle(-72,-72,72,-72,5),
-            new Obstacle(-72,-72,-72,72,5)
+            new Obstacle(72,72,72,-72,7),
+            new Obstacle(72,72,-72,72,7),
+            new Obstacle(-72,-72,72,-72,7),
+            new Obstacle(-72,-72,-72,72,7)
     };
 
     public static Obstacle[] findObstacles() {
