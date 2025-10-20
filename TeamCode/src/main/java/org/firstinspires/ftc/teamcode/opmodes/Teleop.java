@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Robot;
 
-@TeleOp(name="TeleOp")
+@TeleOp(name="TeleOp-2024-25")
 public class Teleop extends OpMode {
 
     Robot robot = new Robot();

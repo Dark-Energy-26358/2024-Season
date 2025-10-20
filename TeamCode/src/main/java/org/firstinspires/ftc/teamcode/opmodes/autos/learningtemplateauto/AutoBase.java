@@ -19,22 +19,45 @@ public class AutoBase extends org.firstinspires.ftc.teamcode.opmodes.autos.AutoB
     public void loop() {
         switch (stage) {
             case 1:
-                TARGET_X = -60;
-                TARGET_Y = -40;
-                if (robot.mecanumDrive.driveToPosition(TARGET_X, TARGET_Y, position, angles))
-                    stage++;
-                break;
             case 2:
-                TARGET_X = 48;
-                TARGET_Y = -36;
-                if (robot.mecanumDrive.driveToPosition(TARGET_X, TARGET_Y, position, angles))
+                TARGET_Y = -60;
+                robot.mecanumDrive.drive(0, 0.2, 0);
+                if (robot.getPosition().y <= TARGET_Y) {
                     stage++;
+                    telemetry.addLine("stage increased to 2");
+                }
                 break;
             case 3:
-                TARGET_X = 48;
-                TARGET_Y = 60;
-                if (robot.mecanumDrive.driveToPosition(TARGET_X, TARGET_Y, position, angles))
+                TARGET_X = 20;
+                robot.mecanumDrive.drive(0.2, 0, 0);
+                if (robot.getPosition().x >= TARGET_X) {
                     stage++;
+                    telemetry.addLine("stage increased to 3");
+                }
+                break;
+            case 4:
+                TARGET_Y = -61;
+                robot.mecanumDrive.drive(0, -0.2, 0);
+                if (robot.getPosition().y >= TARGET_Y) {
+                    stage++;
+                    telemetry.addLine("stage increased to 2");
+                }
+                break;
+            case 5:
+            case 6:
+                TARGET_X = 36;
+                robot.mecanumDrive.drive(0.2, 0, 0);
+                if (robot.getPosition().x >= TARGET_X) {
+                    stage++;
+                    telemetry.addLine("stage increased to 3");
+                }
+                break;
+            case 7:
+                TARGET_Y = 60;
+
+                if (!(robot.getPosition().y >= TARGET_Y)) {
+                    robot.mecanumDrive.drive(0, -0.2, 0);
+                }
                 break;
         }
 
