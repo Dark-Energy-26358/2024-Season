@@ -45,6 +45,8 @@ public class Teleop extends OpMode {
         if (gamepad2.b) {
             if (!stopper.isPressed()) {
                 winch.setPower(0);
+                release.setPosition(0);
+                releaseClosed = true;
             } else {
                 winch.setPower(1);
             }
