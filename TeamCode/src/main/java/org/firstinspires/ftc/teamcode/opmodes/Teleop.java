@@ -18,6 +18,7 @@ public class Teleop extends OpMode {
     TouchSensor stopper;
     DcMotor winch;
     boolean releaseClosed = true;
+    boolean xJustPressed;
 
     @Override
     public void init() {
@@ -43,19 +44,25 @@ public class Teleop extends OpMode {
             release.setPosition(0);
         }
         if (gamepad2.b) {
-            if (!stopper.isPressed()) {
+            if (stopper.isPressed()) {
                 winch.setPower(0);
                 release.setPosition(0);
                 releaseClosed = true;
             } else {
-                winch.setPower(1);
+                winch.setPower(-1);
             }
-        } else if (gamepad2.x){
-            winch.setPower(-1);
+        } else if (gamepad2.x ){
+            //if (!xJustPressed) {
+            winch.setPower(1);
+            //}
+            //else {winch.setPower(0);}
+            xJustPressed = true;
         }
         else {
             winch.setPower(0);
+            xJustPressed = false;
         }
+        telemetry.addData("stopper:", stopper.getValue());
 
     }
 }
