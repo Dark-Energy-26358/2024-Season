@@ -5,8 +5,6 @@ package org.firstinspires.ftc.teamcode.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.enums.DecodeColor;
@@ -17,6 +15,7 @@ public class Teleop extends OpMode {
     Robot robot = new Robot();
     ColorSensor sensor;
     boolean yPressed = false;
+    boolean bPressed = false;
 
     @Override
     public void init() {
@@ -51,6 +50,15 @@ public class Teleop extends OpMode {
             }else {
                 robot.shooter.lowerPaddle();
                 yPressed = false;
+            }
+        }
+        if (gamepad1.bWasPressed()) {
+            if (!bPressed) {
+                robot.intake.start();
+                bPressed = true;
+            }else {
+                robot.intake.stop();
+                bPressed = false;
             }
         }
         if (gamepad1.dpadUpWasPressed()){

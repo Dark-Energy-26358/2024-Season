@@ -13,7 +13,7 @@ public class Shooter {
 
     private Servo liftingPaddle;
 
-    private static final double ballLiftedPosition = 0.3; //todo calibrate this
+    private static final double ballLiftedPosition = 0.3;
 
     public void init(HardwareMap hardwareMap){
         shooterFlywheel1 = hardwareMap.dcMotor.get("shooterFlywheel1");
