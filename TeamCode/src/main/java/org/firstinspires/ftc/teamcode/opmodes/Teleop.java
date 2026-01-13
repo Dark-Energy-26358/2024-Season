@@ -4,19 +4,23 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.enums.DecodeColor;
 
 @TeleOp(name="Teleop")
 public class Teleop extends OpMode {
 
     Robot robot = new Robot();
     ColorSensor sensor;
+    boolean yPressed = false;
 
     @Override
     public void init() {
         robot.init(hardwareMap);
         sensor = hardwareMap.colorSensor.get("colorSensor0");
+
     }
 
     @Override
@@ -28,6 +32,31 @@ public class Teleop extends OpMode {
         double rotate = (-gamepad1.right_stick_x / 3) *0.8;
 
         robot.mecanumDrive.drive(forward,right,rotate);
+
+        if (gamepad1.a){
+            if (robot.sorter.sort(DecodeColor.green) == 1){
+                telemetry.addData("ball ready", DecodeColor.green);
+            }
+        } else if (gamepad1.x){
+            if (robot.sorter.sort(DecodeColor.purple) == 1){
+                telemetry.addData("ball ready", DecodeColor.purple);
+            }
+        }
+        if (gamepad1.yWasPressed()) {
+            if (!yPressed) {
+                robot.shooter.shoot(1);
+                yPressed = true;
+            }else {
+                robot.shooter.lowerPaddle();
+                yPressed = false;
+            }
+        }
+        if (gamepad1.dpadUpWasPressed()){
+            robot.shooter.aim(robot.shooter.getAim()+0.1);
+        } else if (gamepad1.dpadDownWasPressed()){
+            robot.shooter.aim(robot.shooter.getAim()-0.1);
+        }
+
 
         telemetry.addData("sensor red:",sensor.red());
         telemetry.addData("sensor green:",sensor.green());

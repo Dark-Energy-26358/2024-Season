@@ -13,11 +13,11 @@ public class Shooter {
 
     private Servo liftingPaddle;
 
-    private static final double ballLiftedPosition = 0.5; //todo calibrate this
+    private static final double ballLiftedPosition = 0.3; //todo calibrate this
 
     public void init(HardwareMap hardwareMap){
-        shooterFlywheel1 = hardwareMap.dcMotor.get("shooter1");
-        shooterFlywheel2 = hardwareMap.dcMotor.get("shooter2");
+        shooterFlywheel1 = hardwareMap.dcMotor.get("shooterFlywheel1");
+        shooterFlywheel2 = hardwareMap.dcMotor.get("shooterFlywheel2");
 
         shooterFlywheel2.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -25,20 +25,27 @@ public class Shooter {
 
         liftingPaddle = hardwareMap.servo.get("liftingPaddle");
     }
-    public void shoot(double aim, double speed){
-        //aim is servo ticks
+    public void shoot(double speed){
         //speed is the speed to spin the launching motors
-
-        aimingServo.setPosition(aim);
-
         shooterFlywheel1.setPower(speed);
         shooterFlywheel2.setPower(speed);
         liftBall();
     }
+
+    public void aim(double aim){
+        //aim is servo ticks
+        aimingServo.setPosition(aim);
+    }
+
+    public double getAim(){
+        return aimingServo.getPosition();
+    }
+
     private void liftBall(){
         liftingPaddle.setPosition(ballLiftedPosition);
     }
+
     public void lowerPaddle(){
-        liftingPaddle.setPosition(0);
+        liftingPaddle.setPosition(1);
     }
 }

@@ -21,7 +21,7 @@ public class Sorter {
         colorSensor2 = hardwareMap.colorSensor.get("colorSensor2");
     }
 
-    public int sort(DecodeColor color, int pos){
+    public int sort(DecodeColor color){
         //-1 means the sorter was not aligned
         //0 means the sorter is empty
         //1 means it was sorted correctly
