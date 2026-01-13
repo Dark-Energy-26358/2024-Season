@@ -19,6 +19,8 @@ public class Sorter {
         colorSensor0 = hardwareMap.colorSensor.get("colorSensor0");
         colorSensor1 = hardwareMap.colorSensor.get("colorSensor1");
         colorSensor2 = hardwareMap.colorSensor.get("colorSensor2");
+
+        tripaddle.setPosition(0);
     }
 
     public int sort(DecodeColor color){
@@ -31,10 +33,10 @@ public class Sorter {
 
             //check to see if the correct color ball is anywhere, if it is then return 1
             if (getColor(1) == color){
-                increasePos(1);
+                increasePos(-1);
                 return 1;
             } else if (getColor(2) == color) {
-                increasePos(-1);
+                increasePos(1);
                 return 1;
             } else if (getColor(0) == color) {
                 increasePos(3);
@@ -43,10 +45,10 @@ public class Sorter {
 
             //if it isn't then check to see if any ball is anywhere, if it is then return 2
             else if (getColor(1) != DecodeColor.black) {
-                increasePos(1);
+                increasePos(-1);
                 return 2;
             }else if (getColor(2) != DecodeColor.black) {
-                increasePos(-1);
+                increasePos(1);
                 return 2;
             }else if (getColor(0) != DecodeColor.black) {
                 increasePos(3);

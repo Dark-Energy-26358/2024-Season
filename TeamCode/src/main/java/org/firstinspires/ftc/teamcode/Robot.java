@@ -9,6 +9,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
+import org.firstinspires.ftc.teamcode.mechanisms.Intake;
 import org.firstinspires.ftc.teamcode.mechanisms.LimelightCamera;
 import org.firstinspires.ftc.teamcode.mechanisms.OpticalOdometry;
 import org.firstinspires.ftc.teamcode.mechanisms.Shooter;
@@ -24,12 +25,14 @@ public class Robot {
     public OpticalOdometry opticalOdometry = new OpticalOdometry();
     public Sorter sorter = new Sorter();
     public Shooter shooter = new Shooter();
+    public Intake intake = new Intake();
 
     public void init(HardwareMap hardwareMap){
         mecanumDrive.init(hardwareMap);
 
         sorter.init(hardwareMap);
         shooter.init(hardwareMap);
+        intake.init(hardwareMap);
         //camera.init(hardwareMap);
         //opticalOdometry.init(hardwareMap);
     }
