@@ -13,5 +13,8 @@ public class Intake {
     public void takeIn(){
         intake.setPower(intakeSpeed);
     }
+    public void stop(){
+        intake.setPower(0);
+    }
 
 }
