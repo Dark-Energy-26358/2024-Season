@@ -30,9 +30,9 @@ public class Robot {
     public void init(HardwareMap hardwareMap){
         mecanumDrive.init(hardwareMap);
 
-        sorter.init(hardwareMap);
-        shooter.init(hardwareMap);
-        intake.init(hardwareMap);
+//        sorter.init(hardwareMap);
+//        shooter.init(hardwareMap);
+//        intake.init(hardwareMap);
         //camera.init(hardwareMap);
         //opticalOdometry.init(hardwareMap);
     }
