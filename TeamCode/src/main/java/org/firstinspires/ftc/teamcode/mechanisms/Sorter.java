@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.mechanisms;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -64,15 +65,15 @@ public class Sorter {
 
     private void gotoPos(int pos){
         //sets the position of the sorter to one of 6 positions, 0 and even numbers have the intake open the odd leave it blocked
-        double targetPos = ((double)pos % 6)/5;
+        double targetPos = ((double)pos % 5)/5;
         tripaddle.setPosition(targetPos);
     }
 
     private int getPos(){
-        return (int) Math.round(tripaddle.getPosition()*5);
+        return (int) Math.round(tripaddle.getPosition()*4);
     }
 
-    private void increasePos(int amount){
+    public void increasePos(int amount){
         gotoPos(getPos()+amount);
     }
     private DecodeColor getColor(int sensor){
