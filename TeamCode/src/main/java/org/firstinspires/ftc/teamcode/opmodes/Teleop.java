@@ -34,10 +34,11 @@ public class Teleop extends OpMode {
 
         robot.mecanumDrive.drive(forward,right,rotate);
 
-        if (gamepad1.a){
-            if (robot.sorter.sort(DecodeColor.green) == 1){
-                telemetry.addData("ball ready", DecodeColor.green);
-            }
+        if (gamepad1.aWasPressed()){
+//            //if (robot.sorter.sort(DecodeColor.green) == 1){
+//                telemetry.addData("ball ready", DecodeColor.green);
+//            }
+            robot.sorter.increasePos(1);
         } else if (gamepad1.x){
             if (robot.sorter.sort(DecodeColor.purple) == 1){
                 telemetry.addData("ball ready", DecodeColor.purple);
