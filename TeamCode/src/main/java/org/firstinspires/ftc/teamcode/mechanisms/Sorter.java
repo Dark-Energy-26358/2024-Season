@@ -21,7 +21,8 @@ public class Sorter {
         colorSensor1 = hardwareMap.colorSensor.get("colorSensor1");
         colorSensor2 = hardwareMap.colorSensor.get("colorSensor2");
 
-        tripaddle.setPosition(0);
+        //tripaddle.scaleRange(0,0.95);
+        tripaddle.setPosition(1);
     }
 
     public int sort(DecodeColor color){
@@ -65,12 +66,12 @@ public class Sorter {
 
     private void gotoPos(int pos){
         //sets the position of the sorter to one of 6 positions, 0 and even numbers have the intake open the odd leave it blocked
-        double targetPos = ((double)pos % 5)/5;
+        double targetPos = ((double)pos % 30)/30;
         tripaddle.setPosition(targetPos);
     }
 
     private int getPos(){
-        return (int) Math.round(tripaddle.getPosition()*4);
+        return (int) Math.round(tripaddle.getPosition()*30 );
     }
 
     public void increasePos(int amount){
