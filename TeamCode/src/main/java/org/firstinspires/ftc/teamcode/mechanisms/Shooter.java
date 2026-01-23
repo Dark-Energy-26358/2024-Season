@@ -45,7 +45,9 @@ public class Shooter {
         liftingPaddle.setPosition(ballLiftedPosition);
     }
 
-    public void lowerPaddle(){
+    public void reset(){
         liftingPaddle.setPosition(1);
+        shooterFlywheel2.setPower(0);
+        shooterFlywheel1.setPower(0);
     }
 }

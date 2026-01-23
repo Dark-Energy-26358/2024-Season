@@ -8,11 +8,14 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.enums.DecodeColor;
 
 public class Sorter {
-    Servo tripaddle;
+    public Servo tripaddle;
 
     ColorSensor colorSensor0;
     ColorSensor colorSensor1;
     ColorSensor colorSensor2;
+
+    final double TOTAL_NUMBER_OF_POSITIONS = 30.2;
+    final int NUMBER_OF_REACHABLE_POSITIONS = 24;
 
     public void init(HardwareMap hardwareMap){
         tripaddle = hardwareMap.servo.get("tripaddle");
@@ -21,8 +24,10 @@ public class Sorter {
         colorSensor1 = hardwareMap.colorSensor.get("colorSensor1");
         colorSensor2 = hardwareMap.colorSensor.get("colorSensor2");
 
-        //tripaddle.scaleRange(0,0.95);
-        tripaddle.setPosition(1);
+        //todo keep track of what ball spots are filled and their color
+
+
+        tripaddle.setPosition(0);
     }
 
     public int sort(DecodeColor color){
@@ -66,12 +71,16 @@ public class Sorter {
 
     private void gotoPos(int pos){
         //sets the position of the sorter to one of 6 positions, 0 and even numbers have the intake open the odd leave it blocked
-        double targetPos = ((double)pos % 30)/30;
+        double targetPos = ((double) (pos % NUMBER_OF_REACHABLE_POSITIONS))/TOTAL_NUMBER_OF_POSITIONS;
         tripaddle.setPosition(targetPos);
     }
 
-    private int getPos(){
-        return (int) Math.round(tripaddle.getPosition()*30 );
+    public int getPos(){
+        return (int) Math.round(tripaddle.getPosition()*TOTAL_NUMBER_OF_POSITIONS);
+    }
+
+    public boolean moveToEmpty(){//todo do dis
+        return false;
     }
 
     public void increasePos(int amount){

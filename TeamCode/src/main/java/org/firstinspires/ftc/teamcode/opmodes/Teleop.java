@@ -47,7 +47,7 @@ public class Teleop extends OpMode {
                 robot.shooter.shoot(1);
                 yPressed = true;
             }else {
-                robot.shooter.lowerPaddle();
+                robot.shooter.reset();
                 yPressed = false;
             }
         }
@@ -65,6 +65,7 @@ public class Teleop extends OpMode {
         } else if (gamepad1.dpadDownWasPressed()){
             robot.shooter.aim(robot.shooter.getAim()-0.1);
         }
+        telemetry.addData("sorter pos", robot.sorter.getPos());
 
 
         telemetry.addData("sensor red:",sensor.red());
