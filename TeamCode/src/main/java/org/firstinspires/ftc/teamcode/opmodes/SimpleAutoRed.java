@@ -6,8 +6,11 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.Robot;
 
-@Autonomous(name="Simple Auto")
-public class SimpleAuto extends OpMode {
+@Autonomous(name="Red: Simple Auto", group="Red")
+public class SimpleAutoRed extends OpMode {
+
+    // Number of inches in a tile
+    final double TILE_SIZE = 24.0;
 
     Robot robot = new Robot();
 
@@ -18,13 +21,14 @@ public class SimpleAuto extends OpMode {
 
     @Override
     public void loop() {
-        boolean onSpot = robot.mecanumDrive.driveToPosition(0, 0,
-                (int) robot.getOrientation().getYaw(AngleUnit.DEGREES),
+        boolean onSpot = robot.mecanumDrive.driveToPosition(TILE_SIZE*1, TILE_SIZE*1,
+                45,
                 robot.getPosition(), robot.getOrientation()
         );
 
         if (onSpot) {
             // Launch the ball
+            robot.shooter.shoot(1);
         }
     }
 }
