@@ -22,6 +22,7 @@ public class Teleop extends OpMode {
     public void init() {
         robot.init(hardwareMap);
         sensor = hardwareMap.colorSensor.get("colorSensor0");
+//        robot.sorter.calibrate(telemetry);
     }
 
     @Override
@@ -179,5 +180,10 @@ public class Teleop extends OpMode {
         telemetry.addData("Position 0 color", robot.sorter.getColor(0));
         telemetry.addData("Position 1 color", robot.sorter.getColor(1));
         telemetry.addData("Position 2 color", robot.sorter.getColor(2));
+
+        telemetry.addData("Position 0 red", robot.sorter.getRed(0));
+        telemetry.addData("Position 0 green", robot.sorter.getGreen(0));
+        telemetry.addData("Position 0 blue", robot.sorter.getBlue(0));
+
     }
 }
