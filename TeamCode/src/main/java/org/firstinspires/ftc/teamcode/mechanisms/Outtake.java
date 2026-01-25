@@ -11,14 +11,9 @@ public class Outtake {
 
     private Servo aimingServo;
 
-    private Servo fork;
+    private Servo liftingPaddle;
 
-    // Configuration constants
-    private static final double forkLiftedPosition = 0.3;
-    private static final double forkRetractedPosition = 1.0;
-
-    private static final double aimLiftedPosition = 1;
-    private static final double aimRetractedPosition = 0;
+    private static final double ballLiftedPosition = 0.3;
 
     public void init(HardwareMap hardwareMap){
         shooterFlywheel1 = hardwareMap.dcMotor.get("shooterFlywheel1");
@@ -28,12 +23,10 @@ public class Outtake {
 
         aimingServo = hardwareMap.servo.get("aim");
 
-        fork = hardwareMap.servo.get("liftingPaddle");
-
-//        fork.setPosition(forkRetractedPosition);
-//        aimingServo.setPosition(aimRetractedPosition);
+        liftingPaddle = hardwareMap.servo.get("liftingPaddle");
     }
 
+   /\[p;[]pkjklk]
     public void spinUp(double speed){
         //speed is the speed to spin the launching motors
         shooterFlywheel1.setPower(speed);
@@ -50,19 +43,13 @@ public class Outtake {
         aimingServo.setPosition(aim);
     }
 
-    public void smartAim(){
-        //todo
-        return;
-    }
-
     public double getAim(){
         return aimingServo.getPosition();
     }
 
     public void liftBall(){
-        fork.setPosition(forkLiftedPosition);
+        liftingPaddle.setPosition(ballLiftedPosition);
     }
 
-    public void lowerBall(){
-        fork.setPosition(forkRetractedPosition);}
+    public void lowerBall(){liftingPaddle.setPosition(1);}
 }

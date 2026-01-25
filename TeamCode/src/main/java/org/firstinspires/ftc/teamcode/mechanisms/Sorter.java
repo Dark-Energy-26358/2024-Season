@@ -124,16 +124,4 @@ public class Sorter {
             }
         }
     }
-
-    private DecodeColor getSensorColor(ColorSensor sensor) {
-
-    }
-
-    public int getNumberOfBalls() {
-        return (
-                (getColor(0).equals(DecodeColor.EMPTY) ? 0 : 1) +
-                (getColor(1).equals(DecodeColor.EMPTY) ? 0 : 1) +
-                (getColor(2).equals(DecodeColor.EMPTY) ? 0 : 1)
-        );
-    }
 }
