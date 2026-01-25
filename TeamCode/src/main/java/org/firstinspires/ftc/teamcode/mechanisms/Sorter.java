@@ -36,11 +36,11 @@ public class Sorter {
         tripaddle.setPosition(0);
     }
 
-    public void startIntake(){
+    private void startIntake(){
         intake.setPower(intakeSpeed);
     }
 
-    public void stopIntake(){
+    private void stopIntake(){
         intake.setPower(0);
     }
 
