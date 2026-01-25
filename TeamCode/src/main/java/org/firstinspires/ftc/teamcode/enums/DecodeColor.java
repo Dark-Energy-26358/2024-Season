@@ -4,5 +4,5 @@ public enum DecodeColor {
     EMPTY,
     GREEN,
     PURPLE,
-    BLUE
+    INIT_COLOR
 }

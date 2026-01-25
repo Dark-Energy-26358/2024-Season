@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.enums.DecodeColor;
+import org.firstinspires.ftc.teamcode.enums.SorterColorSensors;
 
 public class Sorter {
     public Servo tripaddle;
@@ -20,6 +21,9 @@ public class Sorter {
     private final double TOTAL_NUMBER_OF_POSITIONS = 30.2;
     private final int NUMBER_OF_REACHABLE_POSITIONS = 12;
     private final double intakeSpeed = 0.5;
+
+    private static final int timeout = 100;
+    private static final int intakeSensor = 0;
 
     public void init(HardwareMap hardwareMap) {
         tripaddle = hardwareMap.servo.get("tripaddle");
@@ -36,6 +40,23 @@ public class Sorter {
         tripaddle.setPosition(0);
     }
 
+    public boolean intakeBall(){
+        moveToEmpty();
+        startIntake();;
+        waitForIntake();
+        stopIntake();
+    }
+
+    public boolean shootBall(){
+        return false;
+    }
+
+
+
+
+
+
+
     private void startIntake(){
         intake.setPower(intakeSpeed);
     }
@@ -43,6 +64,65 @@ public class Sorter {
     private void stopIntake(){
         intake.setPower(0);
     }
+
+
+    private void waitForIntake(){
+
+        while(getColor(SorterColorSensors.INTAKE) == DecodeColor.EMPTY){
+            await();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private void gotoPos(int pos) {
         // Sets the position of the sorter to one of 6 positions, 
@@ -63,16 +143,14 @@ public class Sorter {
         gotoPos(getPos()+amount);
     }
 
-    private ColorSensor getSensor(int sensorNumber) {
+    private ColorSensor getSensor(SorterColorSensors sensorNumber) {
         switch (sensorNumber) {
-            case 0:
+            case INTAKE:
                 return colorSensor0;
-            case 1:
+            case LEFT:
                 return colorSensor1;
-            case 2:
+            case RIGHT:
                 return colorSensor2;
-            default:
-                return null;
         }
     }
 
@@ -103,7 +181,7 @@ public class Sorter {
         }
     }
 
-    private DecodeColor getColor(int sensorNumber) {
+    private DecodeColor getColor(SorterColorSensors sensorNumber) {
         ColorSensor sensor = getSensor(sensorNumber);
         if (sensor == null) {
             return null;
@@ -116,7 +194,7 @@ public class Sorter {
             return DecodeColor.EMPTY;
         } else {
             if (blue > 150 && blue > red+green) {
-                return DecodeColor.BLUE;
+                return DecodeColor.INIT_COLOR;
             } else if (green > 150 && green > red && green > blue) {
                 return DecodeColor.GREEN;
             } else {
