@@ -5,17 +5,13 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.mechanisms.Intake;
 import org.firstinspires.ftc.teamcode.mechanisms.LimelightCamera;
 import org.firstinspires.ftc.teamcode.mechanisms.OpticalOdometry;
-import org.firstinspires.ftc.teamcode.mechanisms.Shooter;
+import org.firstinspires.ftc.teamcode.mechanisms.Outtake;
 import org.firstinspires.ftc.teamcode.mechanisms.Sorter;
-import org.firstinspires.ftc.teamcode.mechanisms.StageOneAscentArms;
-import org.firstinspires.ftc.teamcode.mechanisms.ManipulatorArm;
 import org.firstinspires.ftc.teamcode.mechanisms.MecanumDrive;
 
 public class Robot {
@@ -24,7 +20,7 @@ public class Robot {
     public LimelightCamera camera = new LimelightCamera();
     public OpticalOdometry opticalOdometry = new OpticalOdometry();
     public Sorter sorter = new Sorter();
-    public Shooter shooter = new Shooter();
+    public Outtake shooter = new Outtake();
     public Intake intake = new Intake();
 
     public void init(HardwareMap hardwareMap){

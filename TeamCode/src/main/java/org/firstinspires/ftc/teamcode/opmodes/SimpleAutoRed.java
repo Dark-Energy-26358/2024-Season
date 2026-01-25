@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.Robot;
 
 @Autonomous(name="Red: Simple Auto", group="Red")
@@ -28,7 +27,7 @@ public class SimpleAutoRed extends OpMode {
 
         if (onSpot) {
             // Launch the ball
-            robot.shooter.shoot(1);
+            robot.shooter.on(1);
         }
     }
 }

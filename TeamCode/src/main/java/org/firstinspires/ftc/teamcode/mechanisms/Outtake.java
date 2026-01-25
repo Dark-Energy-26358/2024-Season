@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class Shooter {
+public class Outtake {
     private DcMotor shooterFlywheel1;
     private DcMotor shooterFlywheel2;
 
@@ -25,11 +25,16 @@ public class Shooter {
 
         liftingPaddle = hardwareMap.servo.get("liftingPaddle");
     }
-    public void shoot(double speed){
+
+    public void spinUp(double speed){
         //speed is the speed to spin the launching motors
         shooterFlywheel1.setPower(speed);
         shooterFlywheel2.setPower(speed);
-        liftBall();
+    }
+
+    public void spinDown(){
+        shooterFlywheel2.setPower(0);
+        shooterFlywheel1.setPower(0);
     }
 
     public void aim(double aim){
@@ -41,13 +46,9 @@ public class Shooter {
         return aimingServo.getPosition();
     }
 
-    private void liftBall(){
+    public void liftBall(){
         liftingPaddle.setPosition(ballLiftedPosition);
     }
 
-    public void reset(){
-        liftingPaddle.setPosition(1);
-        shooterFlywheel2.setPower(0);
-        shooterFlywheel1.setPower(0);
-    }
+    public void lowerBall(){liftingPaddle.setPosition(1);}
 }

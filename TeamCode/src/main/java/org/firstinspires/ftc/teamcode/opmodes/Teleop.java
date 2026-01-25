@@ -29,12 +29,11 @@ public class Teleop extends OpMode {
     public void loop() {
 //        robot.updatePosition();
 
+        //making the robot drive
         double speed = 0.2 + gamepad1.left_trigger*0.3 + gamepad2.right_trigger*0.3;
-
         double forward = -gamepad1.left_stick_y * speed;
         double right = gamepad1.left_stick_x * speed;
         double rotate = (-gamepad1.right_stick_x) * 0.8;
-
         robot.mecanumDrive.drive(forward, right, rotate);
 
         if (stateFrames > 0) {
@@ -47,7 +46,7 @@ public class Teleop extends OpMode {
                         state = State.SORTING_INTAKE;
                         break;
                     case SORTING_FOR_LAUNCH:
-                        robot.shooter.shoot(1);
+                        robot.shooter.on(1);
                         state = State.LAUNCHING;
                         break;
                     case LAUNCHING:
@@ -148,7 +147,7 @@ public class Teleop extends OpMode {
 
         if (gamepad1.yWasPressed()) {
             if (!yPressed) {
-                robot.shooter.shoot(1);
+                robot.shooter.on(1);
                 yPressed = true;
             } else {
                 robot.shooter.reset();
@@ -183,7 +182,7 @@ public class Teleop extends OpMode {
 
         telemetry.addData("Position 0 red", robot.sorter.getRed(0));
         telemetry.addData("Position 0 green", robot.sorter.getGreen(0));
-        telemetry.addData("Position 0 blue", robot.sorter.getBlue(0));
+        telemetry.addData("Position 0 blue", robot.sorter.getRawBlue(0));
 
     }
 }

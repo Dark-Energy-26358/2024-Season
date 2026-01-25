@@ -35,7 +35,7 @@ public class SuperAutoRed extends OpMode {
             if (onSpot && sorterCooldown == 0) {
                 if (robot.sorter.getColor(0) != null && robot.sorter.getPos() % 2 == 0) {
                     // Launch the ball
-                    robot.shooter.shoot(1);
+                    robot.shooter.on(1);
                 } else {
                     robot.sorter.increasePos(1);
                     sorterCooldown = 100;
