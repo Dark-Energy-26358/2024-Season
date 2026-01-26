@@ -22,7 +22,8 @@ public class Sorter {
     private final int NUMBER_OF_REACHABLE_POSITIONS = 12;
     private final double intakeSpeed = 0.5;
 
-    private static final int timeout = 100;
+    private static final int timeout = 10000;//milliseconds
+    private static final int waitTime = 100;//wait time per iteration. milliseconds
     private static final int intakeSensor = 0;
 
     public void init(HardwareMap hardwareMap) {
@@ -40,89 +41,71 @@ public class Sorter {
         tripaddle.setPosition(0);
     }
 
-    public boolean intakeBall(){
-        moveToEmpty();
-        startIntake();;
-        waitForIntake();
-        stopIntake();
-    }
-
-    public boolean shootBall(){
-        return false;
-    }
-
-
-
-
-
-
-
-    private void startIntake(){
+    public void startIntake(){
         intake.setPower(intakeSpeed);
     }
 
-    private void stopIntake(){
+    public void stopIntake(){
         intake.setPower(0);
     }
 
 
-    private void waitForIntake(){
-
-        while(getColor(SorterColorSensors.INTAKE) == DecodeColor.EMPTY){
-            await();
+    public synchronized void waitForIntake(){
+        int timer = 0;
+        while(getColorAtSensor(SorterColorSensors.INTAKE) == DecodeColor.EMPTY && timer < timeout){
+            try {
+                wait(waitTime);
+            }
+            catch (InterruptedException ignored){}
+            timer += waitTime;
         }
     }
 
+    public boolean moveToIntake(DecodeColor ballColor) { // true means it succeded false means it is full
+        if (getPos()%2 == 1){
+            increasePos(1);
+            try {wait(250);}
+            catch (InterruptedException ignored){}
+        }
+        if (getColorAtSensor(SorterColorSensors.INTAKE) == DecodeColor.EMPTY){
+            return true;
+        } else if (getColorAtSensor(SorterColorSensors.RIGHT) == DecodeColor.EMPTY) {
+            increasePos(2);
+            return true;
+        }
+        else if (getColorAtSensor(SorterColorSensors.LEFT) == DecodeColor.EMPTY) {
+            increasePos(-2);
+            return true;
+        }
+        else{
+            return false;
+        }
 
 
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public boolean moveToOuttake(DecodeColor ballColor){ // true means it succeded false means it is empty
+        if (getPos()%2 == 1){
+            increasePos(-1);
+            try {wait(250);}
+            catch (InterruptedException ignored){}
+        }
+         if (getColorAtSensor(SorterColorSensors.RIGHT) == DecodeColor.EMPTY) {
+            increasePos(-1);
+             return true;
+        }
+        else if (getColorAtSensor(SorterColorSensors.LEFT) == DecodeColor.EMPTY) {
+            increasePos(1);
+             return true;
+        }
+        else if (getColorAtSensor(SorterColorSensors.INTAKE) == DecodeColor.EMPTY){
+            increasePos(3);
+             return true;
+         }
+        else{
+            return false;
+        }
+    }
 
     private void gotoPos(int pos) {
         // Sets the position of the sorter to one of 6 positions, 
@@ -135,11 +118,7 @@ public class Sorter {
         return (int) Math.round(tripaddle.getPosition()*TOTAL_NUMBER_OF_POSITIONS);
     }
 
-    public boolean moveToEmpty() { // todo do dis
-        return false;
-    }
-
-    public void increasePos(int amount) {
+    private void increasePos(int amount) {
         gotoPos(getPos()+amount);
     }
 
@@ -151,38 +130,13 @@ public class Sorter {
                 return colorSensor1;
             case RIGHT:
                 return colorSensor2;
+            default:
+                return null;
         }
     }
 
-    public int getRawRed(int sensorNumber) {
-        if(getSensor(sensorNumber) != null) {
-            return getSensor(sensorNumber).red();
-        }
-        else {
-            return 0;
-        }
-    }
-
-    public int getRawGreen(int sensorNumber) {
-        if(getSensor(sensorNumber) != null) {
-            return getSensor(sensorNumber).green();
-        }
-        else {
-            return 0;
-        }
-    }
-
-    public int getRawBlue(int sensorNumber) {
-        if(getSensor(sensorNumber) != null) {
-            return getSensor(sensorNumber).blue();
-        }
-        else {
-            return 0;
-        }
-    }
-
-    private DecodeColor getColor(SorterColorSensors sensorNumber) {
-        ColorSensor sensor = getSensor(sensorNumber);
+    private DecodeColor getColorAtSensor(SorterColorSensors sorterColorSensors) {
+        ColorSensor sensor = getSensor(sorterColorSensors);
         if (sensor == null) {
             return null;
         }

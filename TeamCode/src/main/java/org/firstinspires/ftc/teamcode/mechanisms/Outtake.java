@@ -15,6 +15,8 @@ public class Outtake {
 
     private static final double ballLiftedPosition = 0.3;
 
+    public double launchSpeed = 1;
+
     public void init(HardwareMap hardwareMap){
         shooterFlywheel1 = hardwareMap.dcMotor.get("shooterFlywheel1");
         shooterFlywheel2 = hardwareMap.dcMotor.get("shooterFlywheel2");
@@ -26,11 +28,10 @@ public class Outtake {
         liftingPaddle = hardwareMap.servo.get("liftingPaddle");
     }
 
-   /\[p;[]pkjklk]
-    public void spinUp(double speed){
+    public void spinUp(){
         //speed is the speed to spin the launching motors
-        shooterFlywheel1.setPower(speed);
-        shooterFlywheel2.setPower(speed);
+        shooterFlywheel1.setPower(launchSpeed);
+        shooterFlywheel2.setPower(launchSpeed);
     }
 
     public void spinDown(){
@@ -38,13 +39,18 @@ public class Outtake {
         shooterFlywheel1.setPower(0);
     }
 
-    public void aim(double aim){
+    public void aim(double angle, double speed){
         //aim is servo ticks
-        aimingServo.setPosition(aim);
+        aimingServo.setPosition(angle);//needs something to convert degrees into servo ticks
+        launchSpeed = speed;
     }
 
-    public double getAim(){
+    public double getAimAngle(){
         return aimingServo.getPosition();
+    }
+
+    public double getAimSpeed(){
+        return launchSpeed;
     }
 
     public void liftBall(){
@@ -52,4 +58,18 @@ public class Outtake {
     }
 
     public void lowerBall(){liftingPaddle.setPosition(1);}
+
+    public void waitForLaunch(){
+        int previousPosition = shooterFlywheel1.getCurrentPosition();
+        int position = shooterFlywheel1.getCurrentPosition();
+        int previousSpeed = 0;
+        int speed = 0;
+        while (speed > previousSpeed - 100){
+            previousSpeed = speed;
+            speed = position - previousPosition;
+            previousPosition = position;
+            position = shooterFlywheel1.getCurrentPosition();
+        }
+    }
 }
+
