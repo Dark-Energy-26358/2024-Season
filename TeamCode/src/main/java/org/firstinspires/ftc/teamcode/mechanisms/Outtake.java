@@ -14,6 +14,7 @@ public class Outtake {
     private Servo liftingPaddle;
 
     private static final double ballLiftedPosition = 0.3;
+    private static final double ballRetractedPosition = 1;
 
     public double launchSpeed = 1;
 
@@ -21,11 +22,19 @@ public class Outtake {
         shooterFlywheel1 = hardwareMap.dcMotor.get("shooterFlywheel1");
         shooterFlywheel2 = hardwareMap.dcMotor.get("shooterFlywheel2");
 
+        shooterFlywheel1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        shooterFlywheel1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        shooterFlywheel2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        shooterFlywheel2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         shooterFlywheel2.setDirection(DcMotorSimple.Direction.REVERSE);
 
         aimingServo = hardwareMap.servo.get("aim");
 
         liftingPaddle = hardwareMap.servo.get("liftingPaddle");
+
+        liftingPaddle.setPosition(ballRetractedPosition);
     }
 
     public void spinUp(){
@@ -57,19 +66,34 @@ public class Outtake {
         liftingPaddle.setPosition(ballLiftedPosition);
     }
 
-    public void lowerBall(){liftingPaddle.setPosition(1);}
+    public void lowerBall(){liftingPaddle.setPosition(ballRetractedPosition);}
 
     public void waitForLaunch(){
-        int previousPosition = shooterFlywheel1.getCurrentPosition();
-        int position = shooterFlywheel1.getCurrentPosition();
-        int previousSpeed = 0;
-        int speed = 0;
-        while (speed > previousSpeed - 100){
-            previousSpeed = speed;
-            speed = position - previousPosition;
-            previousPosition = position;
-            position = shooterFlywheel1.getCurrentPosition();
+        int previousPositionFlywheel1 = shooterFlywheel1.getCurrentPosition();
+        int positionFlywheel1 = shooterFlywheel1.getCurrentPosition();
+        int previousSpeedFlywheel1 = 0;
+        int speedFlywheel1 = 0;
+
+        int previousPositionFlywheel2 = shooterFlywheel2.getCurrentPosition();
+        int positionFlywheel2 = shooterFlywheel2.getCurrentPosition();
+        int previousSpeedFlywheel2 = 0;
+        int speedFlywheel2 = 0;
+
+        while (speedFlywheel1 > previousSpeedFlywheel1 - 16 && speedFlywheel2 > previousSpeedFlywheel2 - 16){
+            previousSpeedFlywheel1 = speedFlywheel1;
+            speedFlywheel1 = positionFlywheel1 - previousPositionFlywheel1;
+            previousPositionFlywheel1 = positionFlywheel1;
+            positionFlywheel1 = shooterFlywheel1.getCurrentPosition();
+
+            previousSpeedFlywheel2 = speedFlywheel2;
+            speedFlywheel2 = positionFlywheel2 - previousPositionFlywheel2;
+            previousPositionFlywheel2 = positionFlywheel2;
+            positionFlywheel2 = shooterFlywheel2.getCurrentPosition();
         }
+    }
+
+    public int getRawEncoder(){
+        return shooterFlywheel1.getCurrentPosition();
     }
 }
 

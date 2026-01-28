@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.enums.DecodeColor;
 import org.firstinspires.ftc.teamcode.enums.SorterColorSensors;
 
+import java.sql.Array;
+
 public class Sorter {
     public Servo tripaddle;
 
@@ -18,9 +20,12 @@ public class Sorter {
     ColorSensor colorSensor1;
     ColorSensor colorSensor2;
 
-    private final double TOTAL_NUMBER_OF_POSITIONS = 30.2;
-    private final int NUMBER_OF_REACHABLE_POSITIONS = 12;
-    private final double intakeSpeed = 0.5;
+    private static final double TOTAL_NUMBER_OF_POSITIONS = 30.2;
+    private static final int NUMBER_OF_REACHABLE_POSITIONS = 12;
+
+    private static final double intakeSpeed = 0.5;
+
+    private static final int emptyColorThreshold = 750;
 
     private static final int timeout = 10000;//milliseconds
     private static final int waitTime = 100;//wait time per iteration. milliseconds
@@ -38,7 +43,7 @@ public class Sorter {
 
         // TODO: keep track of what ball spots are filled and their color
 
-        tripaddle.setPosition(0);
+        gotoPos(6);
     }
 
     public void startIntake(){
@@ -52,29 +57,24 @@ public class Sorter {
 
     public synchronized void waitForIntake(){
         int timer = 0;
+        int x=1000;while (x>0){x--; Thread.yield();}
         while(getColorAtSensor(SorterColorSensors.INTAKE) == DecodeColor.EMPTY && timer < timeout){
-            try {
-                wait(waitTime);
-            }
-            catch (InterruptedException ignored){}
-            timer += waitTime;
+            timer += 1;
         }
     }
 
     public boolean moveToIntake(DecodeColor ballColor) { // true means it succeded false means it is full
         if (getPos()%2 == 1){
             increasePos(1);
-            try {wait(250);}
-            catch (InterruptedException ignored){}
         }
         if (getColorAtSensor(SorterColorSensors.INTAKE) == DecodeColor.EMPTY){
             return true;
         } else if (getColorAtSensor(SorterColorSensors.RIGHT) == DecodeColor.EMPTY) {
-            increasePos(2);
+            increasePos(-2);
             return true;
         }
         else if (getColorAtSensor(SorterColorSensors.LEFT) == DecodeColor.EMPTY) {
-            increasePos(-2);
+            increasePos(2);
             return true;
         }
         else{
@@ -87,24 +87,26 @@ public class Sorter {
     public boolean moveToOuttake(DecodeColor ballColor){ // true means it succeded false means it is empty
         if (getPos()%2 == 1){
             increasePos(-1);
-            try {wait(250);}
-            catch (InterruptedException ignored){}
         }
-         if (getColorAtSensor(SorterColorSensors.RIGHT) == DecodeColor.EMPTY) {
-            increasePos(-1);
-             return true;
-        }
-        else if (getColorAtSensor(SorterColorSensors.LEFT) == DecodeColor.EMPTY) {
+         if (getColorAtSensor(SorterColorSensors.RIGHT) == ballColor) {
             increasePos(1);
              return true;
         }
-        else if (getColorAtSensor(SorterColorSensors.INTAKE) == DecodeColor.EMPTY){
+        else if (getColorAtSensor(SorterColorSensors.LEFT) == ballColor) {
+            increasePos(-1);
+             return true;
+        }
+        else if (getColorAtSensor(SorterColorSensors.INTAKE) == ballColor){
             increasePos(3);
              return true;
          }
         else{
             return false;
         }
+    }
+
+    public DecodeColor getRawColors(SorterColorSensors sensor){
+        return getColorAtSensor(sensor);
     }
 
     private void gotoPos(int pos) {
@@ -120,6 +122,8 @@ public class Sorter {
 
     private void increasePos(int amount) {
         gotoPos(getPos()+amount);
+        try {Thread.sleep(250L * Math.abs(amount));}
+        catch (InterruptedException ignored){}
     }
 
     private ColorSensor getSensor(SorterColorSensors sensorNumber) {
@@ -144,12 +148,12 @@ public class Sorter {
         int red = sensor.red();
         int green = sensor.green();
         int blue = sensor.blue();
-        if (red + blue + green < 300){
+        if (red + blue + green < emptyColorThreshold){
             return DecodeColor.EMPTY;
         } else {
-            if (blue > 150 && blue > red+green) {
+            if (blue > red + green) {
                 return DecodeColor.INIT_COLOR;
-            } else if (green > 150 && green > red && green > blue) {
+            } else if (green > Math.max(red,blue) ) {
                 return DecodeColor.GREEN;
             } else {
                 return DecodeColor.PURPLE;

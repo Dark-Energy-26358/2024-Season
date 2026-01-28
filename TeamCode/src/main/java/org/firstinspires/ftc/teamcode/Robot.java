@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import static java.lang.Thread.sleep;
+
 import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -8,6 +10,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.enums.DecodeColor;
+import org.firstinspires.ftc.teamcode.enums.SorterColorSensors;
 import org.firstinspires.ftc.teamcode.mechanisms.LimelightCamera;
 import org.firstinspires.ftc.teamcode.mechanisms.OpticalOdometry;
 import org.firstinspires.ftc.teamcode.mechanisms.Outtake;
@@ -55,29 +58,31 @@ public class Robot {
     }
 
     public void launchBall(DecodeColor ballColor){// it is recommended to only launch balls while the robot is stationary
-        mecanumDrive.drive(0,0,0);//stops all robot movement
-        if (sorter.moveToOuttake(ballColor)) {
+        Thread launchThread = new Thread(() -> {
             outtake.spinUp();
-            try {wait(1000);}
-            catch (InterruptedException ignored){}
+            sorter.moveToOuttake(ballColor);
             outtake.liftBall();
             outtake.waitForLaunch();
             outtake.lowerBall();
             outtake.spinDown();
-        }
+            sorter.moveToIntake(DecodeColor.EMPTY);
+        });
+        launchThread.start();
+    }
+
+    public DecodeColor getRawColors(SorterColorSensors sensor){
+        return sorter.getRawColors(sensor);
     }
 
     public void intakeBall(){
-        if (sorter.moveToIntake(DecodeColor.EMPTY)) {
+        Thread intakeThread = new Thread(() -> {
+            sorter.moveToIntake(DecodeColor.EMPTY);
             sorter.startIntake();
-            Thread intakeThread = new Thread(() -> {
-                try {wait(250);}
-                catch (InterruptedException ignored){}
-                sorter.waitForIntake();
-                sorter.stopIntake();
+            sorter.waitForIntake();
+            sorter.stopIntake();
             });
-            intakeThread.start();
-        }
+        intakeThread.start();
+
     }
 
     public void aim(double angle, double speed){
@@ -90,6 +95,9 @@ public class Robot {
 
     public void smartAim(){
 
+    }
+    public int getRawEncoder(){
+        return outtake.getRawEncoder();
     }
 }
 

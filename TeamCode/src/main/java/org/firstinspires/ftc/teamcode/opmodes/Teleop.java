@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.enums.DecodeColor;
+import org.firstinspires.ftc.teamcode.enums.SorterColorSensors;
 import org.firstinspires.ftc.teamcode.enums.State;
 
 @TeleOp(name="Teleop")
@@ -56,7 +57,11 @@ public class Teleop extends OpMode {
             robot.modifyAim(0,-0.1);
         }
 
-
+        //telemetry
+        telemetry.addData("sensor value Intake", robot.getRawColors(SorterColorSensors.INTAKE));
+        telemetry.addData("sensor value Right", robot.getRawColors(SorterColorSensors.RIGHT));
+        telemetry.addData("sensor value Left", robot.getRawColors(SorterColorSensors.LEFT));
+        telemetry.addData("raw encoder", robot.getRawEncoder());
 
 
     }
