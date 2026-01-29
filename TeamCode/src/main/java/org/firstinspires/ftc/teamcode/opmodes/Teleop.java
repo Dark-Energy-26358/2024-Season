@@ -2,12 +2,10 @@ package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.enums.DecodeColor;
 import org.firstinspires.ftc.teamcode.enums.SorterColorSensors;
-import org.firstinspires.ftc.teamcode.enums.State;
 
 @TeleOp(name="Teleop")
 public class Teleop extends OpMode {

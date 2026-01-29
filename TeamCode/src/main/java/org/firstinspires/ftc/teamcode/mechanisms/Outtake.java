@@ -16,7 +16,9 @@ public class Outtake {
     private static final double ballLiftedPosition = 0.3;
     private static final double ballRetractedPosition = 1;
 
-    public double launchSpeed = 1;
+    private static final double aimStartingPosition = 0;
+
+    public double launchSpeed = 0.5;
 
     public void init(HardwareMap hardwareMap){
         shooterFlywheel1 = hardwareMap.dcMotor.get("shooterFlywheel1");
@@ -31,6 +33,7 @@ public class Outtake {
         shooterFlywheel2.setDirection(DcMotorSimple.Direction.REVERSE);
 
         aimingServo = hardwareMap.servo.get("aim");
+        aimingServo.setPosition(aimStartingPosition);
 
         liftingPaddle = hardwareMap.servo.get("liftingPaddle");
 

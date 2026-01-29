@@ -9,8 +9,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.enums.DecodeColor;
 import org.firstinspires.ftc.teamcode.enums.SorterColorSensors;
 
-import java.sql.Array;
-
 public class Sorter {
     public Servo tripaddle;
 
@@ -22,6 +20,9 @@ public class Sorter {
 
     private static final double TOTAL_NUMBER_OF_POSITIONS = 30.2;
     private static final int NUMBER_OF_REACHABLE_POSITIONS = 12;
+    private static final int initPos = 6;
+
+    private static final long moveTime = 250;//the approximate amount of time it takes the tri-paddle to move one position
 
     private static final double intakeSpeed = 0.5;
 
@@ -43,7 +44,7 @@ public class Sorter {
 
         // TODO: keep track of what ball spots are filled and their color
 
-        gotoPos(6);
+        gotoPos(initPos);
     }
 
     public void startIntake(){
@@ -54,13 +55,8 @@ public class Sorter {
         intake.setPower(0);
     }
 
-
-    public synchronized void waitForIntake(){
-        int timer = 0;
-        int x=1000;while (x>0){x--; Thread.yield();}
-        while(getColorAtSensor(SorterColorSensors.INTAKE) == DecodeColor.EMPTY && timer < timeout){
-            timer += 1;
-        }
+    public void waitForIntake(){
+        while(getColorAtSensor(SorterColorSensors.INTAKE) == DecodeColor.EMPTY );
     }
 
     public boolean moveToIntake(DecodeColor ballColor) { // true means it succeded false means it is full
@@ -105,9 +101,12 @@ public class Sorter {
         }
     }
 
+
+//telemetry
     public DecodeColor getRawColors(SorterColorSensors sensor){
         return getColorAtSensor(sensor);
     }
+
 
     private void gotoPos(int pos) {
         // Sets the position of the sorter to one of 6 positions, 
@@ -122,7 +121,7 @@ public class Sorter {
 
     private void increasePos(int amount) {
         gotoPos(getPos()+amount);
-        try {Thread.sleep(250L * Math.abs(amount));}
+        try {Thread.sleep(moveTime * Math.abs(amount));}
         catch (InterruptedException ignored){}
     }
 

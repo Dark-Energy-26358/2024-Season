@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import static java.lang.Thread.sleep;
-
 import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -22,8 +20,8 @@ public class Robot {
     public MecanumDrive mecanumDrive = new MecanumDrive();
     public LimelightCamera camera = new LimelightCamera();
     public OpticalOdometry opticalOdometry = new OpticalOdometry();
-    private Sorter sorter = new Sorter();
-    private Outtake outtake = new Outtake();
+    private final Sorter sorter = new Sorter();
+    private final Outtake outtake = new Outtake();
 
     public void init(HardwareMap hardwareMap){
         mecanumDrive.init(hardwareMap);
@@ -33,6 +31,7 @@ public class Robot {
         //camera.init(hardwareMap);
         //opticalOdometry.init(hardwareMap);
     }
+
 
     public Position getPosition(){
         if (camera.isLive()) {
@@ -57,6 +56,7 @@ public class Robot {
         }
     }
 
+
     public void launchBall(DecodeColor ballColor){// it is recommended to only launch balls while the robot is stationary
         Thread launchThread = new Thread(() -> {
             outtake.spinUp();
@@ -68,10 +68,6 @@ public class Robot {
             sorter.moveToIntake(DecodeColor.EMPTY);
         });
         launchThread.start();
-    }
-
-    public DecodeColor getRawColors(SorterColorSensors sensor){
-        return sorter.getRawColors(sensor);
     }
 
     public void intakeBall(){
@@ -93,11 +89,17 @@ public class Robot {
         outtake.aim(outtake.getAimAngle() + angle, outtake.getAimSpeed()+speed);
     }
 
-    public void smartAim(){
+    public void smartAim(){//todo do dis
 
     }
+
+
     public int getRawEncoder(){
         return outtake.getRawEncoder();
+    }
+
+    public DecodeColor getRawColors(SorterColorSensors sensor){
+        return sorter.getRawColors(sensor);
     }
 }
 
