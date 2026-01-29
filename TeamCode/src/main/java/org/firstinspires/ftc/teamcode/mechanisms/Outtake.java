@@ -66,33 +66,37 @@ public class Outtake {
     }
 
     public void liftBall(){
+        try {Thread.sleep(100);}//waits a little bit to avoid getting caught
+        catch (InterruptedException ignored){}
         liftingPaddle.setPosition(ballLiftedPosition);
     }
 
     public void lowerBall(){liftingPaddle.setPosition(ballRetractedPosition);}
 
     public void waitForLaunch(){
-        int previousPositionFlywheel1 = shooterFlywheel1.getCurrentPosition();
-        int positionFlywheel1 = shooterFlywheel1.getCurrentPosition();
-        int previousSpeedFlywheel1 = 0;
-        int speedFlywheel1 = 0;
-
-        int previousPositionFlywheel2 = shooterFlywheel2.getCurrentPosition();
-        int positionFlywheel2 = shooterFlywheel2.getCurrentPosition();
-        int previousSpeedFlywheel2 = 0;
-        int speedFlywheel2 = 0;
-
-        while (speedFlywheel1 > previousSpeedFlywheel1 - 16 && speedFlywheel2 > previousSpeedFlywheel2 - 16){
-            previousSpeedFlywheel1 = speedFlywheel1;
-            speedFlywheel1 = positionFlywheel1 - previousPositionFlywheel1;
-            previousPositionFlywheel1 = positionFlywheel1;
-            positionFlywheel1 = shooterFlywheel1.getCurrentPosition();
-
-            previousSpeedFlywheel2 = speedFlywheel2;
-            speedFlywheel2 = positionFlywheel2 - previousPositionFlywheel2;
-            previousPositionFlywheel2 = positionFlywheel2;
-            positionFlywheel2 = shooterFlywheel2.getCurrentPosition();
-        }
+//        int previousPositionFlywheel1 = shooterFlywheel1.getCurrentPosition();
+//        int positionFlywheel1 = shooterFlywheel1.getCurrentPosition();
+//        int previousSpeedFlywheel1 = 0;
+//        int speedFlywheel1 = 0;
+//
+//        int previousPositionFlywheel2 = shooterFlywheel2.getCurrentPosition();
+//        int positionFlywheel2 = shooterFlywheel2.getCurrentPosition();
+//        int previousSpeedFlywheel2 = 0;
+//        int speedFlywheel2 = 0;
+//
+//        while (speedFlywheel1 > previousSpeedFlywheel1 - 16 && speedFlywheel2 > previousSpeedFlywheel2 - 16){
+//            previousSpeedFlywheel1 = speedFlywheel1;
+//            speedFlywheel1 = positionFlywheel1 - previousPositionFlywheel1;
+//            previousPositionFlywheel1 = positionFlywheel1;
+//            positionFlywheel1 = shooterFlywheel1.getCurrentPosition();
+//
+//            previousSpeedFlywheel2 = speedFlywheel2;
+//            speedFlywheel2 = positionFlywheel2 - previousPositionFlywheel2;
+//            previousPositionFlywheel2 = positionFlywheel2;
+//            positionFlywheel2 = shooterFlywheel2.getCurrentPosition();
+//        }
+        try {Thread.sleep(1000);}//wait 1 second
+        catch (InterruptedException ignored){}
     }
 
     public int getRawEncoder(){

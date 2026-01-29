@@ -22,7 +22,7 @@ public class Sorter {
     private static final int NUMBER_OF_REACHABLE_POSITIONS = 12;
     private static final int initPos = 6;
 
-    private static final long moveTime = 250;//the approximate amount of time it takes the tri-paddle to move one position
+    private static final long moveTime = 300;//the approximate amount of time it takes the tri-paddle to move one position
 
     private static final double intakeSpeed = 0.5;
 
@@ -63,18 +63,18 @@ public class Sorter {
         if (getPos()%2 == 1){
             increasePos(1);
         }
-        if (getColorAtSensor(SorterColorSensors.INTAKE) == DecodeColor.EMPTY){
+        if (getColorAtSensor(SorterColorSensors.INTAKE) == DecodeColor.EMPTY){//if the spot at the intake is already the correct color then return true
             return true;
-        } else if (getColorAtSensor(SorterColorSensors.RIGHT) == DecodeColor.EMPTY) {
+        } else if (getColorAtSensor(SorterColorSensors.RIGHT) == DecodeColor.EMPTY) {// if the spot to the right is empty move to the intake and return true
             increasePos(-2);
             return true;
         }
-        else if (getColorAtSensor(SorterColorSensors.LEFT) == DecodeColor.EMPTY) {
+        else if (getColorAtSensor(SorterColorSensors.LEFT) == DecodeColor.EMPTY) {// if the spot to the left is empty move to the intake and return true
             increasePos(2);
             return true;
         }
         else{
-            return false;
+            return false;//else return false because the entire sorter is the wrong color
         }
 
 
@@ -84,20 +84,20 @@ public class Sorter {
         if (getPos()%2 == 1){
             increasePos(-1);
         }
-         if (getColorAtSensor(SorterColorSensors.RIGHT) == ballColor) {
+         if (getColorAtSensor(SorterColorSensors.RIGHT) == ballColor) {//if the spot to the right is the correct color then move to the outtake and return true
             increasePos(1);
              return true;
         }
-        else if (getColorAtSensor(SorterColorSensors.LEFT) == ballColor) {
+        else if (getColorAtSensor(SorterColorSensors.LEFT) == ballColor) {//if the spot to the left is the correct color then move to the outtake and return true
             increasePos(-1);
              return true;
         }
-        else if (getColorAtSensor(SorterColorSensors.INTAKE) == ballColor){
+        else if (getColorAtSensor(SorterColorSensors.INTAKE) == ballColor){//if the spot by the intake is the correct color then move to the outtake and return true
             increasePos(3);
              return true;
          }
         else{
-            return false;
+            return false;//else return false because the entire sorter is the wrong color
         }
     }
 
@@ -120,9 +120,27 @@ public class Sorter {
     }
 
     private void increasePos(int amount) {
-        gotoPos(getPos()+amount);
-        try {Thread.sleep(moveTime * Math.abs(amount));}
-        catch (InterruptedException ignored){}
+        if (Math.abs(amount) == 3){ // if we are moving halfway around then move whatever direction will bring us closer to position 6 and then wait long enough for it to spin
+            if (getPos()>6){
+                gotoPos(getPos()-3);
+                try {Thread.sleep(moveTime * 3);}
+                catch (InterruptedException ignored){}
+            } else if (getPos()<6){
+                gotoPos(getPos()+3);
+                try {Thread.sleep(moveTime * 3);}
+                catch (InterruptedException ignored){}
+            }else{
+                gotoPos(getPos()+amount);
+                try {Thread.sleep(moveTime * Math.abs(amount));}
+                catch (InterruptedException ignored){}
+            }
+        }else {//otherwise move the desired amount and wait long enough for it to spin
+            gotoPos(getPos() + amount);
+            try {
+                Thread.sleep(moveTime * Math.abs(amount));
+            } catch (InterruptedException ignored) {
+            }
+        }
     }
 
     private ColorSensor getSensor(SorterColorSensors sensorNumber) {
@@ -147,14 +165,15 @@ public class Sorter {
         int red = sensor.red();
         int green = sensor.green();
         int blue = sensor.blue();
-        if (red + blue + green < emptyColorThreshold){
+
+        if (red + blue + green < emptyColorThreshold){//if the total color is below the empty threshold then it is empty
             return DecodeColor.EMPTY;
         } else {
-            if (blue > red + green) {
+            if (blue > red + green) {//if blue is greater the red plus green the it is blue/init color
                 return DecodeColor.INIT_COLOR;
-            } else if (green > Math.max(red,blue) ) {
+            } else if (green > Math.max(red,blue) ) {//if green is greater than the max of red and blue
                 return DecodeColor.GREEN;
-            } else {
+            } else {//otherwise it is purple
                 return DecodeColor.PURPLE;
             }
         }

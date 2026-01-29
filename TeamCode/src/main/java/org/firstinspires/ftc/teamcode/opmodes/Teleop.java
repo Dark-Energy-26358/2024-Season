@@ -23,7 +23,7 @@ public class Teleop extends OpMode {
         double speed = 0.2 + gamepad1.left_trigger*0.3 + gamepad2.right_trigger*0.3;//turbo mode
         double forward = -gamepad1.left_stick_y * speed;
         double right = gamepad1.left_stick_x * speed;
-        double rotate = (-gamepad1.right_stick_x) * 0.8;
+        double rotate = (-gamepad1.right_stick_x) * 0.5;
         robot.mecanumDrive.drive(forward, right, rotate);
 
         //shoot
