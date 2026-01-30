@@ -71,11 +71,13 @@ public class Robot {
     }
 
     public void intakeBall(){
+
         Thread intakeThread = new Thread(() -> {
             sorter.moveToIntake(DecodeColor.EMPTY);
             sorter.startIntake();
             sorter.waitForIntake();
             sorter.stopIntake();
+            sorter.moveToIntake(DecodeColor.EMPTY);
             });
         intakeThread.start();
 
