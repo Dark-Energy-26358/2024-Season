@@ -8,6 +8,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.enums.DecodeColor;
+import org.firstinspires.ftc.teamcode.enums.ObeliskPattern;
 import org.firstinspires.ftc.teamcode.enums.SorterColorSensors;
 import org.firstinspires.ftc.teamcode.mechanisms.LimelightCamera;
 import org.firstinspires.ftc.teamcode.mechanisms.OpticalOdometry;
@@ -49,6 +50,11 @@ public class Robot {
         }
     }
 
+    // TODO: Ethan, add a docstring for this
+    public ObeliskPattern getObeliskPattern() {
+        return camera.getObeliskPattern();
+    }
+
     // call every frame
     public void updatePosition(){
         if (camera.isLive()) {
@@ -69,7 +75,7 @@ public class Robot {
      * @param ballColor
      * the color of the ball we intent to launch
      */
-    public void launchBall(DecodeColor ballColor){// it is recommended to only launch balls while the robot is stationary
+    public void launchBall(DecodeColor ballColor) {// it is recommended to only launch balls while the robot is stationary
         Thread launchThread = new Thread(() -> {
             outtake.spinUp();
             sorter.moveToOuttake(ballColor);
