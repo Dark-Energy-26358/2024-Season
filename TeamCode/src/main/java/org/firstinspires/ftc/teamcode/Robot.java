@@ -142,6 +142,7 @@ public class Robot {
     }
 
     /**
+     * returns the color of the ball at the sensor
      * @param sensor
      * the sensor you want to check the color of
      * @return
