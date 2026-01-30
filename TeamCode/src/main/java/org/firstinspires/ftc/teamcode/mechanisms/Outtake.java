@@ -95,7 +95,7 @@ public class Outtake {
 //            previousPositionFlywheel2 = positionFlywheel2;
 //            positionFlywheel2 = shooterFlywheel2.getCurrentPosition();
 //        }
-        try {Thread.sleep(1000);}//wait 1 second
+        try {Thread.sleep(30000);}//wait 1 second
         catch (InterruptedException ignored){}
     }
 
