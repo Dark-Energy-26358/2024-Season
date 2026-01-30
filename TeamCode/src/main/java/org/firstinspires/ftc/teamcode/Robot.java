@@ -55,6 +55,15 @@ public class Robot {
         return camera.getObeliskPattern();
     }
 
+    // TODO: Ethan approve this and write a docstring
+    public boolean hasBallColor(DecodeColor color) {
+        return (
+                (getSorterColors(SorterColorSensors.INTAKE) == color) ||
+                (getSorterColors(SorterColorSensors.LEFT) == color) ||
+                (getSorterColors(SorterColorSensors.RIGHT) == color)
+        );
+    }
+
     // call every frame
     public void updatePosition(){
         if (camera.isLive()) {
