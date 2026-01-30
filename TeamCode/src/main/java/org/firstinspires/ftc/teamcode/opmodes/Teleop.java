@@ -56,9 +56,9 @@ public class Teleop extends OpMode {
         }
 
         //telemetry
-        telemetry.addData("sensor value Intake", robot.getRawColors(SorterColorSensors.INTAKE));
-        telemetry.addData("sensor value Right", robot.getRawColors(SorterColorSensors.RIGHT));
-        telemetry.addData("sensor value Left", robot.getRawColors(SorterColorSensors.LEFT));
+        telemetry.addData("sensor value Intake", robot.getSorterColors(SorterColorSensors.INTAKE));
+        telemetry.addData("sensor value Right", robot.getSorterColors(SorterColorSensors.RIGHT));
+        telemetry.addData("sensor value Left", robot.getSorterColors(SorterColorSensors.LEFT));
         telemetry.addData("raw encoder", robot.getRawEncoder());
 
 
