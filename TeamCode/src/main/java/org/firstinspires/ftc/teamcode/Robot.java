@@ -98,7 +98,10 @@ public class Robot {
         );
     }
 
-    // call every frame
+    /**
+     * If the camera can currently see an AprilTag, uses the position to recalibrate the odometry pod.
+     * Call this every frame.
+     */
     public void updatePosition() {
         if (camera.isLive()) {
             opticalOdometry.setPosition(new SparkFunOTOS.Pose2D(camera.getPosition().x, camera.getPosition().y, camera.getOrientation().getYaw()));
