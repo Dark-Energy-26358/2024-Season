@@ -37,9 +37,9 @@ public class SuperAutoRed extends OpMode {
                     robot.getPosition(), robot.getOrientation()
             );
 
-            if (onSpot) {
+            if (onSpot && !robot.isLaunchingBall()) {
                 robot.launchBall(activeColor);
-                // TODO: Once the launch has completed, increment patternIndex
+                patternIndex++;
             }
         }
 

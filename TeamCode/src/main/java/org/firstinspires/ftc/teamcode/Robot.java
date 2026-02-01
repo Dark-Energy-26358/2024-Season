@@ -24,6 +24,8 @@ public class Robot {
     private final Sorter sorter = new Sorter();
     private final Outtake outtake = new Outtake();
 
+    private boolean launchingBall = false;
+
     public void init(HardwareMap hardwareMap){
         mecanumDrive.init(hardwareMap);
 
@@ -33,7 +35,10 @@ public class Robot {
         //opticalOdometry.init(hardwareMap);
     }
 
-
+    /**
+     * Uses the camera and optical odometry pod to get the robot's current position.
+     * @return The robot's current position
+     */
     public Position getPosition(){
         if (camera.isLive()) {
             return camera.getPosition();
@@ -42,6 +47,10 @@ public class Robot {
         }
     }
 
+    /**
+     * Uses the camera and optical odometry pod to get the robot's current orientation.
+     * @return The robot's current orientation
+     */
     public YawPitchRollAngles getOrientation(){
         if (camera.isLive()) {
             return camera.getOrientation();
@@ -50,17 +59,37 @@ public class Robot {
         }
     }
 
-    // TODO: Ethan, add a docstring for this
+    /**
+     * Uses the camera to read the obelisk AprilTag and get the current pattern.
+     * Note that this reads an arbitrary one of the obelisk AprilTags in sight, not necessarily the active one.
+     * @return The obelisk pattern read.
+     */
     public ObeliskPattern getObeliskPattern() {
         return camera.getObeliskPattern();
     }
 
-    // TODO: Ethan approve this and write a docstring
+    /**
+     * Checks whether the sorter currently contains a specific color ball.
+     * @param color The color to check
+     * @return Whether or not the color is in the sorter.
+     */
     public boolean hasBallColor(DecodeColor color) {
         return (
                 (getSorterColors(SorterColorSensors.INTAKE) == color) ||
                 (getSorterColors(SorterColorSensors.LEFT) == color) ||
                 (getSorterColors(SorterColorSensors.RIGHT) == color)
+        );
+    }
+
+    /**
+     * Counts the number of balls (non-empty slots) currently in the sorter.
+     * @return The number of non-empty slots in the sorter
+     */
+    public int getNumberOfBalls() {
+        return (
+                (getSorterColors(SorterColorSensors.INTAKE) != DecodeColor.EMPTY ? 1 : 0) +
+                (getSorterColors(SorterColorSensors.LEFT) != DecodeColor.EMPTY ? 1 : 0) +
+                (getSorterColors(SorterColorSensors.RIGHT) != DecodeColor.EMPTY ? 1 : 0)
         );
     }
 
@@ -86,6 +115,7 @@ public class Robot {
      */
     public void launchBall(DecodeColor ballColor) {// it is recommended to only launch balls while the robot is stationary
         Thread launchThread = new Thread(() -> {
+            launchingBall = true;
             outtake.spinUp();
             sorter.moveToOuttake(ballColor);
             outtake.liftBall();
@@ -93,6 +123,7 @@ public class Robot {
             outtake.lowerBall();
             outtake.spinDown();
             sorter.moveToIntake(DecodeColor.EMPTY);
+            launchingBall = false;
         });
         launchThread.start();
     }
@@ -165,6 +196,14 @@ public class Robot {
      */
     public DecodeColor getSorterColors(SorterColorSensors sensor){
         return sorter.getRawColors(sensor);
+    }
+
+    /**
+     * Checks whether a ball launch sequence is currently in progress.
+     * @return Whether a ball is currently being launched
+     */
+    public boolean isLaunchingBall() {
+        return launchingBall;
     }
 }
 
