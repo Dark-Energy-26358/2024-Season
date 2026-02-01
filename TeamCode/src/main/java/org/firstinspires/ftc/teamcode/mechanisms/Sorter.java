@@ -22,7 +22,8 @@ public class Sorter {
     private static final int NUMBER_OF_REACHABLE_POSITIONS = 12;
     private static final int initPos = 6;
 
-    private static final long moveTime = 1500;//the approximate amount of time it takes the tri-paddle to move one position
+    private static final long moveTime = 2500;//the approximate amount of time it takes the tri-paddle to move one position
+    private static final int waitForIntakeTime = 5000;
 
     private static final double intakeSpeed = 0.5;
 
@@ -57,7 +58,7 @@ public class Sorter {
 
     public void waitForIntake(){
         while(getColorAtSensor(SorterColorSensors.INTAKE) == DecodeColor.EMPTY );
-        try {Thread.sleep(5000);}
+        try {Thread.sleep(waitForIntakeTime);}
         catch (InterruptedException ignored){}
     }
 
