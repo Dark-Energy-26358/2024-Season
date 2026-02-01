@@ -11,10 +11,10 @@ import org.firstinspires.ftc.teamcode.enums.DecodeColor;
 import org.firstinspires.ftc.teamcode.enums.ObeliskPattern;
 import org.firstinspires.ftc.teamcode.enums.SorterColorSensors;
 import org.firstinspires.ftc.teamcode.mechanisms.LimelightCamera;
+import org.firstinspires.ftc.teamcode.mechanisms.MecanumDrive;
 import org.firstinspires.ftc.teamcode.mechanisms.OpticalOdometry;
 import org.firstinspires.ftc.teamcode.mechanisms.Outtake;
 import org.firstinspires.ftc.teamcode.mechanisms.Sorter;
-import org.firstinspires.ftc.teamcode.mechanisms.MecanumDrive;
 
 public class Robot {
     public Globals globals = Globals.getInstance();
@@ -26,7 +26,7 @@ public class Robot {
 
     private boolean launchingBall = false;
 
-    public void init(HardwareMap hardwareMap){
+    public void init(HardwareMap hardwareMap) {
         mecanumDrive.init(hardwareMap);
 
         sorter.init(hardwareMap);
@@ -37,31 +37,34 @@ public class Robot {
 
     /**
      * Uses the camera and optical odometry pod to get the robot's current position.
+     *
      * @return The robot's current position
      */
-    public Position getPosition(){
+    public Position getPosition() {
         if (camera.isLive()) {
             return camera.getPosition();
         } else {
-              return new Position(DistanceUnit.INCH, opticalOdometry.getPosition().x, opticalOdometry.getPosition().y, camera.getPosition().z,0);
+            return new Position(DistanceUnit.INCH, opticalOdometry.getPosition().x, opticalOdometry.getPosition().y, camera.getPosition().z, 0);
         }
     }
 
     /**
      * Uses the camera and optical odometry pod to get the robot's current orientation.
+     *
      * @return The robot's current orientation
      */
-    public YawPitchRollAngles getOrientation(){
+    public YawPitchRollAngles getOrientation() {
         if (camera.isLive()) {
             return camera.getOrientation();
         } else {
-            return new YawPitchRollAngles(AngleUnit.DEGREES, opticalOdometry.getPosition().h,camera.getOrientation().getPitch(),camera.getOrientation().getRoll(),0);
+            return new YawPitchRollAngles(AngleUnit.DEGREES, opticalOdometry.getPosition().h, camera.getOrientation().getPitch(), camera.getOrientation().getRoll(), 0);
         }
     }
 
     /**
      * Uses the camera to read the obelisk AprilTag and get the current pattern.
      * Note that this reads an arbitrary one of the obelisk AprilTags in sight, not necessarily the active one.
+     *
      * @return The obelisk pattern read.
      */
     public ObeliskPattern getObeliskPattern() {
@@ -70,6 +73,7 @@ public class Robot {
 
     /**
      * Checks whether the sorter currently contains a specific color ball.
+     *
      * @param color The color to check
      * @return Whether or not the color is in the sorter.
      */
@@ -83,6 +87,7 @@ public class Robot {
 
     /**
      * Counts the number of balls (non-empty slots) currently in the sorter.
+     *
      * @return The number of non-empty slots in the sorter
      */
     public int getNumberOfBalls() {
@@ -94,9 +99,9 @@ public class Robot {
     }
 
     // call every frame
-    public void updatePosition(){
+    public void updatePosition() {
         if (camera.isLive()) {
-            opticalOdometry.setPosition(new SparkFunOTOS.Pose2D(camera.getPosition().x,camera.getPosition().y,camera.getOrientation().getYaw()));
+            opticalOdometry.setPosition(new SparkFunOTOS.Pose2D(camera.getPosition().x, camera.getPosition().y, camera.getOrientation().getYaw()));
         }
     }
 
@@ -110,10 +115,10 @@ public class Robot {
      * waits enough time to guarantee the ball has been shot
      * stops the outtake flywheels
      * moves an empty slot to the intake
-     * @param ballColor
-     * the color of the ball we intent to launch
+     *
+     * @param ballColor the color of the ball we intent to launch
      */
-    public void launchBall(DecodeColor ballColor) {// it is recommended to only launch balls while the robot is stationary
+    public void launchBall(DecodeColor ballColor) { // it is recommended to only launch balls while the robot is stationary
         Thread launchThread = new Thread(() -> {
             launchingBall = true;
             outtake.spinUp();
@@ -138,36 +143,37 @@ public class Robot {
      * if the sorter is full then it will pulse the intake motor to alert the human driver.
      * if you desire to check the colors of the sorter it is recommended that you use getSorterColors
      */
-    public void intakeBall(){
-
+    public void intakeBall() {
         Thread intakeThread = new Thread(() -> {
             sorter.moveToIntake(DecodeColor.EMPTY);
             sorter.startIntake();
             sorter.waitForIntake();
             sorter.stopIntake();
             sorter.moveToIntake(DecodeColor.EMPTY);
-            });
-        intakeThread.start();
+        });
 
+        intakeThread.start();
     }
 
     /**
      * sets the angle of the shooter aiming servo and the speed that the ball will launch
+     *
      * @param angle
      * @param speed
      */
-    public void aim(double angle, double speed){
-        outtake.aim(angle,speed);
+    public void aim(double angle, double speed) {
+        outtake.aim(angle, speed);
     }
 
     /**
      * changes the angle of the shooter aiming servo and the speed that the ball will launch
      * the speed starts at 0.5 and the angle starts at 0
+     *
      * @param angle
      * @param speed
      */
-    public void modifyAim(double angle, double speed){
-        outtake.aim(outtake.getAimAngle() + angle, outtake.getAimSpeed()+speed);
+    public void modifyAim(double angle, double speed) {
+        outtake.aim(outtake.getAimAngle() + angle, outtake.getAimSpeed() + speed);
     }
 
     /**
@@ -175,31 +181,31 @@ public class Robot {
      * uses the limelight to align the robot's rotation, the launch speed, and the launch angle as to score the ball.
      * warning: it is recommended that you do not move the robot after you call this and before you shoot as if you move it will lose its aim.
      */
-    public void smartAim(){//todo do dis
+    public void smartAim() {//todo do dis
 
     }
 
     /**
-    * returns the raw encoder value of flywheel 1
+     * returns the raw encoder value of flywheel 1
      * warning: this is intended for debugging
-    */
-    public int getRawEncoder(){
+     */
+    public int getRawEncoder() {
         return outtake.getRawEncoder();
     }
 
     /**
      * returns the color of the ball at the sensor
-     * @param sensor
-     * the sensor you want to check the color of
-     * @return
-     * returns the color of the ball at the sensor
+     *
+     * @param sensor the sensor you want to check the color of
+     * @return returns the color of the ball at the sensor
      */
-    public DecodeColor getSorterColors(SorterColorSensors sensor){
+    public DecodeColor getSorterColors(SorterColorSensors sensor) {
         return sorter.getRawColors(sensor);
     }
 
     /**
      * Checks whether a ball launch sequence is currently in progress.
+     *
      * @return Whether a ball is currently being launched
      */
     public boolean isLaunchingBall() {
