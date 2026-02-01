@@ -18,6 +18,9 @@ public class Outtake {
 
     private static final double aimStartingPosition = 0;
 
+    private static final int waitTimeAfterBallLower = 1000;
+    private static final int waitForLaunchTime = 5000;
+
     public double launchSpeed = 0.5;
 
     public void init(HardwareMap hardwareMap){
@@ -66,12 +69,13 @@ public class Outtake {
     }
 
     public void liftBall(){
-        try {Thread.sleep(100);}//waits a little bit to avoid getting caught
-        catch (InterruptedException ignored){}
         liftingPaddle.setPosition(ballLiftedPosition);
     }
 
-    public void lowerBall(){liftingPaddle.setPosition(ballRetractedPosition);}
+    public void lowerBall(){liftingPaddle.setPosition(ballRetractedPosition);
+        try {Thread.sleep(waitTimeAfterBallLower);}//waits a little bit to avoid getting caught
+        catch (InterruptedException ignored){}
+    }
 
     public void waitForLaunch(){
 //        int previousPositionFlywheel1 = shooterFlywheel1.getCurrentPosition();
@@ -95,7 +99,7 @@ public class Outtake {
 //            previousPositionFlywheel2 = positionFlywheel2;
 //            positionFlywheel2 = shooterFlywheel2.getCurrentPosition();
 //        }
-        try {Thread.sleep(5000);}//wait 1 second
+        try {Thread.sleep(waitForLaunchTime);}
         catch (InterruptedException ignored){}
     }
 
