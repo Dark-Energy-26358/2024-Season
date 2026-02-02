@@ -29,10 +29,6 @@ public class Sorter {
 
     private static final int emptyColorThreshold = 750;
 
-    private static final int timeout = 10000;//milliseconds
-    private static final int waitTime = 100;//wait time per iteration. milliseconds
-    private static final int intakeSensor = 0;
-
     public void init(HardwareMap hardwareMap) {
         tripaddle = hardwareMap.servo.get("tripaddle");
 
