@@ -58,8 +58,8 @@ public class Sorter {
         catch (InterruptedException ignored){}
     }
 
-    public boolean moveToIntake(DecodeColor ballColor) { // true means it succeded false means it is full
-        if (getPos()%2 == 1){
+    public boolean moveToIntake(DecodeColor ballColor) { // true means it succeeded false means it is full
+        if (getPos() % 2 == 1) {
             increasePos(1);
         }
         if (getColorAtSensor(SorterColorSensors.INTAKE) == DecodeColor.EMPTY){//if the spot at the intake is already the correct color then return true
@@ -75,8 +75,6 @@ public class Sorter {
         else{
             return false;//else return false because the entire sorter is the wrong color
         }
-
-
     }
 
     public boolean moveToOuttake(DecodeColor ballColor){ // true means it succeded false means it is empty
@@ -101,8 +99,8 @@ public class Sorter {
     }
 
 
-//telemetry
-    public DecodeColor getRawColors(SorterColorSensors sensor){
+    // telemetry
+    public DecodeColor getRawColors(SorterColorSensors sensor) {
         return getColorAtSensor(sensor);
     }
 
@@ -119,21 +117,27 @@ public class Sorter {
     }
 
     private void increasePos(int amount) {
-        if (Math.abs(amount) == 3){ // if we are moving halfway around then move whatever direction will bring us closer to position 6 and then wait long enough for it to spin
-            if (getPos()>6){
-                gotoPos(getPos()-3);
-                try {Thread.sleep(moveTime * 3);}
-                catch (InterruptedException ignored){}
-            } else if (getPos()<6){
-                gotoPos(getPos()+3);
-                try {Thread.sleep(moveTime * 3);}
-                catch (InterruptedException ignored){}
-            }else{
-                gotoPos(getPos()+amount);
-                try {Thread.sleep(moveTime * Math.abs(amount));}
-                catch (InterruptedException ignored){}
+        if (Math.abs(amount) == 3) { // if we are moving halfway around then move whatever direction will bring us closer to position 6 and then wait long enough for it to spin
+            if (getPos() > 6) {
+                gotoPos(getPos() - 3);
+                try {
+                    Thread.sleep(moveTime * 3);
+                } catch (InterruptedException ignored) {
+                }
+            } else if (getPos() < 6) {
+                gotoPos(getPos() + 3);
+                try {
+                    Thread.sleep(moveTime * 3);
+                } catch (InterruptedException ignored) {
+                }
+            } else {
+                gotoPos(getPos() + amount);
+                try {
+                    Thread.sleep(moveTime * Math.abs(amount));
+                } catch (InterruptedException ignored) {
+                }
             }
-        }else {//otherwise move the desired amount and wait long enough for it to spin
+        } else {// otherwise move the desired amount and wait long enough for it to spin
             gotoPos(getPos() + amount);
             try {
                 Thread.sleep(moveTime * Math.abs(amount));
@@ -165,14 +169,14 @@ public class Sorter {
         int green = sensor.green();
         int blue = sensor.blue();
 
-        if (red + blue + green < emptyColorThreshold){//if the total color is below the empty threshold then it is empty
+        if (red + blue + green < emptyColorThreshold) { // if the total color is below the empty threshold then it is empty
             return DecodeColor.EMPTY;
         } else {
-            if (blue > red + green) {//if blue is greater the red plus green the it is blue/init color
+            if (blue > red + green) { // if blue is greater the red plus green the it is blue/init color
                 return DecodeColor.INIT_COLOR;
-            } else if (green > Math.max(red,blue) ) {//if green is greater than the max of red and blue
+            } else if (green > Math.max(red, blue)) { // if green is greater than the max of red and blue
                 return DecodeColor.GREEN;
-            } else {//otherwise it is purple
+            } else { // otherwise it is purple
                 return DecodeColor.PURPLE;
             }
         }
