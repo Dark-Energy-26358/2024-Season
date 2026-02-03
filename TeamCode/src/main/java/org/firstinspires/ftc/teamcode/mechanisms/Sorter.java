@@ -117,33 +117,24 @@ public class Sorter {
     }
 
     private void increasePos(int amount) {
-        if (Math.abs(amount) == 3) { // if we are moving halfway around then move whatever direction will bring us closer to position 6 and then wait long enough for it to spin
-            if (getPos() > 6) {
-                gotoPos(getPos() - 3);
-                try {
-                    Thread.sleep(moveTime * 3);
-                } catch (InterruptedException ignored) {
-                }
-            } else if (getPos() < 6) {
-                gotoPos(getPos() + 3);
-                try {
-                    Thread.sleep(moveTime * 3);
-                } catch (InterruptedException ignored) {
-                }
-            } else {
-                gotoPos(getPos() + amount);
-                try {
-                    Thread.sleep(moveTime * Math.abs(amount));
-                } catch (InterruptedException ignored) {
-                }
+        int realAmount;
+        if (amount>=0){
+            if (getPos()<=6){
+                realAmount = amount;
             }
-        } else {// otherwise move the desired amount and wait long enough for it to spin
-            gotoPos(getPos() + amount);
-            try {
-                Thread.sleep(moveTime * Math.abs(amount));
-            } catch (InterruptedException ignored) {
+            else {
+                realAmount = amount-6;
+            }
+        }else {
+            if (getPos()>=6){
+                realAmount = amount;
+            }else {
+                realAmount = amount+6;
             }
         }
+        gotoPos(getPos() + realAmount);
+        try {Thread.sleep(moveTime * Math.abs(realAmount));}
+        catch (InterruptedException ignored) {}
     }
 
     private ColorSensor getSensor(SorterColorSensors sensorNumber) {
