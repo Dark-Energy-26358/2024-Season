@@ -31,8 +31,8 @@ public class Robot {
 
         sorter.init(hardwareMap);
         outtake.init(hardwareMap);
-        //camera.init(hardwareMap);
-        //opticalOdometry.init(hardwareMap);
+        camera.init(hardwareMap);
+        opticalOdometry.init(hardwareMap);
     }
 
     /**
