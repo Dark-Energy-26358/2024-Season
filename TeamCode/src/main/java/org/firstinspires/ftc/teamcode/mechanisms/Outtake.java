@@ -19,7 +19,7 @@ public class Outtake {
     private static final double aimStartingPosition = 0;
 
     private static final int waitTimeAfterBallLower = 1000;
-    private static final int waitForLaunchTime = 5000;
+    private static final int waitForLaunchTime = 1250;
 
     public double launchSpeed = 0.5;
 

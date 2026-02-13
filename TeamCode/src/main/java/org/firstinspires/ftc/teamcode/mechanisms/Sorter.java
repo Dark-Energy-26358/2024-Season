@@ -22,8 +22,8 @@ public class Sorter {
     private static final int NUMBER_OF_REACHABLE_POSITIONS = 12;
     private static final int initPos = 6;
 
-    private static final long moveTime = 2500;//the approximate amount of time it takes the tri-paddle to move one position
-    private static final int waitForIntakeTime = 5000;
+    private static final long moveTime = 750;//the approximate amount of time it takes the tri-paddle to move one position
+    private static final int waitForIntakeTime = 500;
 
     private static final double intakeSpeed = 0.5;
 
