@@ -13,7 +13,7 @@ public class Outtake {
 
     private Servo liftingPaddle;
 
-    private static final double ballLiftedPosition = 0.3;
+    private static final double ballLiftedPosition = 0.25;
     private static final double ballRetractedPosition = 1;
 
     private static final double aimStartingPosition = 0;
@@ -56,7 +56,7 @@ public class Outtake {
 
     public void aim(double angle, double speed){
         //aim is servo ticks
-        aimingServo.setPosition(angle);//needs something to convert degrees into servo ticks
+        aimingServo.setPosition(angle-0.1);//needs something to convert degrees into servo ticks
         launchSpeed = speed;
     }
 

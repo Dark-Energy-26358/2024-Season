@@ -92,8 +92,7 @@ public class Sorter {
         else if (getColorAtSensor(SorterColorSensors.INTAKE) == ballColor){//if the spot by the intake is the correct color then move to the outtake and return true
             increasePos(3);
              return true;
-         }
-        else{
+        } else {
             return false;//else return false because the entire sorter is the wrong color
         }
     }
